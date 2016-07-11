@@ -9,39 +9,22 @@ import com.jakewharton.rxbinding.view.RxView;
 
 import javax.inject.Inject;
 
-import rx.Subscriber;
-
 public class MainActivity extends AppCompatActivity {
 
-  @Inject
-  MainApplication mainApplication;
+  @Inject MainApplication mainApplication;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     MainApplication.APP_COMPONENT.inject(this);
 
     setContentView(R.layout.activity_main);
 
-    // test retrolambda works
     Button button = (Button) findViewById(R.id.button);
     RxView.clicks(button)
-        .subscribe(new Subscriber<Void>() {
-
-          @Override
-          public void onCompleted() {
-
-          }
-
-          @Override
-          public void onError(Throwable e) {
-
-          }
-
-          @Override
-          public void onNext(Void aVoid) {
-            Log.d("test", "onCreate: rxBinding working");
-          }
+        .map(click -> 1)
+        .scan((count, click) -> Integer.valueOf(count + 1))
+        .subscribe(count -> {
+          Log.d("test", "call: number of clicks: " + count);
         });
   }
 }
