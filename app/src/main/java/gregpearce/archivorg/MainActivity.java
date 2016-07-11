@@ -2,12 +2,13 @@ package gregpearce.archivorg;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 
 import com.jakewharton.rxbinding.view.RxView;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         .map(click -> 1)
         .scan((count, click) -> Integer.valueOf(count + 1))
         .subscribe(count -> {
-          Log.d("test", "call: number of clicks: " + count);
+          Timber.d("number of clicks: %d", count);
         });
   }
 }
