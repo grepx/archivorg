@@ -1,8 +1,9 @@
 package gregpearce.archivorg;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Button;
 
 import javax.inject.Inject;
 
@@ -18,9 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
     setContentView(R.layout.activity_main);
 
-    // test injection worked
-    if (mainApplication != null) {
-      Log.d("test", "onCreate: injection worked");
-    }
+    // test retrolambda works
+    Button button = (Button) findViewById(R.id.button);
+    button.setOnClickListener(view -> {
+      Log.d("test", "onCreate: retrolambda working");
+    });
   }
 }
