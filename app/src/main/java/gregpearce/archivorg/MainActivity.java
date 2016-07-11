@@ -5,7 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 
+import com.jakewharton.rxbinding.view.RxView;
+
 import javax.inject.Inject;
+
+import rx.Subscriber;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,8 +25,23 @@ public class MainActivity extends AppCompatActivity {
 
     // test retrolambda works
     Button button = (Button) findViewById(R.id.button);
-    button.setOnClickListener(view -> {
-      Log.d("test", "onCreate: retrolambda working");
-    });
+    RxView.clicks(button)
+        .subscribe(new Subscriber<Void>() {
+
+          @Override
+          public void onCompleted() {
+
+          }
+
+          @Override
+          public void onError(Throwable e) {
+
+          }
+
+          @Override
+          public void onNext(Void aVoid) {
+            Log.d("test", "onCreate: rxBinding working");
+          }
+        });
   }
 }
