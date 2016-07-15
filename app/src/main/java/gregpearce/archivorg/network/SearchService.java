@@ -20,7 +20,7 @@ public class SearchService {
 
   public Observable<PagedResult> search(String query, int page) {
     // map the api model to the domain model
-    return searchApi.search(query, page, "json")
+    return searchApi.search(query, page)
         .map(response -> {
           List<ArchiveEntity> results = new ArrayList<>();
           for (SearchResponse.Response.Doc doc : response.response.docs) {
