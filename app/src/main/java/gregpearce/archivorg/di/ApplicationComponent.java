@@ -3,7 +3,7 @@ package gregpearce.archivorg.di;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import gregpearce.archivorg.MainActivity;
+import gregpearce.archivorg.ui.MainActivity;
 
 @Singleton
 @Component(modules = {

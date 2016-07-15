@@ -1,4 +1,4 @@
-package gregpearce.archivorg;
+package gregpearce.archivorg.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import com.jakewharton.rxbinding.view.RxView;
 
 import javax.inject.Inject;
 
+import gregpearce.archivorg.MainApplication;
+import gregpearce.archivorg.R;
 import gregpearce.archivorg.model.ArchiveEntity;
 import gregpearce.archivorg.network.SearchService;
 import gregpearce.archivorg.util.RxUtil;
