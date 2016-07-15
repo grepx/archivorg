@@ -15,7 +15,7 @@ public final class RxUtil {
         .subscribeOn(AndroidSchedulers.mainThread());
   }
 
-  public static <T> Observable.Transformer<T, T> subscriberDefaults() {
+  public static <T> Observable.Transformer<T, T> subscribeDefaults() {
     return observable -> observable
         .doOnError(error -> Timber.e(error, "Default Error Handler: %s", error.getMessage()))
         .subscribeOn(Schedulers.io())

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     RxView.clicks(button)
         .compose(RxUtil.viewDefaults())
         .flatMap(click -> searchService.search(editTextQuery.getText().toString(), 1))
-        .compose(RxUtil.subscriberDefaults())
+        .compose(RxUtil.subscribeDefaults())
         .subscribe(
             result -> {
               Timber.d("number of search results: %d", result.getTotalCount());
