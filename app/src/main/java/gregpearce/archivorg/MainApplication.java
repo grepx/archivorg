@@ -2,6 +2,9 @@ package gregpearce.archivorg;
 
 import android.app.Application;
 
+import gregpearce.archivorg.di.ApplicationComponent;
+import gregpearce.archivorg.di.ApplicationModule;
+import gregpearce.archivorg.di.DaggerApplicationComponent;
 import timber.log.Timber;
 
 public class MainApplication extends Application {

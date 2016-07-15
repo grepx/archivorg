@@ -1,9 +1,10 @@
-package gregpearce.archivorg;
+package gregpearce.archivorg.di;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import gregpearce.archivorg.MainApplication;
 
 @Module
 public class ApplicationModule {
