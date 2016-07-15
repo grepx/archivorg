@@ -1,27 +1,18 @@
 package gregpearce.archivorg.model;
 
+import com.google.auto.value.AutoValue;
+
 import java.util.List;
 
-public class PagedResult {
-  private final List<ArchiveEntity> results;
-  private final int totalCount;
-  private final int page;
-
-  public PagedResult(List<ArchiveEntity> results, int totalCount, int page) {
-    this.results = results;
-    this.totalCount = totalCount;
-    this.page = page;
+@AutoValue
+public abstract class PagedResult {
+  public static PagedResult create(List<ArchiveEntity> results, int totalCount, int page) {
+    return new AutoValue_PagedResult(results, totalCount, page);
   }
 
-  public List<ArchiveEntity> getResults() {
-    return results;
-  }
+  public abstract List<ArchiveEntity> results();
 
-  public int getTotalCount() {
-    return totalCount;
-  }
+  public abstract int totalCount();
 
-  public int getPage() {
-    return page;
-  }
+  public abstract int page();
 }

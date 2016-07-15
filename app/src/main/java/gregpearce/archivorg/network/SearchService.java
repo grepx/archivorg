@@ -24,10 +24,10 @@ public class SearchService {
         .map(response -> {
           List<ArchiveEntity> results = new ArrayList<>();
           for (SearchResponse.Response.Doc doc : response.response.docs) {
-            ArchiveEntity archiveEntity = new ArchiveEntity(doc.title, doc.description);
+            ArchiveEntity archiveEntity = ArchiveEntity.create(doc.title, doc.description);
             results.add(archiveEntity);
           }
-          return new PagedResult(results, response.response.numFound, page);
+          return PagedResult.create(results, response.response.numFound, page);
         });
   }
 }

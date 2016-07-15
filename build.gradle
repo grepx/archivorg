@@ -7,7 +7,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.2'
 
-        // adds annotation processors to gradle, required for dagger 2
+        // adds annotation processors to gradle, required for dagger 2 & AutoValue
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
 
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'

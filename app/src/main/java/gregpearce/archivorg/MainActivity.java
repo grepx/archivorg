@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
         .compose(RxUtil.subscribeDefaults())
         .subscribe(
             result -> {
-              Timber.d("number of search results: %d", result.getTotalCount());
-              for (ArchiveEntity archiveEntity : result.getResults()) {
-                Timber.d("entity title: %s", archiveEntity.getTitle());
+              Timber.d("number of search results: %d", result.totalCount());
+              for (ArchiveEntity archiveEntity : result.results()) {
+                Timber.d("entity title: %s", archiveEntity.title());
               }
             },
             error -> {

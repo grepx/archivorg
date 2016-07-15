@@ -1,19 +1,14 @@
 package gregpearce.archivorg.model;
 
-public class ArchiveEntity {
-  private final String title;
-  private final String description;
+import com.google.auto.value.AutoValue;
 
-  public ArchiveEntity(String title, String description) {
-    this.title = title;
-    this.description = description;
+@AutoValue
+public abstract class ArchiveEntity {
+  public static ArchiveEntity create(String title, String description) {
+    return new AutoValue_ArchiveEntity(title, description);
   }
 
-  public String getTitle() {
-    return title;
-  }
+  public abstract String title();
 
-  public String getDescription() {
-    return description;
-  }
+  public abstract String description();
 }
