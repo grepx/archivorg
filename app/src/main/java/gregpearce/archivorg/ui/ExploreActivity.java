@@ -20,8 +20,8 @@ import gregpearce.archivorg.R;
 public class ExploreActivity extends AppCompatActivity {
 
   @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.viewpager) ViewPager viewPager;
-  @BindView(R.id.tabLayout) TabLayout tabLayout;
+  @BindView(R.id.view_pager) ViewPager viewPager;
+  @BindView(R.id.tab_layout) TabLayout tabLayout;
 
   private SectionsPagerAdapter sectionsPagerAdapter;
 
