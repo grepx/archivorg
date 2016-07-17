@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import gregpearce.archivorg.R;
 
-public class ExploreActivity extends AppCompatActivity {
+public class ExploreActivity extends BaseActivity {
 
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.view_pager) ViewPager viewPager;

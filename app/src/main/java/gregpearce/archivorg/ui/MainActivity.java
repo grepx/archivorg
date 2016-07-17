@@ -1,7 +1,6 @@
 package gregpearce.archivorg.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -9,20 +8,19 @@ import com.jakewharton.rxbinding.view.RxView;
 
 import javax.inject.Inject;
 
-import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.model.ArchiveEntity;
 import gregpearce.archivorg.network.SearchService;
 import gregpearce.archivorg.util.RxUtil;
 import timber.log.Timber;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
   @Inject SearchService searchService;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    MainApplication.APP_COMPONENT.inject(this);
+    getComponent().inject(this);
 
     setContentView(R.layout.activity_main);
 

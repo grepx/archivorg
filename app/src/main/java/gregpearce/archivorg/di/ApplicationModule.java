@@ -8,13 +8,13 @@ import gregpearce.archivorg.MainApplication;
 
 @Module
 public class ApplicationModule {
-  private MainApplication mApplication;
+  private MainApplication application;
 
   public ApplicationModule(MainApplication app) {
-    mApplication = app;
+    application = app;
   }
 
   @Provides @Singleton MainApplication provideMainApplication() {
-    return mApplication;
+    return application;
   }
 }
