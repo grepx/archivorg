@@ -1,6 +1,7 @@
 package gregpearce.archivorg.ui;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -19,18 +20,21 @@ public class ExploreActivity extends AppCompatActivity {
   private SectionsPagerAdapter mSectionsPagerAdapter;
 
   private ViewPager mViewPager;
+  private TabLayout mTabLayout;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_explore);
 
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    Toolbar toolbar = (Toolbar) findViewById(R.id.explore_toolbar);
     setSupportActionBar(toolbar);
     mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-    mViewPager = (ViewPager) findViewById(R.id.container);
+    mTabLayout = (TabLayout) findViewById(R.id.explore_tabs);
+    mViewPager = (ViewPager) findViewById(R.id.explore_viewpager);
     mViewPager.setAdapter(mSectionsPagerAdapter);
+    mTabLayout.setupWithViewPager(mViewPager);
   }
 
   public static class PlaceholderFragment extends Fragment {
@@ -70,18 +74,22 @@ public class ExploreActivity extends AppCompatActivity {
 
     @Override
     public int getCount() {
-      return 3;
+      return 5;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
       switch (position) {
         case 0:
-          return "SECTION 1";
+          return "LATEST";
         case 1:
-          return "SECTION 2";
+          return "AUDIO";
         case 2:
-          return "SECTION 3";
+          return "VIDEO";
+        case 3:
+          return "BOOKS";
+        case 4:
+          return "IMAGES";
       }
       return null;
     }
