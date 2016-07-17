@@ -1,40 +1,35 @@
 package gregpearce.archivorg.ui;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import gregpearce.archivorg.R;
+import gregpearce.archivorg.databinding.ActivityExploreBinding;
 
 public class ExploreActivity extends AppCompatActivity {
 
-  private SectionsPagerAdapter mSectionsPagerAdapter;
-
-  private ViewPager mViewPager;
-  private TabLayout mTabLayout;
+  private ActivityExploreBinding binding;
+  private SectionsPagerAdapter sectionsPagerAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_explore);
 
-    Toolbar toolbar = (Toolbar) findViewById(R.id.explore_toolbar);
-    setSupportActionBar(toolbar);
-    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_explore);
 
-    mTabLayout = (TabLayout) findViewById(R.id.explore_tabs);
-    mViewPager = (ViewPager) findViewById(R.id.explore_viewpager);
-    mViewPager.setAdapter(mSectionsPagerAdapter);
-    mTabLayout.setupWithViewPager(mViewPager);
+    setSupportActionBar(binding.toolbar);
+
+    sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+    binding.viewpager.setAdapter(sectionsPagerAdapter);
+    binding.tabs.setupWithViewPager(binding.viewpager);
   }
 
   public static class PlaceholderFragment extends Fragment {
