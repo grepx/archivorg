@@ -18,7 +18,7 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
     ButterKnife.bind(this, view);
   }
 
-  public void updateViewModel(FeedItemViewModel viewModel) {
+  public void updateViewModel(FeedItemModel viewModel) {
     titleTextView.setText(viewModel.title());
     descriptionTextView.setText(viewModel.description());
   }

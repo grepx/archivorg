@@ -18,7 +18,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
   }
 
   @Override public void onBindViewHolder(FeedItemViewHolder viewHolder, int position) {
-    FeedItemViewModel viewModel = FeedItemViewModel.create("title " + position, "description " + position);
+    FeedItemModel viewModel = FeedItemModel.create("title " + position, "description " + position);
     viewHolder.updateViewModel(viewModel);
   }
 
