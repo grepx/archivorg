@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="gregpearce.archivorg"
-          xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+  package="gregpearce.archivorg"
+  xmlns:android="http://schemas.android.com/apk/res/android"
   >
 
   <uses-permission android:name="android.permission.INTERNET"/>
@@ -14,19 +15,16 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme"
     >
-    <activity android:name=".ui.MainActivity">
+    <activity
+      android:name=".ui.ExploreActivity"
+      android:label="@string/title_activity_explore"
+      android:theme="@style/AppTheme.NoActionBar"
+      >
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity
-      android:name=".ui.ExploreActivity"
-      android:label="@string/title_activity_explore"
-      android:theme="@style/AppTheme.NoActionBar"
-      >
-    </activity>
   </application>
-
 </manifest>
