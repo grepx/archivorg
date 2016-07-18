@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui;
+package gregpearce.archivorg.ui.feed;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -1,6 +1,8 @@
-package gregpearce.archivorg.ui;
+package gregpearce.archivorg.ui.feed;
 
 import com.google.auto.value.AutoValue;
+
+import gregpearce.archivorg.ui.AutoValue_FeedItemViewModel;
 
 @AutoValue
 public abstract class FeedItemViewModel {

@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import gregpearce.archivorg.ui.feed.FeedFragment;
+
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
   public MainPagerAdapter(FragmentManager fm) {
