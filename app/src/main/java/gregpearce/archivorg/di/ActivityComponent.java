@@ -2,7 +2,7 @@ package gregpearce.archivorg.di;
 
 import dagger.Component;
 import gregpearce.archivorg.di.annotations.ActivityScope;
-import gregpearce.archivorg.ui.ExploreActivity;
+import gregpearce.archivorg.ui.MainActivity;
 
 @ActivityScope
 @Component(
@@ -11,5 +11,5 @@ import gregpearce.archivorg.ui.ExploreActivity;
         ActivityModule.class
     })
 public interface ActivityComponent {
-  void inject(ExploreActivity exploreActivity);
+  void inject(MainActivity mainActivity);
 }

@@ -16,8 +16,8 @@
     android:theme="@style/AppTheme"
     >
     <activity
-      android:name=".ui.ExploreActivity"
-      android:label="@string/title_activity_explore"
+      android:name=".ui.MainActivity"
+      android:label="@string/title_activity_main"
       android:theme="@style/AppTheme.NoActionBar"
       >
       <intent-filter>

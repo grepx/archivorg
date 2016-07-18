@@ -9,7 +9,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import gregpearce.archivorg.R;
 
-public class ExploreActivity extends BaseActivity {
+public class MainActivity extends BaseActivity {
 
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.view_pager) ViewPager viewPager;
@@ -18,12 +18,12 @@ public class ExploreActivity extends BaseActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_explore);
+    setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
 
     setSupportActionBar(toolbar);
 
-    ExplorePagerAdapter sectionsPagerAdapter = new ExplorePagerAdapter(getSupportFragmentManager());
+    MainPagerAdapter sectionsPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
     viewPager.setAdapter(sectionsPagerAdapter);
     tabLayout.setupWithViewPager(viewPager);
   }

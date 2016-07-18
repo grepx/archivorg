@@ -1,6 +1,5 @@
 <resources>
   <string name="app_name">Archivorg</string>
-  <string name="title_activity_explore">ExploreActivity</string>
+  <string name="title_activity_main">Archivorg</string>
   <string name="action_settings">Settings</string>
-  <string name="section_format">Hello World from section: %1$d</string>
 </resources>
