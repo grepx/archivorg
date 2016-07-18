@@ -11,7 +11,7 @@ public class ExplorePagerAdapter extends FragmentPagerAdapter {
   }
 
   @Override public Fragment getItem(int position) {
-    return new LatestFragment();
+    return new FeedFragment();
   }
 
   @Override public int getCount() {
