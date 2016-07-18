@@ -1,9 +1,8 @@
 package gregpearce.archivorg.di;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
+import gregpearce.archivorg.di.annotations.ActivityScope;
 import gregpearce.archivorg.ui.BaseActivity;
 
 @Module
@@ -14,7 +13,7 @@ public class ActivityModule {
     this.activity = activity;
   }
 
-  @Provides @Singleton BaseActivity provideActivity() {
+  @Provides @ActivityScope BaseActivity provideActivity() {
     return activity;
   }
 }

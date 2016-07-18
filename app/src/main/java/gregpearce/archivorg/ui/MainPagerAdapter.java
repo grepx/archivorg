@@ -17,7 +17,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
   }
 
   @Override public int getCount() {
-    return 5;
+    return 1;
   }
 
   @Override public CharSequence getPageTitle(int position) {
