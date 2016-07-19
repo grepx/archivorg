@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import gregpearce.archivorg.Constants;
 import gregpearce.archivorg.model.ArchiveEntity;
 import gregpearce.archivorg.model.ResultPage;
+import gregpearce.archivorg.util.NullUtil;
 import retrofit2.Retrofit;
 import rx.Observable;
 
@@ -27,7 +28,11 @@ public class SearchService {
 
           List<ArchiveEntity> results = new ArrayList<>();
           for (SearchResponse.Response.Doc doc : response.docs) {
-            ArchiveEntity archiveEntity = ArchiveEntity.create(doc.title, doc.description);
+            ArchiveEntity archiveEntity = ArchiveEntity.create(
+                // archive.org is full of nulls, protect against it
+                NullUtil.defaultNullValue(doc.title),
+                NullUtil.defaultNullValue(doc.description)
+            );
             results.add(archiveEntity);
           }
 

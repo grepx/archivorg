@@ -18,10 +18,11 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   @Inject SearchService searchService;
 
-  private String query = "test";
+  private String query = "sky";
   private boolean refreshing = false;
   private final List<FeedItem> feedItems = new ArrayList<>();
   private int currentPage = 0;
+  private boolean fetchingNextPage = false;
   private boolean reachedBottomOfFeed = false;
 
 
@@ -35,7 +36,8 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   }
 
   public void scrolledToIndex(int index) {
-    if (!reachedBottomOfFeed) {
+    Timber.d("Scrolled to index: %d", index);
+    if (!reachedBottomOfFeed && !fetchingNextPage) {
       final int LOAD_NEXT_PAGE_MARGIN = 10;
       if (index > feedItems.size() - LOAD_NEXT_PAGE_MARGIN) {
         currentPage++;
@@ -58,6 +60,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   }
 
   private void fetchPage() {
+    fetchingNextPage = true;
     searchService.search(query, currentPage)
         .compose(RxUtil.subscribeDefaults())
         .subscribe(
@@ -65,10 +68,12 @@ public class FeedPresenter extends BasePresenter<FeedView> {
               setRefreshing(false);
               Timber.d("Feed refresh complete, results count: %d", result.totalCount());
               processPage(result);
+              fetchingNextPage = false;
             },
             error -> {
               view.showError("Failed to load content.\nPlease check your network settings and try again.");
               setRefreshing(false);
+              fetchingNextPage = false;
             });
   }
 

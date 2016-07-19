@@ -30,6 +30,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
   }
 
   @Override public void onBindViewHolder(FeedItemViewHolder viewHolder, int position) {
+    presenter.scrolledToIndex(position);
     FeedItem feedItem = feedItems.get(position);
     viewHolder.updateViewModel(feedItem);
   }
