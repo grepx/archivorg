@@ -31,7 +31,6 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   public void search(String query) {
     this.query = query;
-    feedItems.clear();
     refresh();
   }
 
@@ -48,6 +47,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   public void refresh() {
     if (!refreshing) {
+      feedItems.clear();
       currentPage = 1;
       setRefreshing(true);
       fetchPage();
