@@ -6,5 +6,5 @@ import rx.Observable;
 
 interface SearchApi {
   @GET("advancedsearch.php")
-  Observable<SearchResponse> search(@Query("q") String query, @Query("page") int page);
+  Observable<SearchResponse> search(@Query("q") String query, @Query("page") int page, @Query("rows") int rows);
 }

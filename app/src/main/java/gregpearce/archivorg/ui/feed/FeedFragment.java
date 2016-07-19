@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -18,7 +20,7 @@ import gregpearce.archivorg.ui.BaseFragment;
 public class FeedFragment extends BaseFragment implements FeedView {
 
   @Inject FeedPresenter presenter;
-  FeedAdapter adapter = new FeedAdapter();
+  private FeedAdapter adapter;
 
   @BindView(R.id.recycler_view) RecyclerView recyclerView;
   @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
@@ -32,6 +34,7 @@ public class FeedFragment extends BaseFragment implements FeedView {
     presenter.registerView(this);
 
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    adapter = new FeedAdapter(presenter);
     recyclerView.setAdapter(adapter);
 
     swipeRefreshLayout.setOnRefreshListener(() -> presenter.refresh());
@@ -41,11 +44,15 @@ public class FeedFragment extends BaseFragment implements FeedView {
 
   @Override public void onStart() {
     super.onStart();
-    swipeRefreshLayout.post(() -> presenter.refresh());
+    presenter.refresh();
   }
 
-  @Override public void setRefreshing(boolean isRefreshing) {
-    swipeRefreshLayout.setRefreshing(isRefreshing);
+  @Override public void updateRefreshing(boolean isRefreshing) {
+    swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(isRefreshing));
+  }
+
+  @Override public void updateFeed(List<FeedItem> feedItems, boolean endOfFeed) {
+    adapter.updateFeed(feedItems, endOfFeed);
   }
 
   @Override public void showError(String error) {

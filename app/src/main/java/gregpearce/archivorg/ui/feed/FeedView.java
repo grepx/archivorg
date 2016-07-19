@@ -1,7 +1,11 @@
 package gregpearce.archivorg.ui.feed;
 
+import java.util.List;
+
 public interface FeedView {
-  void setRefreshing(boolean isRefreshing);
+  void updateRefreshing(boolean isRefreshing);
+
+  void updateFeed(List<FeedItem> feedItems, boolean reachedEndOfFeed);
 
   void showError(String error);
 }
