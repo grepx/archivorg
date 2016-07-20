@@ -18,9 +18,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.ui.feed.FeedPresenter;
+import gregpearce.archivorg.ui.feed.FeedPresenterFactory;
+import gregpearce.archivorg.ui.feed.FeedType;
 
 public class MainActivity extends BaseActivity {
-  @Inject FeedPresenter feedPresenter;
+  @Inject FeedPresenterFactory feedPresenterFactory;
+  FeedPresenter popularFeedPresenter;
+  FeedPresenter videoFeedPresenter;
 
   @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
   @BindView(R.id.toolbar) Toolbar toolbar;
@@ -36,9 +40,15 @@ public class MainActivity extends BaseActivity {
     getComponent().inject(this);
     ButterKnife.bind(this);
 
+    setupPresenters();
     setupToolbar();
     setupTabs();
     setupSearchView();
+  }
+  
+  private void setupPresenters() {
+    popularFeedPresenter = feedPresenterFactory.get(FeedType.Popular);
+    videoFeedPresenter = feedPresenterFactory.get(FeedType.Video);
   }
 
   private void setupToolbar() {
@@ -70,7 +80,8 @@ public class MainActivity extends BaseActivity {
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
-        feedPresenter.search(query);
+        popularFeedPresenter.search(query);
+        videoFeedPresenter.search(query);
         return true;
       }
 
@@ -81,7 +92,8 @@ public class MainActivity extends BaseActivity {
     });
     searchView.setOnOpenCloseListener(new SearchView.OnOpenCloseListener() {
       @Override public void onClose() {
-        feedPresenter.search("");
+        popularFeedPresenter.search("");
+        videoFeedPresenter.search("");
       }
 
       @Override public void onOpen() {

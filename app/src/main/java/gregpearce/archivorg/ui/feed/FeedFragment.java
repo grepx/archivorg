@@ -19,11 +19,23 @@ import gregpearce.archivorg.ui.BaseFragment;
 
 public class FeedFragment extends BaseFragment implements FeedView {
 
-  @Inject FeedPresenter presenter;
+  @Inject FeedPresenterFactory feedPresenterFactory;
+
+  private FeedPresenter presenter;
   private FeedAdapter adapter;
 
   @BindView(R.id.recycler_view) RecyclerView recyclerView;
   @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
+
+  private static final String ARG_TYPE = "ARG_TYPE";
+
+  public static FeedFragment newInstance(FeedType type) {
+    FeedFragment fragment = new FeedFragment();
+    Bundle args = new Bundle();
+    args.putSerializable(ARG_TYPE, type);
+    fragment.setArguments(args);
+    return fragment;
+  }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                      Bundle savedInstanceState) {
@@ -31,6 +43,7 @@ public class FeedFragment extends BaseFragment implements FeedView {
     ButterKnife.bind(this, rootView);
 
     getComponent().inject(this);
+    presenter = feedPresenterFactory.get((FeedType) getArguments().getSerializable(ARG_TYPE));
     presenter.registerView(this);
 
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import gregpearce.archivorg.ui.feed.FeedFragment;
+import gregpearce.archivorg.ui.feed.FeedType;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
@@ -13,11 +14,23 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
   }
 
   @Override public Fragment getItem(int position) {
-    return new FeedFragment();
+    switch (position) {
+      case 0:
+        return FeedFragment.newInstance(FeedType.Popular);
+      case 1:
+        return FeedFragment.newInstance(FeedType.Audio);
+      case 2:
+        return  FeedFragment.newInstance(FeedType.Video);
+      case 3:
+        return  FeedFragment.newInstance(FeedType.Book);
+      case 4:
+        return  FeedFragment.newInstance(FeedType.Image);
+    }
+    throw new RuntimeException();
   }
 
   @Override public int getCount() {
-    return 1;
+    return 5;
   }
 
   @Override public CharSequence getPageTitle(int position) {
@@ -33,7 +46,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
       case 4:
         return "IMAGES";
     }
-    return null;
+    throw new RuntimeException();
   }
 }
 

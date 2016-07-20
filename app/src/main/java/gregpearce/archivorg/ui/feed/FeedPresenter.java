@@ -3,20 +3,16 @@ package gregpearce.archivorg.ui.feed;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import gregpearce.archivorg.di.annotations.ActivityScope;
 import gregpearce.archivorg.model.ArchiveEntity;
 import gregpearce.archivorg.model.ResultPage;
-import gregpearce.archivorg.network.PopularSearchService;
+import gregpearce.archivorg.network.SearchService;
 import gregpearce.archivorg.ui.BasePresenter;
 import gregpearce.archivorg.util.RxUtil;
 import timber.log.Timber;
 
-@ActivityScope
 public class FeedPresenter extends BasePresenter<FeedView> {
 
-  @Inject PopularSearchService popularSearchService;
+  SearchService searchService;
 
   private String query = "";
   private boolean refreshing = false;
@@ -25,14 +21,15 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   private boolean fetchingNextPage = false;
   private boolean reachedBottomOfFeed = false;
 
-  @Inject public FeedPresenter() {
+  public FeedPresenter(SearchService searchService) {
+    this.searchService = searchService;
   }
 
   public void search(String query) {
     this.query = query;
     feedItems.clear();
     reachedBottomOfFeed = false;
-    view.updateFeed(feedItems, reachedBottomOfFeed);
+    view.notNull(view -> view.updateFeed(feedItems, reachedBottomOfFeed));
     refresh();
   }
 
@@ -58,12 +55,12 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   private void setRefreshing(boolean refreshing) {
     this.refreshing = refreshing;
-    view.updateRefreshing(this.refreshing);
+    view.notNull(view -> view.updateRefreshing(this.refreshing));
   }
 
   private void fetchPage() {
     fetchingNextPage = true;
-    popularSearchService.search(query, currentPage)
+    searchService.search(query, currentPage)
         .compose(RxUtil.subscribeDefaults())
         .subscribe(
             result -> {
@@ -73,7 +70,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
               fetchingNextPage = false;
             },
             error -> {
-              view.showError("Failed to load content.\nPlease check your network settings and try again.");
+              view.notNull(view -> view.showError("Failed to load content.\nPlease check your network settings and try again."));
               setRefreshing(false);
               fetchingNextPage = false;
             });
@@ -84,6 +81,6 @@ public class FeedPresenter extends BasePresenter<FeedView> {
       feedItems.add(FeedItem.create(archiveEntity.title(), archiveEntity.description()));
     }
     reachedBottomOfFeed = page.isLastPage();
-    view.updateFeed(feedItems, reachedBottomOfFeed);
+    view.notNull(view -> view.updateFeed(feedItems, reachedBottomOfFeed));
   }
 }
