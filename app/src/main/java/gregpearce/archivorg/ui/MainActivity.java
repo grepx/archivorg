@@ -12,11 +12,15 @@ import android.view.MenuItem;
 
 import com.lapism.searchview.SearchView;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gregpearce.archivorg.R;
+import gregpearce.archivorg.ui.feed.FeedPresenter;
 
 public class MainActivity extends BaseActivity {
+  @Inject FeedPresenter feedPresenter;
 
   @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
   @BindView(R.id.toolbar) Toolbar toolbar;
@@ -29,6 +33,7 @@ public class MainActivity extends BaseActivity {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_main);
+    getComponent().inject(this);
     ButterKnife.bind(this);
 
     setupToolbar();
@@ -65,12 +70,21 @@ public class MainActivity extends BaseActivity {
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
+        feedPresenter.search(query);
         return true;
       }
 
       @Override
       public boolean onQueryTextChange(String newText) {
         return false;
+      }
+    });
+    searchView.setOnOpenCloseListener(new SearchView.OnOpenCloseListener() {
+      @Override public void onClose() {
+        feedPresenter.search("");
+      }
+
+      @Override public void onOpen() {
       }
     });
   }
