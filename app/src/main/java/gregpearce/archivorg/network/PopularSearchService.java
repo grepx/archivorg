@@ -21,8 +21,17 @@ public class PopularSearchService implements SearchService {
   }
 
   @Override public Observable<ResultPage> search(String query, int page) {
-    // map the api model to the domain model
-    return searchApi.search(query, page, Constants.PAGE_SIZE)
+    Observable<SearchResponse> apiCall;
+    if (query.isEmpty()) {
+      apiCall = callTop(page);
+    } else {
+      apiCall = callSearch(query, page);
+    }
+
+    return apiCall
+        // retry on network failure 3 times
+        .retry(3)
+        // map the network response to the domain model
         .map(apiResponse -> {
           SearchResponse.Response response = apiResponse.response;
 
@@ -40,5 +49,16 @@ public class PopularSearchService implements SearchService {
 
           return ResultPage.create(results, response.numFound, page, isLastPage);
         });
+
+  }
+
+  private Observable<SearchResponse> callTop(int page) {
+    // build a query that will filter the results to popular items
+    // order by most recent first
+    return searchApi.search("downloads:[2000 TO 100000000] AND avg_rating:[3 TO 5]", page, Constants.PAGE_SIZE, "reviewdate desc");
+  }
+
+  private Observable<SearchResponse> callSearch(String query, int page) {
+    return searchApi.search(query, page, Constants.PAGE_SIZE, "downloads desc");
   }
 }

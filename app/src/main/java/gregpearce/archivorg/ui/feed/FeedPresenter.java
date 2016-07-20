@@ -18,7 +18,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   @Inject PopularSearchService popularSearchService;
 
-  private String query = "sky";
+  private String query = "";
   private boolean refreshing = false;
   private final List<FeedItem> feedItems = new ArrayList<>();
   private int currentPage = 0;
@@ -30,6 +30,9 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   public void search(String query) {
     this.query = query;
+    feedItems.clear();
+    reachedBottomOfFeed = false;
+    view.updateFeed(feedItems, reachedBottomOfFeed);
     refresh();
   }
 
