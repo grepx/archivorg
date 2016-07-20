@@ -23,7 +23,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
   @Override public CharSequence getPageTitle(int position) {
     switch (position) {
       case 0:
-        return "LATEST";
+        return "POPULAR";
       case 1:
         return "AUDIO";
       case 2:

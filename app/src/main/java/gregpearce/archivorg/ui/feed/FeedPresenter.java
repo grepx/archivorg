@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import gregpearce.archivorg.di.annotations.ActivityScope;
 import gregpearce.archivorg.model.ArchiveEntity;
 import gregpearce.archivorg.model.ResultPage;
-import gregpearce.archivorg.network.SearchService;
+import gregpearce.archivorg.network.PopularSearchService;
 import gregpearce.archivorg.ui.BasePresenter;
 import gregpearce.archivorg.util.RxUtil;
 import timber.log.Timber;
@@ -16,7 +16,7 @@ import timber.log.Timber;
 @ActivityScope
 public class FeedPresenter extends BasePresenter<FeedView> {
 
-  @Inject SearchService searchService;
+  @Inject PopularSearchService popularSearchService;
 
   private String query = "sky";
   private boolean refreshing = false;
@@ -24,7 +24,6 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   private int currentPage = 0;
   private boolean fetchingNextPage = false;
   private boolean reachedBottomOfFeed = false;
-
 
   @Inject public FeedPresenter() {
   }
@@ -61,7 +60,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   private void fetchPage() {
     fetchingNextPage = true;
-    searchService.search(query, currentPage)
+    popularSearchService.search(query, currentPage)
         .compose(RxUtil.subscribeDefaults())
         .subscribe(
             result -> {
