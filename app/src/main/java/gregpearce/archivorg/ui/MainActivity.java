@@ -3,7 +3,6 @@ package gregpearce.archivorg.ui;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -55,13 +54,14 @@ public class MainActivity extends BaseActivity {
     searchView.setTheme(SearchView.THEME_LIGHT, true);
     searchView.setHint(R.string.search);
     searchView.setTextSize(16);
-    searchView.setHint("Search");
+    searchView.setHint("Search Archive.org");
     searchView.setDivider(false);
     searchView.setVoice(true);
     searchView.setVoiceText("Set permission on Android 6+ !");
     searchView.setAnimationDuration(SearchView.ANIMATION_DURATION);
+    // shadow = modal behavior, possibly revert back to this in the future
     searchView.setShadow(false);
-    searchView.setShadowColor(ContextCompat.getColor(this, R.color.search_shadow_layout));
+//    searchView.setShadowColor(ContextCompat.getColor(this, R.color.search_shadow_layout));
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
