@@ -33,7 +33,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
     if (resultsNeedUpdating) {
       updateResults();
       resultsNeedUpdating = false;
-    } else {
+    } else if (queryInitialized) { // check that first query has been performed before updating view
       updateViewFeedItems();
     }
   }
@@ -73,8 +73,6 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   private void updateResults() {
     if (!refreshing) {
-      feedItems.clear();
-      updateViewFeedItems();
       currentPage = 1;
       reachedBottomOfFeed = false;
       setRefreshing(true);
@@ -93,9 +91,12 @@ public class FeedPresenter extends BasePresenter<FeedView> {
         .compose(RxUtil.subscribeDefaults())
         .subscribe(
             result -> {
-              setRefreshing(false);
               Timber.d("Feed refresh complete, results count: %d", result.totalCount());
+              if (currentPage == 1) {
+                feedItems.clear();
+              }
               processPage(result);
+              setRefreshing(false);
               fetchingNextPage = false;
             },
             error -> {
