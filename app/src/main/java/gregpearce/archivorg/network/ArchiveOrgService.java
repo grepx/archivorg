@@ -1,5 +1,7 @@
 package gregpearce.archivorg.network;
 
+import org.threeten.bp.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import javax.inject.Singleton;
 
 import gregpearce.archivorg.Constants;
 import gregpearce.archivorg.model.ArchiveEntity;
+import gregpearce.archivorg.model.MediaType;
 import gregpearce.archivorg.model.ResultPage;
 import gregpearce.archivorg.util.NullUtil;
 import retrofit2.Retrofit;
@@ -36,9 +39,11 @@ class ArchiveOrgService {
           List<ArchiveEntity> results = new ArrayList<>();
           for (SearchResponse.Response.Doc doc : response.docs) {
             ArchiveEntity archiveEntity = ArchiveEntity.create(
-                // archive.org is full of nulls, protect against it
+                // archive.org data is full of nulls, protect against it where possible
                 NullUtil.defaultNullValue(doc.title),
-                NullUtil.defaultNullValue(doc.description)
+                NullUtil.defaultNullValue(doc.description),
+                parseDate(doc.publicdate),
+                parseMediaType(doc.mediatype)
             );
             results.add(archiveEntity);
           }
@@ -47,5 +52,25 @@ class ArchiveOrgService {
 
           return ResultPage.create(results, response.numFound, page, isLastPage);
         });
+  }
+
+  private LocalDateTime parseDate(String date) {
+    // remove the Z that archive.org puts on the end of date strings
+    date = date.substring(0, date.length()-1);
+    return LocalDateTime.parse(date);
+  }
+
+  private MediaType parseMediaType(String mediaType) {
+    if (mediaType.equals("video")) {
+      return MediaType.Video;
+    } else if (mediaType.equals("audio")) {
+      return MediaType.Audio;
+    } else if (mediaType.equals("texts")) {
+      return MediaType.Book;
+    } else if (mediaType.equals("image")) {
+      return MediaType.Image;
+    } else {
+      return MediaType.Unknown;
+    }
   }
 }

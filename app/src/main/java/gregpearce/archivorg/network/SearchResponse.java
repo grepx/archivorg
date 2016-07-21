@@ -15,6 +15,8 @@ class SearchResponse {
     class Doc {
       String title;
       String description;
+      String publicdate;
+      String mediatype;
     }
   }
 }
