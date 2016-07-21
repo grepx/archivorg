@@ -50,7 +50,7 @@ public class FeedFragment extends BaseFragment implements FeedView {
     adapter = new FeedAdapter(presenter);
     recyclerView.setAdapter(adapter);
 
-    swipeRefreshLayout.setOnRefreshListener(() -> presenter.search(""));
+    swipeRefreshLayout.setOnRefreshListener(() -> presenter.refresh());
 
     return rootView;
   }

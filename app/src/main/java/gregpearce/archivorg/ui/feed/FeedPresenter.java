@@ -31,7 +31,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   public void onFocus() {
     hasFocus = true;
     if (resultsNeedUpdating) {
-      search();
+      updateResults();
       resultsNeedUpdating = false;
     } else {
       updateViewFeedItems();
@@ -50,17 +50,10 @@ public class FeedPresenter extends BasePresenter<FeedView> {
     queryInitialized = true;
     this.query = query;
     if (hasFocus) {
-      search();
+      updateResults();
     } else {
       resultsNeedUpdating = true;
     }
-  }
-
-  private void search() {
-    feedItems.clear();
-    reachedBottomOfFeed = false;
-    updateViewFeedItems();
-    refresh();
   }
 
   public void scrolledToIndex(int index) {
@@ -74,10 +67,16 @@ public class FeedPresenter extends BasePresenter<FeedView> {
     }
   }
 
-  private void refresh() {
+  public void refresh() {
+    updateResults();
+  }
+
+  private void updateResults() {
     if (!refreshing) {
       feedItems.clear();
+      updateViewFeedItems();
       currentPage = 1;
+      reachedBottomOfFeed = false;
       setRefreshing(true);
       fetchPage();
     }
