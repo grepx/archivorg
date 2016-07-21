@@ -15,6 +15,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   SearchService searchService;
 
   private String query = "";
+  private boolean queryInitialized = false;
   private boolean refreshing = false;
   private final List<FeedItem> feedItems = new ArrayList<>();
   private int currentPage = 0;
@@ -42,6 +43,11 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   }
 
   public void search(String query) {
+    if (queryInitialized && this.query.equals(query)) {
+      // prevent unnecessary data loss and network calls
+      return;
+    }
+    queryInitialized = true;
     this.query = query;
     if (hasFocus) {
       search();
