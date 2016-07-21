@@ -11,10 +11,12 @@ public class MainApplication extends Application {
 
   // This is used to do dependency injection using the Application scope.
   public static ApplicationComponent APP_COMPONENT;
+  public static MainApplication INSTANCE;
 
   @Override public void onCreate() {
     super.onCreate();
     Timber.plant(new Timber.DebugTree());
+    INSTANCE = this;
 
     ApplicationComponent component = DaggerApplicationComponent.builder()
         .applicationModule(new ApplicationModule(this))

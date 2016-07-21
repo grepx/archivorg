@@ -107,7 +107,10 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   private void processPage(ResultPage page) {
     for (ArchiveEntity archiveEntity : page.results()) {
-      feedItems.add(FeedItem.create(archiveEntity.title(), archiveEntity.description()));
+      feedItems.add(FeedItem.create(archiveEntity.title(),
+                                    archiveEntity.description(),
+                                    archiveEntity.publishedDate(),
+                                    archiveEntity.mediaType()));
     }
     reachedBottomOfFeed = page.isLastPage();
     updateViewFeedItems();

@@ -1,17 +1,27 @@
 package gregpearce.archivorg.ui.feed;
 
+import android.graphics.drawable.Drawable;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.R;
+import gregpearce.archivorg.model.MediaType;
 
 public class FeedItemViewHolder extends RecyclerView.ViewHolder {
 
   @BindView(R.id.title) TextView titleTextView;
   @BindView(R.id.description) TextView descriptionTextView;
+  @BindView(R.id.thumbnail) ImageView thumbnailImageView;
+  @BindView(R.id.date) TextView dateTextView;
 
   public FeedItemViewHolder(View view) {
     super(view);
@@ -21,5 +31,36 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
   public void updateViewModel(FeedItem viewModel) {
     titleTextView.setText(viewModel.title());
     descriptionTextView.setText(viewModel.description());
+    setupThumbnail(viewModel.mediaType());
+    setupDate(viewModel.publishedDate());
+  }
+
+  private void setupThumbnail(MediaType mediaType) {
+    Drawable drawable;
+    switch (mediaType) {
+      case Video:
+        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(), R.drawable.ic_tv_black_24dp, null);
+        break;
+      case Audio:
+        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(), R.drawable.ic_volume_up_black_24dp, null);
+        break;
+      case Book:
+        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(), R.drawable.ic_chrome_reader_mode_black_24dp, null);
+        break;
+      case Image:
+        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(), R.drawable.ic_image_black_24dp, null);
+        break;
+      default:
+        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(), R.drawable.ic_account_balance_black_24dp, null);
+    }
+    thumbnailImageView.setImageDrawable(drawable);
+  }
+
+  private void setupDate(LocalDateTime date) {
+    if (date == null) {
+      dateTextView.setText("Unknown Date");
+    } else {
+      dateTextView.setText(date.format(DateTimeFormatter.ISO_LOCAL_DATE));
+    }
   }
 }

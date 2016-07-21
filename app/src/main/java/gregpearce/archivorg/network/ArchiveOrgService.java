@@ -24,7 +24,7 @@ class ArchiveOrgService {
     archiveOrgApi = retrofit.create(ArchiveOrgApi.class);
   }
 
-  public static final String REVIEW_DATE_DESC = "reviewdate desc";
+  public static final String REVIEW_DATE_DESC = "publicdate desc";
   public static final String DOWNLOADS_DESC = "downloads desc";
   public static final String TOP_QUERY = "downloads:[2000 TO 100000000] AND avg_rating:[3 TO 5]";
 
@@ -42,8 +42,8 @@ class ArchiveOrgService {
                 // archive.org data is full of nulls, protect against it where possible
                 NullUtil.defaultNullValue(doc.title),
                 NullUtil.defaultNullValue(doc.description),
-                parseDate(doc.publicdate),
-                parseMediaType(doc.mediatype)
+                parseDate(doc),
+                parseMediaType(doc)
             );
             results.add(archiveEntity);
           }
@@ -54,20 +54,24 @@ class ArchiveOrgService {
         });
   }
 
-  private LocalDateTime parseDate(String date) {
+  private LocalDateTime parseDate(SearchResponse.Response.Doc doc) {
     // remove the Z that archive.org puts on the end of date strings
-    date = date.substring(0, date.length()-1);
+    String date = doc.publicdate;
+    if (date == null) {
+      return null;
+    }
+    date = date.substring(0, date.length() - 1);
     return LocalDateTime.parse(date);
   }
 
-  private MediaType parseMediaType(String mediaType) {
-    if (mediaType.equals("video")) {
+  private MediaType parseMediaType(SearchResponse.Response.Doc doc) {
+    if ("movies".equals(doc.mediatype)) {
       return MediaType.Video;
-    } else if (mediaType.equals("audio")) {
+    } else if ("audio".equals(doc.mediatype) || "sound".equals(doc.type)) {
       return MediaType.Audio;
-    } else if (mediaType.equals("texts")) {
+    } else if ("texts".equals(doc.mediatype)) {
       return MediaType.Book;
-    } else if (mediaType.equals("image")) {
+    } else if ("image".equals(doc.mediatype)) {
       return MediaType.Image;
     } else {
       return MediaType.Unknown;

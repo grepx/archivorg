@@ -1,5 +1,7 @@
 package gregpearce.archivorg.model;
 
+import android.support.annotation.Nullable;
+
 import com.google.auto.value.AutoValue;
 
 import org.threeten.bp.LocalDateTime;
@@ -14,7 +16,7 @@ public abstract class ArchiveEntity {
 
   public abstract String description();
 
-  public abstract LocalDateTime publishedDate();
+  @Nullable public abstract LocalDateTime publishedDate();
 
-  public abstract MediaType contentType();
+  public abstract MediaType mediaType();
 }
