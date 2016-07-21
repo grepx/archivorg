@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity {
     searchView.setTextSize(16);
     searchView.setHint("Search Archive.org");
     searchView.setDivider(false);
-    searchView.setVoice(true);
+    searchView.setVoice(false);
     searchView.setVoiceText("Set permission on Android 6+ !");
     searchView.setAnimationDuration(SearchView.ANIMATION_DURATION);
     // shadow = modal behavior, possibly revert back to this in the future
