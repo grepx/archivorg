@@ -25,6 +25,9 @@ public class MainActivity extends BaseActivity {
   @Inject FeedPresenterFactory feedPresenterFactory;
   FeedPresenter popularFeedPresenter;
   FeedPresenter videoFeedPresenter;
+  FeedPresenter audioFeedPresenter;
+  FeedPresenter bookFeedPresenter;
+  FeedPresenter imageFeedPresenter;
 
   @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
   @BindView(R.id.toolbar) Toolbar toolbar;
@@ -49,6 +52,9 @@ public class MainActivity extends BaseActivity {
   private void setupPresenters() {
     popularFeedPresenter = feedPresenterFactory.get(FeedType.Popular);
     videoFeedPresenter = feedPresenterFactory.get(FeedType.Video);
+    audioFeedPresenter = feedPresenterFactory.get(FeedType.Audio);
+    imageFeedPresenter = feedPresenterFactory.get(FeedType.Book);
+    bookFeedPresenter = feedPresenterFactory.get(FeedType.Image);
   }
 
   private void setupToolbar() {
@@ -82,6 +88,9 @@ public class MainActivity extends BaseActivity {
       public boolean onQueryTextSubmit(String query) {
         popularFeedPresenter.search(query);
         videoFeedPresenter.search(query);
+        audioFeedPresenter.search(query);
+        imageFeedPresenter.search(query);
+        bookFeedPresenter.search(query);
         return true;
       }
 
@@ -94,6 +103,9 @@ public class MainActivity extends BaseActivity {
       @Override public void onClose() {
         popularFeedPresenter.search("");
         videoFeedPresenter.search("");
+        audioFeedPresenter.search("");
+        imageFeedPresenter.search("");
+        bookFeedPresenter.search("");
       }
 
       @Override public void onOpen() {

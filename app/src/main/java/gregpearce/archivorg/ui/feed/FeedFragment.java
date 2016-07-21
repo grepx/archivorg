@@ -50,14 +50,19 @@ public class FeedFragment extends BaseFragment implements FeedView {
     adapter = new FeedAdapter(presenter);
     recyclerView.setAdapter(adapter);
 
-    swipeRefreshLayout.setOnRefreshListener(() -> presenter.refresh());
+    swipeRefreshLayout.setOnRefreshListener(() -> presenter.search(""));
 
     return rootView;
   }
 
-  @Override public void onStart() {
-    super.onStart();
-    presenter.refresh();
+  @Override public void onPause() {
+    super.onPause();
+    presenter.onLooseFocus();
+  }
+
+  @Override public void onResume() {
+    super.onResume();
+    presenter.onFocus();
   }
 
   @Override public void updateRefreshing(boolean isRefreshing) {

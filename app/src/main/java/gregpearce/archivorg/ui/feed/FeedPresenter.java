@@ -20,16 +20,40 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   private int currentPage = 0;
   private boolean fetchingNextPage = false;
   private boolean reachedBottomOfFeed = false;
+  private boolean hasFocus = false;
+  private boolean resultsNeedUpdating = false;
 
   public FeedPresenter(SearchService searchService) {
     this.searchService = searchService;
   }
 
+  public void onFocus() {
+    hasFocus = true;
+    if (resultsNeedUpdating) {
+      search();
+      resultsNeedUpdating = false;
+    } else {
+      updateViewFeedItems();
+    }
+  }
+
+  public void onLooseFocus() {
+    hasFocus = false;
+  }
+
   public void search(String query) {
     this.query = query;
+    if (hasFocus) {
+      search();
+    } else {
+      resultsNeedUpdating = true;
+    }
+  }
+
+  private void search() {
     feedItems.clear();
     reachedBottomOfFeed = false;
-    view.notNull(view -> view.updateFeed(feedItems, reachedBottomOfFeed));
+    updateViewFeedItems();
     refresh();
   }
 
@@ -44,7 +68,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
     }
   }
 
-  public void refresh() {
+  private void refresh() {
     if (!refreshing) {
       feedItems.clear();
       currentPage = 1;
@@ -81,6 +105,10 @@ public class FeedPresenter extends BasePresenter<FeedView> {
       feedItems.add(FeedItem.create(archiveEntity.title(), archiveEntity.description()));
     }
     reachedBottomOfFeed = page.isLastPage();
+    updateViewFeedItems();
+  }
+
+  private void updateViewFeedItems() {
     view.notNull(view -> view.updateFeed(feedItems, reachedBottomOfFeed));
   }
 }
