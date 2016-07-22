@@ -23,7 +23,7 @@ class ArchiveOrgFeedService {
 
   public static final String REVIEW_DATE_DESC = "publicdate desc";
   public static final String DOWNLOADS_DESC = "downloads desc";
-  public static final String TOP_QUERY = "downloads:[2000 TO 100000000] AND avg_rating:[3 TO 5]";
+  public static final String TOP_QUERY = "downloads:[1000 TO 100000000] AND avg_rating:[3 TO 5]";
 
   public Observable<ResultPage> search(String query, int page, String sort) {
     if (query.isEmpty()) {
