@@ -12,23 +12,23 @@ import gregpearce.archivorg.network.VideoFeedService;
 @ActivityScope
 public class FeedPresenterFactory {
 
-  private AllFeedService popularSearchService;
+  private AllFeedService allSearchService;
   private VideoFeedService videoSearchService;
   private AudioFeedService audioSearchService;
   private BookFeedService bookSearchService;
   private ImageFeedService imageSearchService;
 
-  @Inject public FeedPresenterFactory(AllFeedService popularSearchService, VideoFeedService videoSearchService,
+  @Inject public FeedPresenterFactory(AllFeedService allSearchService, VideoFeedService videoSearchService,
                                       AudioFeedService audioSearchService, BookFeedService bookSearchService,
                                       ImageFeedService imageSearchService) {
-    this.popularSearchService = popularSearchService;
+    this.allSearchService = allSearchService;
     this.videoSearchService = videoSearchService;
     this.audioSearchService = audioSearchService;
     this.bookSearchService = bookSearchService;
     this.imageSearchService = imageSearchService;
   }
 
-  FeedPresenter popular;
+  FeedPresenter all;
   FeedPresenter video;
   FeedPresenter audio;
   FeedPresenter book;
@@ -38,11 +38,11 @@ public class FeedPresenterFactory {
     // Checks if this feed presenter has been initialized yet.
     // If it hasn't, initializes it and stores it for future calls
     switch (type) {
-      case Popular:
-        if (popular == null) {
-          popular = new FeedPresenter(popularSearchService);
+      case All:
+        if (all == null) {
+          all = new FeedPresenter(allSearchService);
         }
-        return popular;
+        return all;
       case Video:
         if (video == null) {
           video = new FeedPresenter(videoSearchService);

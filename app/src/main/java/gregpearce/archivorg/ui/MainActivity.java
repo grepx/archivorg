@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity {
   }
   
   private void setupPresenters() {
-    popularFeedPresenter = feedPresenterFactory.get(FeedType.Popular);
+    popularFeedPresenter = feedPresenterFactory.get(FeedType.All);
     videoFeedPresenter = feedPresenterFactory.get(FeedType.Video);
     audioFeedPresenter = feedPresenterFactory.get(FeedType.Audio);
     imageFeedPresenter = feedPresenterFactory.get(FeedType.Book);

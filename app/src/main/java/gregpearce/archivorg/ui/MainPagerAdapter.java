@@ -16,7 +16,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
   @Override public Fragment getItem(int position) {
     switch (position) {
       case 0:
-        return FeedFragment.newInstance(FeedType.Popular);
+        return FeedFragment.newInstance(FeedType.All);
       case 1:
         return FeedFragment.newInstance(FeedType.Audio);
       case 2:
