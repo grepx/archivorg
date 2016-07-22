@@ -3,24 +3,24 @@ package gregpearce.archivorg.ui.feed;
 import javax.inject.Inject;
 
 import gregpearce.archivorg.di.annotations.ActivityScope;
-import gregpearce.archivorg.network.AudioSearchService;
-import gregpearce.archivorg.network.BookSearchService;
-import gregpearce.archivorg.network.ImageSearchService;
-import gregpearce.archivorg.network.PopularSearchService;
-import gregpearce.archivorg.network.VideoSearchService;
+import gregpearce.archivorg.network.AllFeedService;
+import gregpearce.archivorg.network.AudioFeedService;
+import gregpearce.archivorg.network.BookFeedService;
+import gregpearce.archivorg.network.ImageFeedService;
+import gregpearce.archivorg.network.VideoFeedService;
 
 @ActivityScope
 public class FeedPresenterFactory {
 
-  private PopularSearchService popularSearchService;
-  private VideoSearchService videoSearchService;
-  private AudioSearchService audioSearchService;
-  private BookSearchService bookSearchService;
-  private ImageSearchService imageSearchService;
+  private AllFeedService popularSearchService;
+  private VideoFeedService videoSearchService;
+  private AudioFeedService audioSearchService;
+  private BookFeedService bookSearchService;
+  private ImageFeedService imageSearchService;
 
-  @Inject public FeedPresenterFactory(PopularSearchService popularSearchService, VideoSearchService videoSearchService,
-                                      AudioSearchService audioSearchService, BookSearchService bookSearchService,
-                                      ImageSearchService imageSearchService) {
+  @Inject public FeedPresenterFactory(AllFeedService popularSearchService, VideoFeedService videoSearchService,
+                                      AudioFeedService audioSearchService, BookFeedService bookSearchService,
+                                      ImageFeedService imageSearchService) {
     this.popularSearchService = popularSearchService;
     this.videoSearchService = videoSearchService;
     this.audioSearchService = audioSearchService;

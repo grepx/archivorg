@@ -16,10 +16,10 @@ import gregpearce.archivorg.util.NullUtil;
 import rx.Observable;
 
 @Singleton
-class ArchiveOrgV1Service {
+class ArchiveOrgFeedService {
   private ArchiveOrgApiV1 api;
 
-  @Inject ArchiveOrgV1Service(ArchiveOrgApiV1 api) {
+  @Inject ArchiveOrgFeedService(ArchiveOrgApiV1 api) {
     this.api = api;
   }
 

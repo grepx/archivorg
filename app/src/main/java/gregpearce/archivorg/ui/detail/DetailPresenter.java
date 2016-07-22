@@ -5,7 +5,7 @@ import java.util.List;
 
 import gregpearce.archivorg.model.FeedItem;
 import gregpearce.archivorg.model.ResultPage;
-import gregpearce.archivorg.network.SearchService;
+import gregpearce.archivorg.network.FeedService;
 import gregpearce.archivorg.ui.BasePresenter;
 import gregpearce.archivorg.ui.feed.FeedView;
 import gregpearce.archivorg.util.RxUtil;
@@ -13,7 +13,7 @@ import timber.log.Timber;
 
 public class DetailPresenter extends BasePresenter<FeedView> {
 
-  SearchService searchService;
+  FeedService feedService;
 
   private String query = "";
   private boolean queryInitialized = false;
@@ -25,8 +25,8 @@ public class DetailPresenter extends BasePresenter<FeedView> {
   private boolean hasFocus = false;
   private boolean resultsNeedUpdating = false;
 
-  public DetailPresenter(SearchService searchService) {
-    this.searchService = searchService;
+  public DetailPresenter(FeedService feedService) {
+    this.feedService = feedService;
   }
 
   public void onFocus() {
@@ -88,7 +88,7 @@ public class DetailPresenter extends BasePresenter<FeedView> {
 
   private void fetchPage() {
     fetchingNextPage = true;
-    searchService.search(query, currentPage)
+    feedService.search(query, currentPage)
         .compose(RxUtil.subscribeDefaults())
         .subscribe(
             result -> {

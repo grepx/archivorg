@@ -3,24 +3,24 @@ package gregpearce.archivorg.di;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import gregpearce.archivorg.network.AudioSearchService;
-import gregpearce.archivorg.network.BookSearchService;
-import gregpearce.archivorg.network.ImageSearchService;
-import gregpearce.archivorg.network.PopularSearchService;
-import gregpearce.archivorg.network.VideoSearchService;
+import gregpearce.archivorg.network.AudioFeedService;
+import gregpearce.archivorg.network.BookFeedService;
+import gregpearce.archivorg.network.ImageFeedService;
+import gregpearce.archivorg.network.AllFeedService;
+import gregpearce.archivorg.network.VideoFeedService;
 
 @Singleton
 @Component(modules = {
     ApplicationModule.class, NetworkModule.class
 })
 public interface ApplicationComponent {
-  PopularSearchService exposePopularSearchService();
+  AllFeedService exposePopularSearchService();
 
-  VideoSearchService exposeVideoSearchService();
+  VideoFeedService exposeVideoSearchService();
 
-  AudioSearchService exposeAudioSearchService();
+  AudioFeedService exposeAudioSearchService();
 
-  BookSearchService exposeBookSearchService();
+  BookFeedService exposeBookSearchService();
 
-  ImageSearchService exposeImageSearchService();
+  ImageFeedService exposeImageSearchService();
 }
