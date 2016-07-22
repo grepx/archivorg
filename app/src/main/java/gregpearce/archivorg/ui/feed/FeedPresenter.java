@@ -3,7 +3,7 @@ package gregpearce.archivorg.ui.feed;
 import java.util.ArrayList;
 import java.util.List;
 
-import gregpearce.archivorg.model.ArchiveFeedItem;
+import gregpearce.archivorg.model.FeedItem;
 import gregpearce.archivorg.model.ResultPage;
 import gregpearce.archivorg.network.SearchService;
 import gregpearce.archivorg.ui.BasePresenter;
@@ -107,12 +107,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   }
 
   private void processPage(ResultPage page) {
-    for (ArchiveFeedItem archiveFeedItem : page.results()) {
-      feedItems.add(FeedItem.create(archiveFeedItem.title(),
-                                    archiveFeedItem.description(),
-                                    archiveFeedItem.publishedDate(),
-                                    archiveFeedItem.mediaType()));
-    }
+    feedItems.addAll(page.results());
     reachedBottomOfFeed = page.isLastPage();
     updateViewFeedItems();
   }

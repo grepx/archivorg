@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gregpearce.archivorg.R;
+import gregpearce.archivorg.model.FeedItem;
 import gregpearce.archivorg.ui.BaseFragment;
 
 public class FeedFragment extends BaseFragment implements FeedView {

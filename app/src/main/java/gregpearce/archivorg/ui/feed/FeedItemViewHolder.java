@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.R;
+import gregpearce.archivorg.model.FeedItem;
 import gregpearce.archivorg.model.MediaType;
 import gregpearce.archivorg.ui.detail.DetailActivity;
 

@@ -1,12 +1,10 @@
-package gregpearce.archivorg.ui.feed;
+package gregpearce.archivorg.model;
 
 import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 
 import org.threeten.bp.LocalDateTime;
-
-import gregpearce.archivorg.model.MediaType;
 
 @AutoValue
 public abstract class FeedItem {
@@ -22,4 +20,3 @@ public abstract class FeedItem {
 
   public abstract MediaType mediaType();
 }
-

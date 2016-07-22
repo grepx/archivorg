@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import gregpearce.archivorg.Constants;
-import gregpearce.archivorg.model.ArchiveFeedItem;
+import gregpearce.archivorg.model.FeedItem;
 import gregpearce.archivorg.model.MediaType;
 import gregpearce.archivorg.model.ResultPage;
 import gregpearce.archivorg.util.NullUtil;
@@ -36,16 +36,16 @@ class ArchiveOrgService {
         .map(apiResponse -> {
           SearchResponse.Response response = apiResponse.response;
 
-          List<ArchiveFeedItem> results = new ArrayList<>();
+          List<FeedItem> results = new ArrayList<>();
           for (SearchResponse.Response.Doc doc : response.docs) {
-            ArchiveFeedItem archiveFeedItem = ArchiveFeedItem.create(
+            FeedItem feedItem = FeedItem.create(
                 // archive.org data is full of nulls, protect against it where possible
                 NullUtil.defaultNullValue(doc.title),
                 NullUtil.defaultNullValue(doc.description),
                 parseDate(doc),
                 parseMediaType(doc)
             );
-            results.add(archiveFeedItem);
+            results.add(feedItem);
           }
 
           boolean isLastPage = (response.numFound - response.start) <= Constants.PAGE_SIZE;

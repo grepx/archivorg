@@ -3,11 +3,10 @@ package gregpearce.archivorg.ui.detail;
 import java.util.ArrayList;
 import java.util.List;
 
-import gregpearce.archivorg.model.ArchiveFeedItem;
+import gregpearce.archivorg.model.FeedItem;
 import gregpearce.archivorg.model.ResultPage;
 import gregpearce.archivorg.network.SearchService;
 import gregpearce.archivorg.ui.BasePresenter;
-import gregpearce.archivorg.ui.feed.FeedItem;
 import gregpearce.archivorg.ui.feed.FeedView;
 import gregpearce.archivorg.util.RxUtil;
 import timber.log.Timber;
@@ -109,11 +108,11 @@ public class DetailPresenter extends BasePresenter<FeedView> {
   }
 
   private void processPage(ResultPage page) {
-    for (ArchiveFeedItem archiveFeedItem : page.results()) {
-      feedItems.add(FeedItem.create(archiveFeedItem.title(),
-                                    archiveFeedItem.description(),
-                                    archiveFeedItem.publishedDate(),
-                                    archiveFeedItem.mediaType()));
+    for (FeedItem feedItem : page.results()) {
+      feedItems.add(FeedItem.create(feedItem.title(),
+                                    feedItem.description(),
+                                    feedItem.publishedDate(),
+                                    feedItem.mediaType()));
     }
     reachedBottomOfFeed = page.isLastPage();
     updateViewFeedItems();
