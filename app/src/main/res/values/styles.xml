@@ -19,9 +19,13 @@
   </style>
 
   <!-- AppTheme -->
-  <style name="AppThemeLight" parent="BaseAppThemeDayNight" />
+  <style name="AppThemeLight" parent="BaseAppThemeDayNight"/>
 
-  <style name="AppThemeDark" parent="BaseAppThemeDark" />
+  <style name="AppThemeDark" parent="BaseAppThemeDark"/>
 
-  <style name="AppThemeDayNight" parent="BaseAppThemeDayNight" />
+  <style name="AppThemeDayNight" parent="BaseAppThemeDayNight"/>
+
+  <style name="AppThemeLight.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+  <style name="AppThemeLight.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

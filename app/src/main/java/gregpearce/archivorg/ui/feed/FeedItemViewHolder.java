@@ -1,5 +1,6 @@
 package gregpearce.archivorg.ui.feed;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +13,11 @@ import org.threeten.bp.format.DateTimeFormatter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.model.MediaType;
+import gregpearce.archivorg.ui.DetailActivity;
 
 public class FeedItemViewHolder extends RecyclerView.ViewHolder {
 
@@ -62,5 +65,10 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
     } else {
       dateTextView.setText(date.format(DateTimeFormatter.ISO_LOCAL_DATE));
     }
+  }
+
+  @OnClick(R.id.card_view) void onClick() {
+    Intent intent = DetailActivity.getCallingIntent(dateTextView.getContext(), "abc");
+    dateTextView.getContext().startActivity(intent);
   }
 }
