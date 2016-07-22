@@ -13,15 +13,14 @@ import gregpearce.archivorg.model.FeedItem;
 import gregpearce.archivorg.model.MediaType;
 import gregpearce.archivorg.model.ResultPage;
 import gregpearce.archivorg.util.NullUtil;
-import retrofit2.Retrofit;
 import rx.Observable;
 
 @Singleton
-class ArchiveOrgService {
-  private ArchiveOrgApi archiveOrgApi;
+class ArchiveOrgV1Service {
+  private ArchiveOrgApiV1 api;
 
-  @Inject ArchiveOrgService(Retrofit retrofit) {
-    archiveOrgApi = retrofit.create(ArchiveOrgApi.class);
+  @Inject ArchiveOrgV1Service(ArchiveOrgApiV1 api) {
+    this.api = api;
   }
 
   public static final String REVIEW_DATE_DESC = "publicdate desc";
@@ -29,7 +28,7 @@ class ArchiveOrgService {
   public static final String TOP_QUERY = "downloads:[2000 TO 100000000] AND avg_rating:[3 TO 5]";
 
   public Observable<ResultPage> search(String query, int page, String sort) {
-    return archiveOrgApi.search(query, page, Constants.PAGE_SIZE, sort)
+    return api.search(query, page, Constants.PAGE_SIZE, sort)
         // retry on network failure 3 times
         .retry(3)
         // map the network response to the domain model

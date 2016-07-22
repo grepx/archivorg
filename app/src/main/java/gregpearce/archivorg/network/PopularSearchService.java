@@ -9,17 +9,17 @@ import rx.Observable;
 @Singleton
 public class PopularSearchService implements SearchService {
 
-  private ArchiveOrgService archiveOrgService;
+  private ArchiveOrgV1Service archiveOrgV1Service;
 
-  @Inject PopularSearchService(ArchiveOrgService archiveOrgService) {
-    this.archiveOrgService = archiveOrgService;
+  @Inject PopularSearchService(ArchiveOrgV1Service archiveOrgV1Service) {
+    this.archiveOrgV1Service = archiveOrgV1Service;
   }
 
   @Override public Observable<ResultPage> search(String query, int page) {
     if (query.isEmpty()) {
-      return archiveOrgService.search(ArchiveOrgService.TOP_QUERY, page, ArchiveOrgService.REVIEW_DATE_DESC);
+      return archiveOrgV1Service.search(ArchiveOrgV1Service.TOP_QUERY, page, ArchiveOrgV1Service.REVIEW_DATE_DESC);
     } else {
-      return archiveOrgService.search(query, page, ArchiveOrgService.DOWNLOADS_DESC);
+      return archiveOrgV1Service.search(query, page, ArchiveOrgV1Service.DOWNLOADS_DESC);
     }
   }
 }

@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import gregpearce.archivorg.network.ArchiveOrgApiV1;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -13,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetworkModule {
-  @Provides @Singleton Retrofit provideRetrofit() {
+  @Provides @Singleton ArchiveOrgApiV1 provideArchiveOrgApiV1() {
     // add a custom http client to automatically add the output=json query param
     OkHttpClient httpClient =
         new OkHttpClient.Builder().addInterceptor(chain -> {
@@ -27,11 +28,13 @@ public class NetworkModule {
           return chain.proceed(request);
         }).build();
 
-    return new Retrofit.Builder()
+    Retrofit retrofit = new Retrofit.Builder()
         .baseUrl("https://archive.org/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
         .client(httpClient)
         .build();
+
+    return retrofit.create(ArchiveOrgApiV1.class);
   }
 }
