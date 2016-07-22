@@ -18,6 +18,11 @@ public class ArchiveOrgUtil {
     if (date == null) {
       return null;
     }
+    // the V2 date format is: yyyy-mm-dd hh:mm:ss
+    // this doesn't match a java.time standard template
+    // the easiest way to get it into instant format is to just add the T and Z
+    date = date.replace(" ", "T");
+    date = date + "Z";
     return Instant.parse(date);
   }
 

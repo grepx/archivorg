@@ -43,6 +43,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     setTitle("");
 
+    detailPresenter.registerView(this);
     detailPresenter.start(getIntent().getExtras().getString(INTENT_EXTRA_ID));
   }
 
