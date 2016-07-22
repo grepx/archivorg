@@ -14,6 +14,7 @@ import gregpearce.archivorg.model.MediaType;
 import gregpearce.archivorg.model.ResultPage;
 import gregpearce.archivorg.util.NullUtil;
 import rx.Observable;
+import timber.log.Timber;
 
 @Singleton
 class ArchiveOrgFeedService {
@@ -29,7 +30,9 @@ class ArchiveOrgFeedService {
 
   public Observable<ResultPage> search(String query, int page, String sort) {
     if (query.isEmpty()) {
-      throw new RuntimeException("Archive.org api does not accept empty search parameter");
+      // rather than crashing, just log an error and return no results
+      Timber.e(new RuntimeException(), "Search was called with an empty query");
+      return Observable.just(ResultPage.create(new ArrayList<>(0), 0, page, true));
     }
     return api.search(query, page, Constants.PAGE_SIZE, sort)
         // retry on network failure 3 times
