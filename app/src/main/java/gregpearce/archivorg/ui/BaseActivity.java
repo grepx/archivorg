@@ -10,7 +10,7 @@ import gregpearce.archivorg.di.DaggerActivityComponent;
 public abstract class BaseActivity extends AppCompatActivity {
   ActivityComponent activityComponent;
 
-  protected final ActivityComponent getComponent() {
+  public final ActivityComponent getComponent() {
     if (activityComponent == null) {
       activityComponent = DaggerActivityComponent.builder()
           .applicationComponent(MainApplication.APP_COMPONENT)

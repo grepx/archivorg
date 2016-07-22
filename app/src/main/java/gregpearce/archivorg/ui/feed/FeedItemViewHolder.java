@@ -8,8 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.Instant;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +18,7 @@ import gregpearce.archivorg.R;
 import gregpearce.archivorg.model.FeedItem;
 import gregpearce.archivorg.model.MediaType;
 import gregpearce.archivorg.ui.detail.DetailActivity;
+import gregpearce.archivorg.ui.util.DateFormatter;
 
 public class FeedItemViewHolder extends RecyclerView.ViewHolder {
 
@@ -60,11 +60,11 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
     thumbnailImageView.setImageDrawable(drawable);
   }
 
-  private void setupDate(LocalDateTime date) {
+  private void setupDate(Instant date) {
     if (date == null) {
-      dateTextView.setText("Unknown Date");
+      dateTextView.setText("Published Date Unknown");
     } else {
-      dateTextView.setText(date.format(DateTimeFormatter.ISO_LOCAL_DATE));
+      dateTextView.setText(DateFormatter.formatDate(date));
     }
   }
 

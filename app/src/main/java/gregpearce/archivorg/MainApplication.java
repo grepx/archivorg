@@ -2,6 +2,8 @@ package gregpearce.archivorg;
 
 import android.app.Application;
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
 import gregpearce.archivorg.di.ApplicationComponent;
 import gregpearce.archivorg.di.ApplicationModule;
 import gregpearce.archivorg.di.DaggerApplicationComponent;
@@ -17,6 +19,8 @@ public class MainApplication extends Application {
     super.onCreate();
     Timber.plant(new Timber.DebugTree());
     INSTANCE = this;
+
+    AndroidThreeTen.init(this);
 
     ApplicationComponent component = DaggerApplicationComponent.builder()
         .applicationModule(new ApplicationModule(this))

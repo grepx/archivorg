@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 
-import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.Instant;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public abstract class ArchiveItem {
   public static ArchiveItem create(
       String title,
       String description,
-      LocalDateTime publishedDate,
+      Instant publishedDate,
       MediaType mediaType,
       String creator,
       String uploader,
@@ -25,7 +25,7 @@ public abstract class ArchiveItem {
 
   public abstract String description();
 
-  @Nullable public abstract LocalDateTime publishedDate();
+  @Nullable public abstract Instant publishedDate();
 
   public abstract MediaType mediaType();
 
