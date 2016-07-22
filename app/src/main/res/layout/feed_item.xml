@@ -27,9 +27,9 @@
       android:layout_marginTop="8dp"
       android:ellipsize="end"
       android:maxLines="1"
-      android:text="Placeholder Title"
       android:textSize="18sp"
       android:textStyle="bold"
+      tools:text="Placeholder Title"
       />
     <ImageView
       android:id="@+id/thumbnail"
@@ -51,8 +51,8 @@
       android:layout_toRightOf="@+id/thumbnail"
       android:ellipsize="end"
       android:maxLines="3"
-      android:text="Placeholder Description"
       android:textSize="11dp"
+      tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sollicitudin sagittis egestas. Sed non ornare diam, in iaculis magna. Vivamus scelerisque sapien sem, in tristique orci ullamcorper vel. "
       />
     <TextView
       android:id="@+id/date"

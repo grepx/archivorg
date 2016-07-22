@@ -109,7 +109,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
               fetchingNextPage = false;
             },
             error -> {
-              view.notNull(view -> view.showError("Failed to load content.\nPlease check your network settings and try again."));
+              view.notNull(view -> view.showError());
               setRefreshing(false);
               fetchingNextPage = false;
             });

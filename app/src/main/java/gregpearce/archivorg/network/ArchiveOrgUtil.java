@@ -3,6 +3,7 @@ package gregpearce.archivorg.network;
 import android.support.annotation.Nullable;
 
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import gregpearce.archivorg.model.MediaType;
 
@@ -17,7 +18,10 @@ public class ArchiveOrgUtil {
   }
 
   public static LocalDateTime parseDateApiV2(@Nullable String date) {
-    return LocalDateTime.parse(date);
+    if (date == null) {
+      return null;
+    }
+    return LocalDateTime.parse(date, DateTimeFormatter.BASIC_ISO_DATE);
   }
 
   public static MediaType parseMediaType(@Nullable String mediatype, @Nullable String type) {

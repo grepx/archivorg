@@ -82,7 +82,7 @@ public class FeedFragment extends BaseFragment implements FeedView {
     }
   }
 
-  @Override public void showError(String error) {
-    Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+  @Override public void showError() {
+    Toast.makeText(getContext(), R.string.error_network, Toast.LENGTH_LONG).show();
   }
 }

@@ -9,5 +9,5 @@ public interface FeedView {
 
   void updateFeed(List<FeedItem> feedItems, boolean reachedEndOfFeed);
 
-  void showError(String error);
+  void showError();
 }
