@@ -17,7 +17,7 @@ import butterknife.OnClick;
 import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.model.MediaType;
-import gregpearce.archivorg.ui.DetailActivity;
+import gregpearce.archivorg.ui.detail.DetailActivity;
 
 public class FeedItemViewHolder extends RecyclerView.ViewHolder {
 

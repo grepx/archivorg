@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui.feed;
+package gregpearce.archivorg.ui.detail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,12 @@ import gregpearce.archivorg.model.ArchiveFeedItem;
 import gregpearce.archivorg.model.ResultPage;
 import gregpearce.archivorg.network.SearchService;
 import gregpearce.archivorg.ui.BasePresenter;
+import gregpearce.archivorg.ui.feed.FeedItem;
+import gregpearce.archivorg.ui.feed.FeedView;
 import gregpearce.archivorg.util.RxUtil;
 import timber.log.Timber;
 
-public class FeedPresenter extends BasePresenter<FeedView> {
+public class DetailPresenter extends BasePresenter<FeedView> {
 
   SearchService searchService;
 
@@ -24,7 +26,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   private boolean hasFocus = false;
   private boolean resultsNeedUpdating = false;
 
-  public FeedPresenter(SearchService searchService) {
+  public DetailPresenter(SearchService searchService) {
     this.searchService = searchService;
   }
 
