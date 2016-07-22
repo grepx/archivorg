@@ -14,13 +14,13 @@ import gregpearce.archivorg.network.VideoFeedService;
     ApplicationModule.class, NetworkModule.class
 })
 public interface ApplicationComponent {
-  AllFeedService exposePopularSearchService();
+  AllFeedService exposeAllFeedService();
 
-  VideoFeedService exposeVideoSearchService();
+  VideoFeedService exposeVideoFeedService();
 
-  AudioFeedService exposeAudioSearchService();
+  AudioFeedService exposeAudioFeedService();
 
-  BookFeedService exposeBookSearchService();
+  BookFeedService exposeBookFeedService();
 
-  ImageFeedService exposeImageSearchService();
+  ImageFeedService exposeImageFeedService();
 }
