@@ -1,7 +1,5 @@
 package gregpearce.archivorg.network;
 
-import org.threeten.bp.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +8,6 @@ import javax.inject.Singleton;
 
 import gregpearce.archivorg.Constants;
 import gregpearce.archivorg.model.FeedItem;
-import gregpearce.archivorg.model.MediaType;
 import gregpearce.archivorg.model.ResultPage;
 import gregpearce.archivorg.util.NullUtil;
 import rx.Observable;
@@ -45,10 +42,10 @@ class ArchiveOrgFeedService {
           for (FeedResponse.Response.Doc doc : response.docs) {
             FeedItem feedItem = FeedItem.create(
                 // archive.org data is full of nulls, protect against it where possible
-                NullUtil.defaultNullValue(doc.title),
-                NullUtil.defaultNullValue(doc.description),
-                parseDate(doc),
-                parseMediaType(doc)
+                NullUtil.defaultValue(doc.title),
+                NullUtil.defaultValue(doc.description),
+                ArchiveOrgUtil.parseDateApiV1(doc.publicdate),
+                ArchiveOrgUtil.parseMediaType(doc.mediatype, doc.type)
             );
             results.add(feedItem);
           }
@@ -57,29 +54,5 @@ class ArchiveOrgFeedService {
 
           return ResultPage.create(results, response.numFound, page, isLastPage);
         });
-  }
-
-  private LocalDateTime parseDate(FeedResponse.Response.Doc doc) {
-    // remove the Z that archive.org puts on the end of date strings
-    String date = doc.publicdate;
-    if (date == null) {
-      return null;
-    }
-    date = date.substring(0, date.length() - 1);
-    return LocalDateTime.parse(date);
-  }
-
-  private MediaType parseMediaType(FeedResponse.Response.Doc doc) {
-    if ("movies".equals(doc.mediatype)) {
-      return MediaType.Video;
-    } else if ("audio".equals(doc.mediatype) || "sound".equals(doc.type)) {
-      return MediaType.Audio;
-    } else if ("texts".equals(doc.mediatype)) {
-      return MediaType.Book;
-    } else if ("image".equals(doc.mediatype)) {
-      return MediaType.Image;
-    } else {
-      return MediaType.Unknown;
-    }
   }
 }

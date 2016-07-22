@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import gregpearce.archivorg.network.ArchiveOrgApiV1;
+import gregpearce.archivorg.network.ArchiveOrgApiV2;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -36,5 +37,15 @@ public class NetworkModule {
         .build();
 
     return retrofit.create(ArchiveOrgApiV1.class);
+  }
+
+  @Provides @Singleton ArchiveOrgApiV2 provideArchiveOrgApiV2() {
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("https://api.archivelab.org/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+        .build();
+
+    return retrofit.create(ArchiveOrgApiV2.class);
   }
 }
