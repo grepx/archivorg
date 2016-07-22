@@ -2,7 +2,7 @@ package gregpearce.archivorg.network;
 
 import java.util.List;
 
-class SearchResponse {
+class FeedResponse {
 
   Response response;
 

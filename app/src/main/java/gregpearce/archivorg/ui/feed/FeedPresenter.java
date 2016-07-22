@@ -90,7 +90,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
     fetchingNextPage = true;
     Observable<ResultPage> serviceCall;
 
-    // if the query is empty, get the latest items, otherwise, do a seach
+    // if the query is empty, get the latest items, otherwise, do a search
     if (query.isEmpty()) {
       serviceCall = feedService.latest(currentPage);
     } else {

@@ -36,10 +36,10 @@ class ArchiveOrgFeedService {
         .retry(3)
         // map the network response to the domain model
         .map(apiResponse -> {
-          SearchResponse.Response response = apiResponse.response;
+          FeedResponse.Response response = apiResponse.response;
 
           List<FeedItem> results = new ArrayList<>();
-          for (SearchResponse.Response.Doc doc : response.docs) {
+          for (FeedResponse.Response.Doc doc : response.docs) {
             FeedItem feedItem = FeedItem.create(
                 // archive.org data is full of nulls, protect against it where possible
                 NullUtil.defaultNullValue(doc.title),
@@ -56,7 +56,7 @@ class ArchiveOrgFeedService {
         });
   }
 
-  private LocalDateTime parseDate(SearchResponse.Response.Doc doc) {
+  private LocalDateTime parseDate(FeedResponse.Response.Doc doc) {
     // remove the Z that archive.org puts on the end of date strings
     String date = doc.publicdate;
     if (date == null) {
@@ -66,7 +66,7 @@ class ArchiveOrgFeedService {
     return LocalDateTime.parse(date);
   }
 
-  private MediaType parseMediaType(SearchResponse.Response.Doc doc) {
+  private MediaType parseMediaType(FeedResponse.Response.Doc doc) {
     if ("movies".equals(doc.mediatype)) {
       return MediaType.Video;
     } else if ("audio".equals(doc.mediatype) || "sound".equals(doc.type)) {
