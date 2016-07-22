@@ -8,6 +8,7 @@ import gregpearce.archivorg.model.ResultPage;
 import gregpearce.archivorg.network.FeedService;
 import gregpearce.archivorg.ui.BasePresenter;
 import gregpearce.archivorg.util.RxUtil;
+import rx.Observable;
 import timber.log.Timber;
 
 public class FeedPresenter extends BasePresenter<FeedView> {
@@ -87,8 +88,16 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   private void fetchPage() {
     fetchingNextPage = true;
-    feedService.search(query, currentPage)
-        .compose(RxUtil.subscribeDefaults())
+    Observable<ResultPage> serviceCall;
+
+    // if the query is empty, get the latest items, otherwise, do a seach
+    if (query.isEmpty()) {
+      serviceCall = feedService.latest(currentPage);
+    } else {
+      serviceCall = feedService.search(query, currentPage);
+    }
+
+    serviceCall.compose(RxUtil.subscribeDefaults())
         .subscribe(
             result -> {
               Timber.d("Feed refresh complete, results count: %d", result.totalCount());

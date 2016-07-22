@@ -15,12 +15,13 @@ public class ImageFeedService implements FeedService {
     this.archiveOrgFeedService = archiveOrgFeedService;
   }
 
+  private static final String videoFilter = " AND mediatype:(image)";
+
   @Override public Observable<ResultPage> search(String query, int page) {
-    final String videoFilter = " AND mediatype:(image)";
-    if (query.isEmpty()) {
-      return archiveOrgFeedService.search(ArchiveOrgFeedService.TOP_QUERY + videoFilter, page, ArchiveOrgFeedService.REVIEW_DATE_DESC);
-    } else {
-      return archiveOrgFeedService.search(query + videoFilter, page, ArchiveOrgFeedService.DOWNLOADS_DESC);
-    }
+    return archiveOrgFeedService.search(query + videoFilter, page, ArchiveOrgFeedService.DOWNLOADS_DESC);
+  }
+
+  @Override public Observable<ResultPage> latest(int page) {
+    return archiveOrgFeedService.search(ArchiveOrgFeedService.TOP_QUERY + videoFilter, page, ArchiveOrgFeedService.REVIEW_DATE_DESC);
   }
 }

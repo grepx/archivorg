@@ -16,10 +16,10 @@ public class AllFeedService implements FeedService {
   }
 
   @Override public Observable<ResultPage> search(String query, int page) {
-    if (query.isEmpty()) {
-      return archiveOrgFeedService.search(ArchiveOrgFeedService.TOP_QUERY, page, ArchiveOrgFeedService.REVIEW_DATE_DESC);
-    } else {
-      return archiveOrgFeedService.search(query, page, ArchiveOrgFeedService.DOWNLOADS_DESC);
-    }
+    return archiveOrgFeedService.search(query, page, ArchiveOrgFeedService.DOWNLOADS_DESC);
+  }
+
+  @Override public Observable<ResultPage> latest(int page) {
+    return archiveOrgFeedService.search(ArchiveOrgFeedService.TOP_QUERY, page, ArchiveOrgFeedService.REVIEW_DATE_DESC);
   }
 }
