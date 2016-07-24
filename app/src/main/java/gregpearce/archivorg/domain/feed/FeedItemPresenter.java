@@ -2,9 +2,11 @@ package gregpearce.archivorg.domain.feed;
 
 import javax.inject.Inject;
 
+import gregpearce.archivorg.domain.BasePresenter;
+import gregpearce.archivorg.domain.BaseView;
 import gregpearce.archivorg.domain.Navigator;
 
-public class FeedItemPresenter {
+public class FeedItemPresenter extends BasePresenter<BaseView> {
 
   @Inject Navigator navigator;
 
@@ -13,7 +15,7 @@ public class FeedItemPresenter {
   @Inject public FeedItemPresenter() {
   }
 
-  public void start(String id) {
+  public void init(String id) {
     this.id = id;
   }
 

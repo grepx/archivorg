@@ -43,7 +43,7 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
     setupThumbnail(feedItem.mediaType());
     setupDate(feedItem.publishedDate());
     // setup presenter
-    presenter.start(feedItem.id());
+    presenter.init(feedItem.id());
   }
 
   private void setupThumbnail(MediaType mediaType) {
