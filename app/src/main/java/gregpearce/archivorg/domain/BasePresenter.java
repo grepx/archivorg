@@ -1,8 +1,8 @@
-package gregpearce.archivorg.ui;
+package gregpearce.archivorg.domain;
 
 import gregpearce.archivorg.util.NullSafe;
 
-public class BasePresenter<ViewType> {
+public class BasePresenter<ViewType extends BaseView> {
   private boolean started = false;
   private boolean running = false;
 
