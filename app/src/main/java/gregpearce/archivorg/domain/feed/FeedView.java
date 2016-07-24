@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui.feed;
+package gregpearce.archivorg.domain.feed;
 
 import java.util.List;
 

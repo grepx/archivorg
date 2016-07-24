@@ -17,8 +17,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gregpearce.archivorg.R;
-import gregpearce.archivorg.domain.FeedPresenter;
-import gregpearce.archivorg.domain.FeedPresenterFactory;
+import gregpearce.archivorg.domain.feed.FeedPresenter;
+import gregpearce.archivorg.domain.feed.FeedPresenterFactory;
+import gregpearce.archivorg.domain.feed.FeedView;
 import gregpearce.archivorg.model.FeedItem;
 import gregpearce.archivorg.ui.BaseFragment;
 

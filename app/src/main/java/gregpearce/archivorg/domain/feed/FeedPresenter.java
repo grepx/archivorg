@@ -1,4 +1,4 @@
-package gregpearce.archivorg.domain;
+package gregpearce.archivorg.domain.feed;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,6 @@ import gregpearce.archivorg.model.FeedItem;
 import gregpearce.archivorg.model.ResultPage;
 import gregpearce.archivorg.network.FeedService;
 import gregpearce.archivorg.ui.BasePresenter;
-import gregpearce.archivorg.ui.feed.FeedView;
 import gregpearce.archivorg.util.RxUtil;
 import rx.Observable;
 import timber.log.Timber;

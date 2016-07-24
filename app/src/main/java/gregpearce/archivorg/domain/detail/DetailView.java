@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui.detail;
+package gregpearce.archivorg.domain.detail;
 
 import gregpearce.archivorg.model.ArchiveItem;
 

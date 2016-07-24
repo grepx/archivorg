@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gregpearce.archivorg.R;
-import gregpearce.archivorg.domain.FeedPresenter;
+import gregpearce.archivorg.domain.feed.FeedPresenter;
 import gregpearce.archivorg.model.FeedItem;
 
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

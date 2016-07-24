@@ -1,4 +1,4 @@
-package gregpearce.archivorg.domain;
+package gregpearce.archivorg.domain.feed;
 
 import javax.inject.Inject;
 
