@@ -33,7 +33,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   @BindView(R.id.description) TextView descriptionTextView;
   @BindView(R.id.toolbar_image) ImageView toolbarImageView;
 
-  @Override  protected void onCreate(Bundle savedInstanceState) {
+  @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_detail);
@@ -46,7 +46,14 @@ public class DetailActivity extends BaseActivity implements DetailView {
     setTitle("");
 
     detailPresenter.registerView(this);
-    detailPresenter.start(getIntent().getExtras().getString(INTENT_EXTRA_ID));
+    detailPresenter.init(getIntent().getExtras().getString(INTENT_EXTRA_ID));
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    if (!detailPresenter.isStarted()) {
+      detailPresenter.start();
+    }
   }
 
   @Override public void updateLoading(boolean isLoading) {

@@ -15,42 +15,45 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   FeedService feedService;
 
-  private String query = "";
-  private boolean queryInitialized = false;
+  private String query = null; // initialised by startup call to search
   private boolean refreshing = false;
   private final List<FeedItem> feedItems = new ArrayList<>();
   private int currentPage = 0;
   private boolean fetchingNextPage = false;
   private boolean reachedBottomOfFeed = false;
-  private boolean hasFocus = false;
   private boolean resultsNeedUpdating = false;
 
   public FeedPresenter(FeedService feedService) {
     this.feedService = feedService;
   }
 
-  public void onFocus() {
-    hasFocus = true;
+  @Override public void start() {
+    super.start();
+    // do the initial feed load
+    search("");
+  }
+
+  @Override public void resume() {
+    super.resume();
     if (resultsNeedUpdating) {
       updateResults();
       resultsNeedUpdating = false;
-    } else if (queryInitialized) { // check that first query has been performed before updating view
-      updateViewFeedItems();
+    } else {
+      updateViewFeedItems(); // on resume we always need to retrigger a ui update
     }
   }
 
-  public void onLooseFocus() {
-    hasFocus = false;
+  @Override public void pause() {
+    super.pause();
   }
 
   public void search(String query) {
-    if (queryInitialized && this.query.equals(query)) {
+    if (query.equals(this.query)) {
       // prevent unnecessary data loss and network calls
       return;
     }
-    queryInitialized = true;
     this.query = query;
-    if (hasFocus) {
+    if (isRunning()) {
       updateResults();
     } else {
       resultsNeedUpdating = true;

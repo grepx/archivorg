@@ -64,12 +64,15 @@ public class FeedFragment extends BaseFragment implements FeedView {
 
   @Override public void onPause() {
     super.onPause();
-    presenter.onLooseFocus();
+    presenter.pause();
   }
 
   @Override public void onResume() {
     super.onResume();
-    presenter.onFocus();
+    if (!presenter.isStarted()) {
+      presenter.start();
+    }
+    presenter.resume();
   }
 
   @Override public void updateRefreshing(boolean isRefreshing) {

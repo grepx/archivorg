@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity {
     setupTabs();
     setupSearchView();
   }
-  
+
   private void setupPresenters() {
     popularFeedPresenter = feedPresenterFactory.get(FeedType.All);
     videoFeedPresenter = feedPresenterFactory.get(FeedType.Video);
@@ -101,12 +101,19 @@ public class MainActivity extends BaseActivity {
       }
     });
     searchView.setOnOpenCloseListener(new SearchView.OnOpenCloseListener() {
+      // for some reason, onClose is called one time during initialisation, code around it
+      private boolean initCall = true;
+
       @Override public void onClose() {
-        popularFeedPresenter.search("");
-        videoFeedPresenter.search("");
-        audioFeedPresenter.search("");
-        imageFeedPresenter.search("");
-        bookFeedPresenter.search("");
+        if (!initCall) {
+          popularFeedPresenter.search("");
+          videoFeedPresenter.search("");
+          audioFeedPresenter.search("");
+          imageFeedPresenter.search("");
+          bookFeedPresenter.search("");
+        } else {
+          initCall = false;
+        }
       }
 
       @Override public void onOpen() {

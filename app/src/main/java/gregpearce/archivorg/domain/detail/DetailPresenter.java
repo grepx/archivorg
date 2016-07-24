@@ -15,11 +15,17 @@ public class DetailPresenter extends BasePresenter<DetailView> {
   @Inject DetailService detailService;
 
   private ArchiveItem archiveItem;
+  private String id;
 
   @Inject public DetailPresenter() {
   }
 
-  public void start(String id) {
+  public void init(String id) {
+    this.id = id;
+  }
+
+  @Override public void start() {
+    super.start();
     detailService.get(id)
         .compose(RxUtil.subscribeDefaults())
         .subscribe(
