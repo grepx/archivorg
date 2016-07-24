@@ -1,6 +1,5 @@
 package gregpearce.archivorg.ui.feed;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +9,8 @@ import android.widget.TextView;
 
 import org.threeten.bp.Instant;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -17,7 +18,7 @@ import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.model.FeedItem;
 import gregpearce.archivorg.model.MediaType;
-import gregpearce.archivorg.ui.detail.DetailActivity;
+import gregpearce.archivorg.ui.util.ComponentUtil;
 import gregpearce.archivorg.ui.util.DateFormatter;
 
 public class FeedItemViewHolder extends RecyclerView.ViewHolder {
@@ -27,16 +28,21 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.thumbnail) ImageView thumbnailImageView;
   @BindView(R.id.date) TextView dateTextView;
 
+  @Inject FeedItemPresenter presenter;
+
   public FeedItemViewHolder(View view) {
     super(view);
     ButterKnife.bind(this, view);
+    ComponentUtil.getComponent(view).inject(this);
   }
 
-  public void updateViewModel(FeedItem viewModel) {
-    titleTextView.setText(viewModel.title());
-    descriptionTextView.setText(viewModel.description());
-    setupThumbnail(viewModel.mediaType());
-    setupDate(viewModel.publishedDate());
+  public void updateViewModel(FeedItem feedItem) {
+    titleTextView.setText(feedItem.title());
+    descriptionTextView.setText(feedItem.description());
+    setupThumbnail(feedItem.mediaType());
+    setupDate(feedItem.publishedDate());
+    // setup presenter
+    presenter.start(feedItem.id());
   }
 
   private void setupThumbnail(MediaType mediaType) {
@@ -69,7 +75,6 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
   }
 
   @OnClick(R.id.card_view) void onClick() {
-    Intent intent = DetailActivity.getCallingIntent(dateTextView.getContext(), "abc");
-    dateTextView.getContext().startActivity(intent);
+    presenter.click();
   }
 }

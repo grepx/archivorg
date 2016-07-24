@@ -41,6 +41,7 @@ class ArchiveOrgFeedService {
           List<FeedItem> results = new ArrayList<>();
           for (FeedResponse.Response.Doc doc : response.docs) {
             FeedItem feedItem = FeedItem.create(
+                doc.identifier,
                 // archive.org data is full of nulls, protect against it where possible
                 NullUtil.defaultValue(doc.title),
                 NullUtil.defaultValue(doc.description),
