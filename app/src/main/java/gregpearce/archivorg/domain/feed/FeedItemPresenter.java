@@ -2,7 +2,7 @@ package gregpearce.archivorg.domain.feed;
 
 import javax.inject.Inject;
 
-import gregpearce.archivorg.ui.navigation.Navigator;
+import gregpearce.archivorg.domain.Navigator;
 
 public class FeedItemPresenter {
 

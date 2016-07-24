@@ -3,7 +3,9 @@ package gregpearce.archivorg.di;
 import dagger.Module;
 import dagger.Provides;
 import gregpearce.archivorg.di.annotations.ActivityScope;
+import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.BaseActivity;
+import gregpearce.archivorg.ui.navigation.NavigatorImpl;
 
 @Module
 public class ActivityModule {
@@ -15,5 +17,9 @@ public class ActivityModule {
 
   @Provides @ActivityScope BaseActivity provideActivity() {
     return activity;
+  }
+
+  @Provides @ActivityScope Navigator provideNavigator(NavigatorImpl navigator) {
+    return navigator;
   }
 }

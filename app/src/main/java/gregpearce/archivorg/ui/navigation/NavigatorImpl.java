@@ -4,15 +4,14 @@ import android.content.Intent;
 
 import javax.inject.Inject;
 
-import gregpearce.archivorg.di.annotations.ActivityScope;
+import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.BaseActivity;
 import gregpearce.archivorg.ui.detail.DetailActivity;
 
-@ActivityScope
-public class Navigator {
+public class NavigatorImpl implements Navigator {
   @Inject BaseActivity activity;
 
-  @Inject public Navigator() {
+  @Inject public NavigatorImpl() {
   }
 
   public void navigateToMain() {
