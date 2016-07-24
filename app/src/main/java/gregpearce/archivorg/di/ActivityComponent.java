@@ -2,10 +2,10 @@ package gregpearce.archivorg.di;
 
 import dagger.Component;
 import gregpearce.archivorg.di.annotations.ActivityScope;
+import gregpearce.archivorg.ui.feed.FeedItemViewHolder;
 import gregpearce.archivorg.ui.MainActivity;
 import gregpearce.archivorg.ui.detail.DetailActivity;
 import gregpearce.archivorg.ui.feed.FeedFragment;
-import gregpearce.archivorg.ui.feed.FeedItemViewHolder;
 
 @ActivityScope
 @Component(

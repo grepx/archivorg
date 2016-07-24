@@ -17,8 +17,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gregpearce.archivorg.R;
-import gregpearce.archivorg.ui.feed.FeedPresenter;
-import gregpearce.archivorg.ui.feed.FeedPresenterFactory;
+import gregpearce.archivorg.domain.FeedPresenter;
+import gregpearce.archivorg.domain.FeedPresenterFactory;
 import gregpearce.archivorg.ui.feed.FeedType;
 
 public class MainActivity extends BaseActivity {

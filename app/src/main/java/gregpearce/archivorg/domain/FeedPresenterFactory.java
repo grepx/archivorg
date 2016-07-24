@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui.feed;
+package gregpearce.archivorg.domain;
 
 import javax.inject.Inject;
 
@@ -8,6 +8,7 @@ import gregpearce.archivorg.network.AudioFeedService;
 import gregpearce.archivorg.network.BookFeedService;
 import gregpearce.archivorg.network.ImageFeedService;
 import gregpearce.archivorg.network.VideoFeedService;
+import gregpearce.archivorg.ui.feed.FeedType;
 
 @ActivityScope
 public class FeedPresenterFactory {

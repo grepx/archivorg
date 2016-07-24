@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui.detail;
+package gregpearce.archivorg.domain;
 
 import javax.inject.Inject;
 
@@ -6,6 +6,7 @@ import gregpearce.archivorg.di.annotations.ActivityScope;
 import gregpearce.archivorg.model.ArchiveItem;
 import gregpearce.archivorg.network.DetailService;
 import gregpearce.archivorg.ui.BasePresenter;
+import gregpearce.archivorg.ui.detail.DetailView;
 import gregpearce.archivorg.util.RxUtil;
 import timber.log.Timber;
 

@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gregpearce.archivorg.R;
+import gregpearce.archivorg.domain.DetailPresenter;
 import gregpearce.archivorg.model.ArchiveItem;
 import gregpearce.archivorg.ui.BaseActivity;
 
