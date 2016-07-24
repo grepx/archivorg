@@ -2,7 +2,7 @@ package gregpearce.archivorg.domain.feed;
 
 import java.util.List;
 
-import gregpearce.archivorg.model.FeedItem;
+import gregpearce.archivorg.domain.model.FeedItem;
 
 public interface FeedView {
   void updateRefreshing(boolean isRefreshing);

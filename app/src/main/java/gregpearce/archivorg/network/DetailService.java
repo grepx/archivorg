@@ -6,8 +6,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import gregpearce.archivorg.model.ArchiveFile;
-import gregpearce.archivorg.model.ArchiveItem;
+import gregpearce.archivorg.domain.model.ArchiveFile;
+import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.util.NullUtil;
 import rx.Observable;
 

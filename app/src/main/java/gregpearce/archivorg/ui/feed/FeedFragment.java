@@ -20,7 +20,7 @@ import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.feed.FeedPresenter;
 import gregpearce.archivorg.domain.feed.FeedPresenterFactory;
 import gregpearce.archivorg.domain.feed.FeedView;
-import gregpearce.archivorg.model.FeedItem;
+import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.ui.BaseFragment;
 
 public class FeedFragment extends BaseFragment implements FeedView {

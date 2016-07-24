@@ -1,4 +1,4 @@
-package gregpearce.archivorg.model;
+package gregpearce.archivorg.domain.model;
 
 import android.support.annotation.Nullable;
 

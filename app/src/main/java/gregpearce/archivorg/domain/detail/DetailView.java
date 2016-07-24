@@ -1,6 +1,6 @@
 package gregpearce.archivorg.domain.detail;
 
-import gregpearce.archivorg.model.ArchiveItem;
+import gregpearce.archivorg.domain.model.ArchiveItem;
 
 public interface DetailView {
   void updateLoading(boolean isLoading);

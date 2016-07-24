@@ -7,8 +7,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import gregpearce.archivorg.Constants;
-import gregpearce.archivorg.model.FeedItem;
-import gregpearce.archivorg.model.ResultPage;
+import gregpearce.archivorg.domain.model.FeedItem;
+import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.util.NullUtil;
 import rx.Observable;
 import timber.log.Timber;

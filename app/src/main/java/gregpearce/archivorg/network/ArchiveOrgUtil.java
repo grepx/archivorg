@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import org.threeten.bp.Instant;
 
-import gregpearce.archivorg.model.MediaType;
+import gregpearce.archivorg.domain.model.MediaType;
 
 public class ArchiveOrgUtil {
   public static Instant parseDateApiV1(@Nullable String date) {

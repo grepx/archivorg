@@ -17,8 +17,8 @@ import butterknife.OnClick;
 import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.feed.FeedItemPresenter;
-import gregpearce.archivorg.model.FeedItem;
-import gregpearce.archivorg.model.MediaType;
+import gregpearce.archivorg.domain.model.FeedItem;
+import gregpearce.archivorg.domain.model.MediaType;
 import gregpearce.archivorg.ui.util.ComponentUtil;
 import gregpearce.archivorg.ui.util.DateFormatter;
 

@@ -1,6 +1,6 @@
 package gregpearce.archivorg.network;
 
-import gregpearce.archivorg.model.ResultPage;
+import gregpearce.archivorg.domain.model.ResultPage;
 import rx.Observable;
 
 public interface FeedService {

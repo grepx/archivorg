@@ -3,7 +3,7 @@ package gregpearce.archivorg.network;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import gregpearce.archivorg.model.ResultPage;
+import gregpearce.archivorg.domain.model.ResultPage;
 import rx.Observable;
 
 @Singleton
