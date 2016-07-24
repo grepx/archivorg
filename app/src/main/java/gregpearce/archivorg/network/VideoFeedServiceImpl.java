@@ -4,18 +4,19 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import gregpearce.archivorg.domain.model.ResultPage;
+import gregpearce.archivorg.domain.network.VideoFeedService;
 import rx.Observable;
 
 @Singleton
-public class ImageFeedService implements FeedService {
+public class VideoFeedServiceImpl implements VideoFeedService {
 
   private ArchiveOrgFeedService archiveOrgFeedService;
 
-  @Inject ImageFeedService(ArchiveOrgFeedService archiveOrgFeedService) {
+  @Inject VideoFeedServiceImpl(ArchiveOrgFeedService archiveOrgFeedService) {
     this.archiveOrgFeedService = archiveOrgFeedService;
   }
 
-  private static final String videoFilter = " AND mediatype:(image)";
+  private static final String videoFilter = " AND mediatype:(movies)";
 
   @Override public Observable<ResultPage> search(String query, int page) {
     return archiveOrgFeedService.search(query + videoFilter, page, ArchiveOrgFeedService.DOWNLOADS_DESC);

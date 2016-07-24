@@ -1,4 +1,4 @@
-package gregpearce.archivorg.network;
+package gregpearce.archivorg.domain.network;
 
 import gregpearce.archivorg.domain.model.ResultPage;
 import rx.Observable;

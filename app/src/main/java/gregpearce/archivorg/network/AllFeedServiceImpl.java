@@ -4,14 +4,15 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import gregpearce.archivorg.domain.model.ResultPage;
+import gregpearce.archivorg.domain.network.AllFeedService;
 import rx.Observable;
 
 @Singleton
-public class AllFeedService implements FeedService {
+public class AllFeedServiceImpl implements AllFeedService {
 
   private ArchiveOrgFeedService archiveOrgFeedService;
 
-  @Inject AllFeedService(ArchiveOrgFeedService archiveOrgFeedService) {
+  @Inject AllFeedServiceImpl(ArchiveOrgFeedService archiveOrgFeedService) {
     this.archiveOrgFeedService = archiveOrgFeedService;
   }
 

@@ -3,30 +3,23 @@ package gregpearce.archivorg.domain.feed;
 import javax.inject.Inject;
 
 import gregpearce.archivorg.di.annotations.ActivityScope;
-import gregpearce.archivorg.network.AllFeedService;
-import gregpearce.archivorg.network.AudioFeedService;
-import gregpearce.archivorg.network.BookFeedService;
-import gregpearce.archivorg.network.ImageFeedService;
-import gregpearce.archivorg.network.VideoFeedService;
+import gregpearce.archivorg.domain.network.AllFeedService;
+import gregpearce.archivorg.domain.network.AudioFeedService;
+import gregpearce.archivorg.domain.network.BookFeedService;
+import gregpearce.archivorg.domain.network.ImageFeedService;
+import gregpearce.archivorg.domain.network.VideoFeedService;
 import gregpearce.archivorg.ui.feed.FeedType;
 
 @ActivityScope
 public class FeedPresenterFactory {
 
-  private AllFeedService allSearchService;
-  private VideoFeedService videoSearchService;
-  private AudioFeedService audioSearchService;
-  private BookFeedService bookSearchService;
-  private ImageFeedService imageSearchService;
+  @Inject AllFeedService allSearchService;
+  @Inject VideoFeedService videoSearchService;
+  @Inject AudioFeedService audioSearchService;
+  @Inject BookFeedService bookSearchService;
+  @Inject ImageFeedService imageSearchService;
 
-  @Inject public FeedPresenterFactory(AllFeedService allSearchService, VideoFeedService videoSearchService,
-                                      AudioFeedService audioSearchService, BookFeedService bookSearchService,
-                                      ImageFeedService imageSearchService) {
-    this.allSearchService = allSearchService;
-    this.videoSearchService = videoSearchService;
-    this.audioSearchService = audioSearchService;
-    this.bookSearchService = bookSearchService;
-    this.imageSearchService = imageSearchService;
+  @Inject public FeedPresenterFactory() {
   }
 
   FeedPresenter all;
