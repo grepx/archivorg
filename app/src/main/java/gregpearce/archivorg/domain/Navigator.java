@@ -1,7 +1,7 @@
 package gregpearce.archivorg.domain;
 
 public interface Navigator {
-  void navigateToMain();
+  void navigateToDiscover();
 
   void navigateToDetail(String itemId);
 }

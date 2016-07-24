@@ -15,7 +15,7 @@
     android:theme="@style/AppThemeLight"
     >
     <activity
-      android:name=".ui.main.MainActivity"
+      android:name=".ui.discover.DiscoverActivity"
       android:label="@string/title_activity_main"
       android:screenOrientation="portrait"
       >

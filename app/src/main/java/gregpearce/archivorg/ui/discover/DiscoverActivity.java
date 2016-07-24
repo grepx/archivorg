@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui.main;
+package gregpearce.archivorg.ui.discover;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -22,7 +22,7 @@ import gregpearce.archivorg.domain.feed.FeedPresenterFactory;
 import gregpearce.archivorg.ui.BaseActivity;
 import gregpearce.archivorg.ui.feed.FeedType;
 
-public class MainActivity extends BaseActivity {
+public class DiscoverActivity extends BaseActivity {
   @Inject FeedPresenterFactory feedPresenterFactory;
   FeedPresenter popularFeedPresenter;
   FeedPresenter videoFeedPresenter;
@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_discover);
     getComponent().inject(this);
     ButterKnife.bind(this);
 
@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity {
   }
 
   private void setupTabs() {
-    MainPagerAdapter sectionsPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
+    DiscoverPagerAdapter sectionsPagerAdapter = new DiscoverPagerAdapter(getSupportFragmentManager());
     viewPager.setAdapter(sectionsPagerAdapter);
     tabLayout.setupWithViewPager(viewPager);
   }

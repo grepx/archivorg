@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui.main;
+package gregpearce.archivorg.ui.discover;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,9 +7,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import gregpearce.archivorg.ui.feed.FeedFragment;
 import gregpearce.archivorg.ui.feed.FeedType;
 
-public class MainPagerAdapter extends FragmentPagerAdapter {
+public class DiscoverPagerAdapter extends FragmentPagerAdapter {
 
-  public MainPagerAdapter(FragmentManager fm) {
+  public DiscoverPagerAdapter(FragmentManager fm) {
     super(fm);
   }
 

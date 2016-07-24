@@ -14,7 +14,7 @@ public class NavigatorImpl implements Navigator {
   @Inject public NavigatorImpl() {
   }
 
-  public void navigateToMain() {
+  public void navigateToDiscover() {
   }
 
   public void navigateToDetail(String itemId) {
