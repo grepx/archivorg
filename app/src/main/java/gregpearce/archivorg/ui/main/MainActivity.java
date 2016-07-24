@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui;
+package gregpearce.archivorg.ui.main;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.feed.FeedPresenter;
 import gregpearce.archivorg.domain.feed.FeedPresenterFactory;
+import gregpearce.archivorg.ui.BaseActivity;
 import gregpearce.archivorg.ui.feed.FeedType;
 
 public class MainActivity extends BaseActivity {

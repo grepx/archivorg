@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui;
+package gregpearce.archivorg.ui.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
