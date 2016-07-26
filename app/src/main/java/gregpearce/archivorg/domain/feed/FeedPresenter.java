@@ -41,7 +41,10 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   }
 
   @Override protected void syncView() {
-    view.notNull(view -> view.updateFeed(feedItems, reachedBottomOfFeed));
+    if (!resultsNeedUpdating) {
+      // prevent the view from updating with stale information if we are in the middle of an update
+      view.notNull(view -> view.updateFeed(feedItems, reachedBottomOfFeed));
+    }
     view.notNull(view -> view.updateRefreshing(this.refreshing));
   }
 
