@@ -17,18 +17,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gregpearce.archivorg.R;
-import gregpearce.archivorg.domain.feed.FeedPresenter;
-import gregpearce.archivorg.domain.feed.FeedPresenterFactory;
+import gregpearce.archivorg.domain.discover.DiscoverPresenter;
 import gregpearce.archivorg.ui.BaseActivity;
-import gregpearce.archivorg.ui.feed.FeedType;
 
 public class DiscoverActivity extends BaseActivity {
-  @Inject FeedPresenterFactory feedPresenterFactory;
-  FeedPresenter popularFeedPresenter;
-  FeedPresenter videoFeedPresenter;
-  FeedPresenter audioFeedPresenter;
-  FeedPresenter bookFeedPresenter;
-  FeedPresenter imageFeedPresenter;
+  @Inject DiscoverPresenter discoverPresenter;
 
   @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
   @BindView(R.id.toolbar) Toolbar toolbar;
@@ -44,18 +37,9 @@ public class DiscoverActivity extends BaseActivity {
     getComponent().inject(this);
     ButterKnife.bind(this);
 
-    setupPresenters();
     setupToolbar();
     setupTabs();
     setupSearchView();
-  }
-
-  private void setupPresenters() {
-    popularFeedPresenter = feedPresenterFactory.get(FeedType.All);
-    videoFeedPresenter = feedPresenterFactory.get(FeedType.Video);
-    audioFeedPresenter = feedPresenterFactory.get(FeedType.Audio);
-    imageFeedPresenter = feedPresenterFactory.get(FeedType.Book);
-    bookFeedPresenter = feedPresenterFactory.get(FeedType.Image);
   }
 
   private void setupToolbar() {
@@ -87,11 +71,7 @@ public class DiscoverActivity extends BaseActivity {
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
-        popularFeedPresenter.search(query);
-        videoFeedPresenter.search(query);
-        audioFeedPresenter.search(query);
-        imageFeedPresenter.search(query);
-        bookFeedPresenter.search(query);
+        discoverPresenter.search(query);
         return true;
       }
 
@@ -106,11 +86,7 @@ public class DiscoverActivity extends BaseActivity {
 
       @Override public void onClose() {
         if (!initCall) {
-          popularFeedPresenter.search("");
-          videoFeedPresenter.search("");
-          audioFeedPresenter.search("");
-          imageFeedPresenter.search("");
-          bookFeedPresenter.search("");
+          discoverPresenter.onCloseSearch();
         } else {
           initCall = false;
         }
