@@ -39,6 +39,6 @@ public class DetailPresenter extends BasePresenter<DetailView> {
             });
   }
 
-  @Override protected void syncView() {
+  @Override protected void syncView(DetailView view) {
   }
 }

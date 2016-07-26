@@ -30,7 +30,7 @@ public abstract class BasePresenter<ViewType extends BaseView> {
 
   public void registerView(ViewType view) {
     this.view = new NullSafe<>(view);
-    syncView();
+    syncView(view);
   }
 
   /**
@@ -46,5 +46,5 @@ public abstract class BasePresenter<ViewType extends BaseView> {
    * The view may have been paused while the presenter was performing work.
    * Even on the first subscribe call, the view's initial state may not be the same as the presenter's.
    */
-  protected abstract void syncView();
+  protected abstract void syncView(ViewType view);
 }
