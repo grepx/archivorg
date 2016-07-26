@@ -51,7 +51,6 @@ public class FeedFragment extends BaseFragment implements FeedView {
 
     getComponent().inject(this);
     presenter = feedPresenterFactory.get((FeedType) getArguments().getSerializable(ARG_TYPE));
-    presenter.registerView(this);
 
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     adapter = new FeedAdapter(presenter);
@@ -62,17 +61,16 @@ public class FeedFragment extends BaseFragment implements FeedView {
     return rootView;
   }
 
-  @Override public void onPause() {
-    super.onPause();
-    presenter.pause();
-  }
-
   @Override public void onResume() {
     super.onResume();
-    if (!presenter.isStarted()) {
-      presenter.start();
-    }
+    presenter.registerView(this);
     presenter.resume();
+  }
+
+  @Override public void onPause() {
+    super.onPause();
+    presenter.unregisterView();
+    presenter.pause();
   }
 
   @Override public void updateRefreshing(boolean isRefreshing) {

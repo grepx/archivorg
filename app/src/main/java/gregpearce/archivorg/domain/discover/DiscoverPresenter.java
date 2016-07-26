@@ -41,4 +41,7 @@ public class DiscoverPresenter extends BasePresenter<BaseView> {
     imageFeedPresenter.search("");
     bookFeedPresenter.search("");
   }
+
+  @Override protected void syncView() {
+  }
 }

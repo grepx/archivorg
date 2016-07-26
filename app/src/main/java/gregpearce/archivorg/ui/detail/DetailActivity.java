@@ -49,13 +49,6 @@ public class DetailActivity extends BaseActivity implements DetailView {
     detailPresenter.init(getIntent().getExtras().getString(INTENT_EXTRA_ID));
   }
 
-  @Override protected void onResume() {
-    super.onResume();
-    if (!detailPresenter.isStarted()) {
-      detailPresenter.start();
-    }
-  }
-
   @Override public void updateLoading(boolean isLoading) {
 
   }

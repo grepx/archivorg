@@ -15,7 +15,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   FeedService feedService;
 
-  private String query = null; // initialised by startup call to search
+  private String query = null;
   private boolean refreshing = false;
   private final List<FeedItem> feedItems = new ArrayList<>();
   private int currentPage = 0;
@@ -37,14 +37,12 @@ public class FeedPresenter extends BasePresenter<FeedView> {
     super.resume();
     if (resultsNeedUpdating) {
       updateResults();
-      resultsNeedUpdating = false;
-    } else {
-      updateViewFeedItems(); // on resume we always need to retrigger a ui update
     }
   }
 
-  @Override public void pause() {
-    super.pause();
+  @Override protected void syncView() {
+    view.notNull(view -> view.updateFeed(feedItems, reachedBottomOfFeed));
+    view.notNull(view -> view.updateRefreshing(this.refreshing));
   }
 
   public void search(String query) {
@@ -53,7 +51,8 @@ public class FeedPresenter extends BasePresenter<FeedView> {
       return;
     }
     this.query = query;
-    if (isRunning()) {
+    // optimise network calls to only happen when/if a presenter is not paused
+    if (isNotPaused()) {
       updateResults();
     } else {
       resultsNeedUpdating = true;
@@ -76,6 +75,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   }
 
   private void updateResults() {
+    resultsNeedUpdating = false;
     if (!refreshing) {
       currentPage = 1;
       reachedBottomOfFeed = false;
@@ -121,10 +121,7 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   private void processPage(ResultPage page) {
     feedItems.addAll(page.results());
     reachedBottomOfFeed = page.isLastPage();
-    updateViewFeedItems();
-  }
-
-  private void updateViewFeedItems() {
     view.notNull(view -> view.updateFeed(feedItems, reachedBottomOfFeed));
   }
+
 }

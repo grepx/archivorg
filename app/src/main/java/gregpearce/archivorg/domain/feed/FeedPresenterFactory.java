@@ -35,26 +35,31 @@ public class FeedPresenterFactory {
       case All:
         if (all == null) {
           all = new FeedPresenter(allSearchService);
+          all.start();
         }
         return all;
       case Video:
         if (video == null) {
           video = new FeedPresenter(videoSearchService);
+          video.start();
         }
         return video;
       case Audio:
         if (audio == null) {
           audio = new FeedPresenter(audioSearchService);
+          audio.start();
         }
         return audio;
       case Book:
         if (book == null) {
           book = new FeedPresenter(bookSearchService);
+          book.start();
         }
         return book;
       case Image:
         if (image == null) {
           image = new FeedPresenter(imageSearchService);
+          image.start();
         }
         return image;
       default:

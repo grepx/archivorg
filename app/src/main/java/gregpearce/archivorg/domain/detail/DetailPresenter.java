@@ -22,6 +22,7 @@ public class DetailPresenter extends BasePresenter<DetailView> {
 
   public void init(String id) {
     this.id = id;
+    start();
   }
 
   @Override public void start() {
@@ -36,5 +37,8 @@ public class DetailPresenter extends BasePresenter<DetailView> {
             error -> {
               view.notNull(view -> view.showError());
             });
+  }
+
+  @Override protected void syncView() {
   }
 }
