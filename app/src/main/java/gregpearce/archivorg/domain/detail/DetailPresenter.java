@@ -32,13 +32,26 @@ public class DetailPresenter extends BasePresenter<DetailView> {
         .subscribe(
             item -> {
               Timber.d("Loaded archive item, id: %s", id);
-              view.notNull(view -> view.updateItem(item));
+              archiveItem = item;
+              view.notNull(view -> {
+                view.updateLoading(false);
+                view.updateItem(archiveItem);
+              });
             },
             error -> {
-              view.notNull(view -> view.showError());
+              view.notNull(view -> {
+                view.updateLoading(false);
+                view.showError();
+              });
             });
   }
 
   @Override protected void syncView(DetailView view) {
+    if (archiveItem != null) {
+      view.updateLoading(false);
+      view.updateItem(archiveItem);
+    } else {
+      view.updateLoading(true);
+    }
   }
 }

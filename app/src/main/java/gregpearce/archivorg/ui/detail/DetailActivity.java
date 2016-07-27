@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -31,6 +34,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
   @BindView(R.id.title) TextView titleTextView;
   @BindView(R.id.description) TextView descriptionTextView;
+  @BindView(R.id.loading_progress_bar) ProgressBar loadingProgressBar;
   @BindView(R.id.toolbar_image) ImageView toolbarImageView;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
   }
 
   @Override public void updateLoading(boolean isLoading) {
-
+    loadingProgressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
   }
 
   @Override public void updateItem(ArchiveItem archiveItem) {
@@ -59,6 +63,6 @@ public class DetailActivity extends BaseActivity implements DetailView {
   }
 
   @Override public void showError() {
-
+    Toast.makeText(this, R.string.error_network, Toast.LENGTH_LONG).show();
   }
 }
