@@ -4,13 +4,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.feed.FeedPresenter;
 import gregpearce.archivorg.domain.model.FeedItem;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -35,16 +33,18 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
     if (i == VIEW_TYPE_FEED_ITEM) {
-      View feedItemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feed_item, viewGroup, false);
+      View feedItemView =
+          LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feed_item, viewGroup, false);
       return new FeedItemViewHolder(feedItemView);
     } else {
-      View feedLoadingView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feed_loading, viewGroup, false);
+      View feedLoadingView = LayoutInflater.from(viewGroup.getContext())
+          .inflate(R.layout.feed_loading, viewGroup, false);
       return new FeedLoadingViewHolder(feedLoadingView);
     }
   }
 
   @Override public int getItemViewType(int position) {
-    if (!endOfFeed && position == count-1) {
+    if (!endOfFeed && position == count - 1) {
       return VIEW_TYPE_FEED_LOADING;
     } else {
       return VIEW_TYPE_FEED_ITEM;

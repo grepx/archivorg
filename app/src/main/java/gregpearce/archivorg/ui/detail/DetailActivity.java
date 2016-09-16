@@ -9,9 +9,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gregpearce.archivorg.R;
@@ -19,6 +16,7 @@ import gregpearce.archivorg.domain.detail.DetailPresenter;
 import gregpearce.archivorg.domain.detail.DetailView;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.ui.BaseActivity;
+import javax.inject.Inject;
 
 public class DetailActivity extends BaseActivity implements DetailView {
 

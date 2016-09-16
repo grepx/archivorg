@@ -1,18 +1,15 @@
 package gregpearce.archivorg.network;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import gregpearce.archivorg.domain.model.ArchiveFile;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.util.NullUtil;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import rx.Observable;
 
-@Singleton
-public class DetailService {
+@Singleton public class DetailService {
   private ArchiveOrgApiV2 api;
 
   @Inject DetailService(ArchiveOrgApiV2 api) {
@@ -27,17 +24,16 @@ public class DetailService {
         .map(response -> {
           List<ArchiveFile> files = new ArrayList<>(response.files.size());
           for (ItemResponse.File file : response.files) {
-            files.add(ArchiveFile.create(file.name, file.size, file.length, file.source, file.format));
+            files.add(
+                ArchiveFile.create(file.name, file.size, file.length, file.source, file.format));
           }
           ItemResponse.Metadata metadata = response.metadata;
           return ArchiveItem.create(NullUtil.defaultValue(metadata.title),
-                                    NullUtil.defaultValue(metadata.description),
-                                    ArchiveOrgUtil.parseDateApiV2(metadata.publicdate),
-                                    ArchiveOrgUtil.parseMediaType(metadata.mediatype, metadata.type),
-                                    NullUtil.defaultValue(metadata.creator),
-                                    NullUtil.defaultValue(metadata.uploader),
-                                    files);
+              NullUtil.defaultValue(metadata.description),
+              ArchiveOrgUtil.parseDateApiV2(metadata.publicdate),
+              ArchiveOrgUtil.parseMediaType(metadata.mediatype, metadata.type),
+              NullUtil.defaultValue(metadata.creator), NullUtil.defaultValue(metadata.uploader),
+              files);
         });
   }
-
 }

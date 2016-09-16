@@ -9,11 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gregpearce.archivorg.R;
@@ -22,6 +17,8 @@ import gregpearce.archivorg.domain.feed.FeedPresenterFactory;
 import gregpearce.archivorg.domain.feed.FeedView;
 import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.ui.BaseFragment;
+import java.util.List;
+import javax.inject.Inject;
 
 public class FeedFragment extends BaseFragment implements FeedView {
 
@@ -45,7 +42,7 @@ public class FeedFragment extends BaseFragment implements FeedView {
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                     Bundle savedInstanceState) {
+      Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
     ButterKnife.bind(this, rootView);
 

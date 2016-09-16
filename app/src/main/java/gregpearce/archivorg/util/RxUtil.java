@@ -10,14 +10,13 @@ public final class RxUtil {
   }
 
   public static <T> Observable.Transformer<T, T> viewDefaults() {
-    return observable -> observable
-        .observeOn(Schedulers.io())
+    return observable -> observable.observeOn(Schedulers.io())
         .subscribeOn(AndroidSchedulers.mainThread());
   }
 
   public static <T> Observable.Transformer<T, T> subscribeDefaults() {
-    return observable -> observable
-        .doOnError(error -> Timber.e(error, "Default Error Handler: %s", error.getMessage()))
+    return observable -> observable.doOnError(
+        error -> Timber.e(error, "Default Error Handler: %s", error.getMessage()))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread());
   }

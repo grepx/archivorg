@@ -9,16 +9,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.lapism.searchview.SearchView;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.lapism.searchview.SearchView;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.discover.DiscoverPresenter;
 import gregpearce.archivorg.ui.BaseActivity;
+import javax.inject.Inject;
 
 public class DiscoverActivity extends BaseActivity {
   @Inject DiscoverPresenter discoverPresenter;
@@ -49,7 +46,8 @@ public class DiscoverActivity extends BaseActivity {
   }
 
   private void setupTabs() {
-    DiscoverPagerAdapter sectionsPagerAdapter = new DiscoverPagerAdapter(getSupportFragmentManager());
+    DiscoverPagerAdapter sectionsPagerAdapter =
+        new DiscoverPagerAdapter(getSupportFragmentManager());
     viewPager.setAdapter(sectionsPagerAdapter);
     tabLayout.setupWithViewPager(viewPager);
   }
@@ -67,16 +65,14 @@ public class DiscoverActivity extends BaseActivity {
     searchView.setAnimationDuration(SearchView.ANIMATION_DURATION);
     // shadow = modal behavior, possibly revert back to this in the future
     searchView.setShadow(false);
-//    searchView.setShadowColor(ContextCompat.getColor(this, R.color.search_shadow_layout));
+    //    searchView.setShadowColor(ContextCompat.getColor(this, R.color.search_shadow_layout));
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-      @Override
-      public boolean onQueryTextSubmit(String query) {
+      @Override public boolean onQueryTextSubmit(String query) {
         discoverPresenter.search(query);
         return true;
       }
 
-      @Override
-      public boolean onQueryTextChange(String newText) {
+      @Override public boolean onQueryTextChange(String newText) {
         return false;
       }
     });

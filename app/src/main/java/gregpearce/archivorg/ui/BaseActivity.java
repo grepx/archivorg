@@ -1,7 +1,6 @@
 package gregpearce.archivorg.ui;
 
 import android.support.v7.app.AppCompatActivity;
-
 import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.di.ActivityComponent;
 import gregpearce.archivorg.di.ActivityModule;

@@ -1,13 +1,12 @@
 package gregpearce.archivorg.domain.feed;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.network.FeedService;
-import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.util.RxUtil;
+import java.util.ArrayList;
+import java.util.List;
 import rx.Observable;
 import timber.log.Timber;
 
@@ -103,22 +102,19 @@ public class FeedPresenter extends BasePresenter<FeedView> {
       serviceCall = feedService.search(query, currentPage);
     }
 
-    serviceCall.compose(RxUtil.subscribeDefaults())
-        .subscribe(
-            result -> {
-              Timber.d("Feed refresh complete, results count: %d", result.totalCount());
-              if (currentPage == 1) {
-                feedItems.clear();
-              }
-              processPage(result);
-              setRefreshing(false);
-              fetchingNextPage = false;
-            },
-            error -> {
-              view.notNull(view -> view.showError());
-              setRefreshing(false);
-              fetchingNextPage = false;
-            });
+    serviceCall.compose(RxUtil.subscribeDefaults()).subscribe(result -> {
+      Timber.d("Feed refresh complete, results count: %d", result.totalCount());
+      if (currentPage == 1) {
+        feedItems.clear();
+      }
+      processPage(result);
+      setRefreshing(false);
+      fetchingNextPage = false;
+    }, error -> {
+      view.notNull(view -> view.showError());
+      setRefreshing(false);
+      fetchingNextPage = false;
+    });
   }
 
   private void processPage(ResultPage page) {
@@ -126,5 +122,4 @@ public class FeedPresenter extends BasePresenter<FeedView> {
     reachedBottomOfFeed = page.isLastPage();
     view.notNull(view -> view.updateFeed(feedItems, reachedBottomOfFeed));
   }
-
 }

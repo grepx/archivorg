@@ -1,7 +1,5 @@
 package gregpearce.archivorg.di;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import gregpearce.archivorg.domain.network.AllFeedService;
@@ -16,6 +14,7 @@ import gregpearce.archivorg.network.AudioFeedServiceImpl;
 import gregpearce.archivorg.network.BookFeedServiceImpl;
 import gregpearce.archivorg.network.ImageFeedServiceImpl;
 import gregpearce.archivorg.network.VideoFeedServiceImpl;
+import javax.inject.Singleton;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -23,24 +22,19 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-@Module
-public class NetworkModule {
+@Module public class NetworkModule {
   @Provides @Singleton ArchiveOrgApiV1 provideArchiveOrgApiV1() {
     // add a custom http client to automatically add the output=json query param
-    OkHttpClient httpClient =
-        new OkHttpClient.Builder().addInterceptor(chain -> {
-          HttpUrl originalUrl = chain.request().url();
-          HttpUrl url = originalUrl.newBuilder()
-              .addQueryParameter("output", "json")
-              .build();
+    OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(chain -> {
+      HttpUrl originalUrl = chain.request().url();
+      HttpUrl url = originalUrl.newBuilder().addQueryParameter("output", "json").build();
 
-          Request.Builder requestBuilder = chain.request().newBuilder().url(url);
-          Request request = requestBuilder.build();
-          return chain.proceed(request);
-        }).build();
+      Request.Builder requestBuilder = chain.request().newBuilder().url(url);
+      Request request = requestBuilder.build();
+      return chain.proceed(request);
+    }).build();
 
-    Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl("https://archive.org/")
+    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://archive.org/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
         .client(httpClient)
@@ -50,8 +44,7 @@ public class NetworkModule {
   }
 
   @Provides @Singleton ArchiveOrgApiV2 provideArchiveOrgApiV2() {
-    Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl("https://api.archivelab.org/")
+    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.archivelab.org/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
         .build();
@@ -64,7 +57,8 @@ public class NetworkModule {
     return allFeedService;
   }
 
-  @Provides @Singleton AudioFeedService provideAudioFeedService(AudioFeedServiceImpl audioFeedService) {
+  @Provides @Singleton AudioFeedService provideAudioFeedService(
+      AudioFeedServiceImpl audioFeedService) {
     return audioFeedService;
   }
 
@@ -72,11 +66,13 @@ public class NetworkModule {
     return bookFeedService;
   }
 
-  @Provides @Singleton ImageFeedService provideImageFeedService(ImageFeedServiceImpl imageFeedService) {
+  @Provides @Singleton ImageFeedService provideImageFeedService(
+      ImageFeedServiceImpl imageFeedService) {
     return imageFeedService;
   }
 
-  @Provides @Singleton VideoFeedService provideVideoFeedService(VideoFeedServiceImpl videoFeedService) {
+  @Provides @Singleton VideoFeedService provideVideoFeedService(
+      VideoFeedServiceImpl videoFeedService) {
     return videoFeedService;
   }
 }

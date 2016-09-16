@@ -6,11 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.threeten.bp.Instant;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,6 +16,8 @@ import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.MediaType;
 import gregpearce.archivorg.ui.util.ComponentUtil;
 import gregpearce.archivorg.ui.util.DateFormatter;
+import javax.inject.Inject;
+import org.threeten.bp.Instant;
 
 public class FeedItemViewHolder extends RecyclerView.ViewHolder {
 
@@ -50,19 +47,24 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
     Drawable drawable;
     switch (mediaType) {
       case Video:
-        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(), R.drawable.ic_tv_black_24dp, null);
+        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(),
+            R.drawable.ic_tv_black_24dp, null);
         break;
       case Audio:
-        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(), R.drawable.ic_volume_up_black_24dp, null);
+        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(),
+            R.drawable.ic_volume_up_black_24dp, null);
         break;
       case Book:
-        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(), R.drawable.ic_chrome_reader_mode_black_24dp, null);
+        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(),
+            R.drawable.ic_chrome_reader_mode_black_24dp, null);
         break;
       case Image:
-        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(), R.drawable.ic_image_black_24dp, null);
+        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(),
+            R.drawable.ic_image_black_24dp, null);
         break;
       default:
-        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(), R.drawable.ic_account_balance_black_24dp, null);
+        drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(),
+            R.drawable.ic_account_balance_black_24dp, null);
     }
     thumbnailImageView.setImageDrawable(drawable);
   }

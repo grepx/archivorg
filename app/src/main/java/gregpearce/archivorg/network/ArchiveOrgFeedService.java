@@ -1,20 +1,17 @@
 package gregpearce.archivorg.network;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import gregpearce.archivorg.Constants;
 import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.util.NullUtil;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import rx.Observable;
 import timber.log.Timber;
 
-@Singleton
-class ArchiveOrgFeedService {
+@Singleton class ArchiveOrgFeedService {
   private ArchiveOrgApiV1 api;
 
   @Inject ArchiveOrgFeedService(ArchiveOrgApiV1 api) {
@@ -40,14 +37,11 @@ class ArchiveOrgFeedService {
 
           List<FeedItem> results = new ArrayList<>();
           for (FeedResponse.Response.Doc doc : response.docs) {
-            FeedItem feedItem = FeedItem.create(
-                doc.identifier,
+            FeedItem feedItem = FeedItem.create(doc.identifier,
                 // archive.org data is full of nulls, protect against it where possible
-                NullUtil.defaultValue(doc.title),
-                NullUtil.defaultValue(doc.description),
+                NullUtil.defaultValue(doc.title), NullUtil.defaultValue(doc.description),
                 ArchiveOrgUtil.parseDateApiV1(doc.publicdate),
-                ArchiveOrgUtil.parseMediaType(doc.mediatype, doc.type)
-            );
+                ArchiveOrgUtil.parseMediaType(doc.mediatype, doc.type));
             results.add(feedItem);
           }
 

@@ -3,7 +3,6 @@ package gregpearce.archivorg.ui.discover;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
 import gregpearce.archivorg.ui.feed.FeedFragment;
 import gregpearce.archivorg.ui.feed.FeedType;
 
@@ -20,11 +19,11 @@ public class DiscoverPagerAdapter extends FragmentPagerAdapter {
       case 1:
         return FeedFragment.newInstance(FeedType.Audio);
       case 2:
-        return  FeedFragment.newInstance(FeedType.Video);
+        return FeedFragment.newInstance(FeedType.Video);
       case 3:
-        return  FeedFragment.newInstance(FeedType.Book);
+        return FeedFragment.newInstance(FeedType.Book);
       case 4:
-        return  FeedFragment.newInstance(FeedType.Image);
+        return FeedFragment.newInstance(FeedType.Image);
     }
     throw new RuntimeException();
   }

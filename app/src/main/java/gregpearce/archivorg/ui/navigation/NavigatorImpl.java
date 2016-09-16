@@ -1,12 +1,10 @@
 package gregpearce.archivorg.ui.navigation;
 
 import android.content.Intent;
-
-import javax.inject.Inject;
-
 import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.BaseActivity;
 import gregpearce.archivorg.ui.detail.DetailActivity;
+import javax.inject.Inject;
 
 public class NavigatorImpl implements Navigator {
   @Inject BaseActivity activity;

@@ -1,24 +1,15 @@
 package gregpearce.archivorg.domain.model;
 
 import android.support.annotation.Nullable;
-
 import com.google.auto.value.AutoValue;
-
+import java.util.List;
 import org.threeten.bp.Instant;
 
-import java.util.List;
-
-@AutoValue
-public abstract class ArchiveItem {
-  public static ArchiveItem create(
-      String title,
-      String description,
-      Instant publishedDate,
-      MediaType mediaType,
-      String creator,
-      String uploader,
-      List<ArchiveFile> files) {
-    return new AutoValue_ArchiveItem(title, description, publishedDate, mediaType, creator, uploader, files);
+@AutoValue public abstract class ArchiveItem {
+  public static ArchiveItem create(String title, String description, Instant publishedDate,
+      MediaType mediaType, String creator, String uploader, List<ArchiveFile> files) {
+    return new AutoValue_ArchiveItem(title, description, publishedDate, mediaType, creator,
+        uploader, files);
   }
 
   public abstract String title();

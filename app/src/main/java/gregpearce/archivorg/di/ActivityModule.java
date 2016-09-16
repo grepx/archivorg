@@ -7,8 +7,7 @@ import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.BaseActivity;
 import gregpearce.archivorg.ui.navigation.NavigatorImpl;
 
-@Module
-public class ActivityModule {
+@Module public class ActivityModule {
   private BaseActivity activity;
 
   public ActivityModule(BaseActivity activity) {

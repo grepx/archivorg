@@ -1,10 +1,8 @@
 package gregpearce.archivorg.network;
 
 import android.support.annotation.Nullable;
-
-import org.threeten.bp.Instant;
-
 import gregpearce.archivorg.domain.model.MediaType;
+import org.threeten.bp.Instant;
 
 public class ArchiveOrgUtil {
   public static Instant parseDateApiV1(@Nullable String date) {

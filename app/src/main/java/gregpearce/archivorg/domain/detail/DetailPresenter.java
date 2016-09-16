@@ -1,16 +1,14 @@
 package gregpearce.archivorg.domain.detail;
 
-import javax.inject.Inject;
-
 import gregpearce.archivorg.di.annotations.ActivityScope;
+import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.network.DetailService;
-import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.util.RxUtil;
+import javax.inject.Inject;
 import timber.log.Timber;
 
-@ActivityScope
-public class DetailPresenter extends BasePresenter<DetailView> {
+@ActivityScope public class DetailPresenter extends BasePresenter<DetailView> {
 
   @Inject DetailService detailService;
 
@@ -27,23 +25,19 @@ public class DetailPresenter extends BasePresenter<DetailView> {
 
   @Override public void start() {
     super.start();
-    detailService.get(id)
-        .compose(RxUtil.subscribeDefaults())
-        .subscribe(
-            item -> {
-              Timber.d("Loaded archive item, id: %s", id);
-              archiveItem = item;
-              view.notNull(view -> {
-                view.updateLoading(false);
-                view.updateItem(archiveItem);
-              });
-            },
-            error -> {
-              view.notNull(view -> {
-                view.updateLoading(false);
-                view.showError();
-              });
-            });
+    detailService.get(id).compose(RxUtil.subscribeDefaults()).subscribe(item -> {
+      Timber.d("Loaded archive item, id: %s", id);
+      archiveItem = item;
+      view.notNull(view -> {
+        view.updateLoading(false);
+        view.updateItem(archiveItem);
+      });
+    }, error -> {
+      view.notNull(view -> {
+        view.updateLoading(false);
+        view.showError();
+      });
+    });
   }
 
   @Override protected void syncView(DetailView view) {

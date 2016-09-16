@@ -1,13 +1,11 @@
 package gregpearce.archivorg.di;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import gregpearce.archivorg.MainApplication;
+import javax.inject.Singleton;
 
-@Module
-public class ApplicationModule {
+@Module public class ApplicationModule {
   private MainApplication application;
 
   public ApplicationModule(MainApplication app) {
