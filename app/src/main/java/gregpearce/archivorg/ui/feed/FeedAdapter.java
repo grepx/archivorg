@@ -20,7 +20,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private int count = 0;
 
   private static final int VIEW_TYPE_FEED_ITEM = 1;
-  private static final int VIEW_TYPE_BOTTOM_LOAD = 2;
+  private static final int VIEW_TYPE_FEED_LOADING = 2;
 
   public FeedAdapter(FeedPresenter presenter) {
     this.presenter = presenter;
@@ -38,14 +38,14 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
       View feedItemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feed_item, viewGroup, false);
       return new FeedItemViewHolder(feedItemView);
     } else {
-      View bottomLoadView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.bottom_load, viewGroup, false);
-      return new BottomLoadingViewHolder(bottomLoadView);
+      View feedLoadingView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feed_loading, viewGroup, false);
+      return new FeedLoadingViewHolder(feedLoadingView);
     }
   }
 
   @Override public int getItemViewType(int position) {
     if (!endOfFeed && position == count-1) {
-      return VIEW_TYPE_BOTTOM_LOAD;
+      return VIEW_TYPE_FEED_LOADING;
     } else {
       return VIEW_TYPE_FEED_ITEM;
     }
