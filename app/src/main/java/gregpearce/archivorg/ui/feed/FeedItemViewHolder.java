@@ -48,23 +48,23 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
     switch (mediaType) {
       case Video:
         drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(),
-            R.drawable.ic_tv_black_24dp, null);
+                                               R.drawable.ic_tv_black_24dp, null);
         break;
       case Audio:
         drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(),
-            R.drawable.ic_volume_up_black_24dp, null);
+                                               R.drawable.ic_volume_up_black_24dp, null);
         break;
       case Book:
         drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(),
-            R.drawable.ic_chrome_reader_mode_black_24dp, null);
+                                               R.drawable.ic_chrome_reader_mode_black_24dp, null);
         break;
       case Image:
         drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(),
-            R.drawable.ic_image_black_24dp, null);
+                                               R.drawable.ic_image_black_24dp, null);
         break;
       default:
         drawable = VectorDrawableCompat.create(MainApplication.INSTANCE.getResources(),
-            R.drawable.ic_account_balance_black_24dp, null);
+                                               R.drawable.ic_account_balance_black_24dp, null);
     }
     thumbnailImageView.setImageDrawable(drawable);
   }

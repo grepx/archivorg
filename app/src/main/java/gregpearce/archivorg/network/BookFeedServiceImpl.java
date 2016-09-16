@@ -18,11 +18,11 @@ import rx.Observable;
 
   @Override public Observable<ResultPage> search(String query, int page) {
     return archiveOrgFeedService.search(query + videoFilter, page,
-        ArchiveOrgFeedService.DOWNLOADS_DESC);
+                                        ArchiveOrgFeedService.DOWNLOADS_DESC);
   }
 
   @Override public Observable<ResultPage> latest(int page) {
     return archiveOrgFeedService.search(ArchiveOrgFeedService.TOP_QUERY + videoFilter, page,
-        ArchiveOrgFeedService.REVIEW_DATE_DESC);
+                                        ArchiveOrgFeedService.REVIEW_DATE_DESC);
   }
 }

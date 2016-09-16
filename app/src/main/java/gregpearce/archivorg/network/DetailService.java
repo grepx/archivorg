@@ -29,11 +29,12 @@ import rx.Observable;
           }
           ItemResponse.Metadata metadata = response.metadata;
           return ArchiveItem.create(NullUtil.defaultValue(metadata.title),
-              NullUtil.defaultValue(metadata.description),
-              ArchiveOrgUtil.parseDateApiV2(metadata.publicdate),
-              ArchiveOrgUtil.parseMediaType(metadata.mediatype, metadata.type),
-              NullUtil.defaultValue(metadata.creator), NullUtil.defaultValue(metadata.uploader),
-              files);
+                                    NullUtil.defaultValue(metadata.description),
+                                    ArchiveOrgUtil.parseDateApiV2(metadata.publicdate),
+                                    ArchiveOrgUtil.parseMediaType(metadata.mediatype,
+                                                                  metadata.type),
+                                    NullUtil.defaultValue(metadata.creator),
+                                    NullUtil.defaultValue(metadata.uploader), files);
         });
   }
 }

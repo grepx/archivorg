@@ -42,7 +42,7 @@ public class FeedFragment extends BaseFragment implements FeedView {
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+                                     Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
     ButterKnife.bind(this, rootView);
 

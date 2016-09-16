@@ -6,7 +6,7 @@ import org.threeten.bp.Instant;
 
 @AutoValue public abstract class FeedItem {
   public static FeedItem create(String id, String title, String description, Instant publishedDate,
-      MediaType mediaType) {
+                                MediaType mediaType) {
     return new AutoValue_FeedItem(id, title, description, publishedDate, mediaType);
   }
 

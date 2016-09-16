@@ -20,6 +20,6 @@ import rx.Observable;
 
   @Override public Observable<ResultPage> latest(int page) {
     return archiveOrgFeedService.search(ArchiveOrgFeedService.TOP_QUERY, page,
-        ArchiveOrgFeedService.REVIEW_DATE_DESC);
+                                        ArchiveOrgFeedService.REVIEW_DATE_DESC);
   }
 }
