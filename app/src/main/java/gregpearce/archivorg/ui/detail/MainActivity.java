@@ -8,7 +8,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import com.bluelinelabs.conductor.Conductor;
@@ -23,13 +22,13 @@ import gregpearce.archivorg.ui.ActionBarProvider;
 import gregpearce.archivorg.ui.ActivityComponentProvider;
 import gregpearce.archivorg.ui.DrawerLayoutProvider;
 
-public class DetailActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
     implements ActionBarProvider, DrawerLayoutProvider, ActivityComponentProvider {
 
   private static String INTENT_EXTRA_ID = "INTENT_EXTRA_ID";
 
   public static Intent getCallingIntent(Context context, String id) {
-    Intent intent = new Intent(context, DetailActivity.class);
+    Intent intent = new Intent(context, MainActivity.class);
     intent.putExtra(INTENT_EXTRA_ID, id);
     return intent;
   }
