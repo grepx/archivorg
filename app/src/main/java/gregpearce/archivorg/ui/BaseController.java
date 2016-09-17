@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import gregpearce.archivorg.di.ActivityComponent;
+import gregpearce.archivorg.ui.activity.ActionBarProvider;
+import gregpearce.archivorg.ui.activity.ActivityComponentProvider;
+import gregpearce.archivorg.ui.activity.DrawerLayoutProvider;
 
 public abstract class BaseController extends ButterKnifeController {
 

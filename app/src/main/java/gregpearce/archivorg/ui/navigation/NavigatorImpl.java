@@ -3,7 +3,7 @@ package gregpearce.archivorg.ui.navigation;
 import android.app.Activity;
 import android.content.Intent;
 import gregpearce.archivorg.domain.Navigator;
-import gregpearce.archivorg.ui.detail.MainActivity;
+import gregpearce.archivorg.ui.activity.MainActivity;
 import javax.inject.Inject;
 
 public class NavigatorImpl implements Navigator {

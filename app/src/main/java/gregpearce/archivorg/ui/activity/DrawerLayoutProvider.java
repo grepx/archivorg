@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui;
+package gregpearce.archivorg.ui.activity;
 
 import android.support.v4.widget.DrawerLayout;
 

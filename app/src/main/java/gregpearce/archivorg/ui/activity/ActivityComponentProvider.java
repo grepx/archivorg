@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui;
+package gregpearce.archivorg.ui.activity;
 
 import gregpearce.archivorg.di.ActivityComponent;
 

@@ -1,4 +1,4 @@
-package gregpearce.archivorg.ui.detail;
+package gregpearce.archivorg.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +18,7 @@ import gregpearce.archivorg.R;
 import gregpearce.archivorg.di.ActivityComponent;
 import gregpearce.archivorg.di.ActivityModule;
 import gregpearce.archivorg.di.DaggerActivityComponent;
-import gregpearce.archivorg.ui.ActionBarProvider;
-import gregpearce.archivorg.ui.ActivityComponentProvider;
-import gregpearce.archivorg.ui.DrawerLayoutProvider;
+import gregpearce.archivorg.ui.detail.DetailController;
 
 public class MainActivity extends AppCompatActivity
     implements ActionBarProvider, DrawerLayoutProvider, ActivityComponentProvider {

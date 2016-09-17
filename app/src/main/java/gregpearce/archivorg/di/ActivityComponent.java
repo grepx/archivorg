@@ -2,7 +2,7 @@ package gregpearce.archivorg.di;
 
 import dagger.Component;
 import gregpearce.archivorg.di.annotations.ActivityScope;
-import gregpearce.archivorg.ui.detail.MainActivity;
+import gregpearce.archivorg.ui.activity.MainActivity;
 import gregpearce.archivorg.ui.detail.DetailController;
 import gregpearce.archivorg.ui.discover.DiscoverActivity;
 import gregpearce.archivorg.ui.feed.FeedFragment;
