@@ -1,5 +1,6 @@
 package gregpearce.archivorg.ui.navigation;
 
+import android.app.Activity;
 import android.content.Intent;
 import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.BaseActivity;
@@ -7,7 +8,7 @@ import gregpearce.archivorg.ui.detail.DetailActivity;
 import javax.inject.Inject;
 
 public class NavigatorImpl implements Navigator {
-  @Inject BaseActivity activity;
+  @Inject Activity activity;
 
   @Inject public NavigatorImpl() {
   }

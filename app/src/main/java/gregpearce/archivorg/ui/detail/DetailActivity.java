@@ -3,22 +3,28 @@ package gregpearce.archivorg.ui.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.MenuItem;
+import android.view.ViewGroup;
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.bluelinelabs.conductor.Conductor;
+import com.bluelinelabs.conductor.Router;
+import com.bluelinelabs.conductor.RouterTransaction;
+import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.R;
-import gregpearce.archivorg.domain.detail.DetailPresenter;
-import gregpearce.archivorg.domain.detail.DetailView;
-import gregpearce.archivorg.domain.model.ArchiveItem;
-import gregpearce.archivorg.ui.BaseActivity;
-import javax.inject.Inject;
+import gregpearce.archivorg.di.ActivityComponent;
+import gregpearce.archivorg.di.ActivityModule;
+import gregpearce.archivorg.di.DaggerActivityComponent;
+import gregpearce.archivorg.ui.ActionBarProvider;
+import gregpearce.archivorg.ui.ActivityComponentProvider;
+import gregpearce.archivorg.ui.DrawerLayoutProvider;
 
-public class DetailActivity extends BaseActivity implements DetailView {
+public class DetailActivity extends AppCompatActivity
+    implements ActionBarProvider, DrawerLayoutProvider, ActivityComponentProvider {
 
   private static String INTENT_EXTRA_ID = "INTENT_EXTRA_ID";
 
@@ -28,39 +34,70 @@ public class DetailActivity extends BaseActivity implements DetailView {
     return intent;
   }
 
-  @Inject DetailPresenter detailPresenter;
+  @BindView(R.id.controller_container) ViewGroup container;
+  @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
-  @BindView(R.id.title) TextView titleTextView;
-  @BindView(R.id.description) TextView descriptionTextView;
-  @BindView(R.id.loading_progress_bar) ProgressBar loadingProgressBar;
-  @BindView(R.id.toolbar_image) ImageView toolbarImageView;
+  private Router router;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  private ActivityComponent activityComponent;
+
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_detail);
-    getComponent().inject(this);
-    ButterKnife.bind(this);
+    setContentView(R.layout.activity_main);
 
+    // Set up the toolbar.
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    setTitle("");
 
-    detailPresenter.registerView(this);
-    detailPresenter.init(getIntent().getExtras().getString(INTENT_EXTRA_ID));
+    // Set up the controller container.
+    container = (ViewGroup) findViewById(R.id.controller_container);
+
+    // Set up the navigation drawer.
+    drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+    drawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+    if (navigationView != null) {
+      setupDrawerContent(navigationView);
+    }
+
+    router = Conductor.attachRouter(this, container, savedInstanceState);
+    if (!router.hasRootController()) {
+      String id = getIntent().getExtras().getString(INTENT_EXTRA_ID);
+      router.setRoot(RouterTransaction.with(new DetailController(id)));
+    }
   }
 
-  @Override public void updateLoading(boolean isLoading) {
-    loadingProgressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+  private void setupDrawerContent(NavigationView navigationView) {
+    navigationView.setNavigationItemSelectedListener(menuItem -> {
+      switch (menuItem.getItemId()) {
+        case R.id.drawer_item1:
+          //router.setRoot(RouterTransaction.with(new TasksController()));
+          break;
+        case R.id.drawer_item2:
+          //router.setRoot(RouterTransaction.with(new StatisticsController()));
+          break;
+        default:
+          break;
+      }
+      // Close the navigation drawer when an item is selected.
+      menuItem.setChecked(true);
+      drawerLayout.closeDrawers();
+      return true;
+    });
   }
 
-  @Override public void updateItem(ArchiveItem archiveItem) {
-    titleTextView.setText(archiveItem.title());
-    descriptionTextView.setText(archiveItem.description());
+  @Override public ActivityComponent getActivityComponent() {
+    if (activityComponent == null) {
+      activityComponent = DaggerActivityComponent.builder()
+          .applicationComponent(MainApplication.APP_COMPONENT)
+          .activityModule(new ActivityModule(this))
+          .build();
+    }
+    return activityComponent;
   }
 
-  @Override public void showError() {
-    Toast.makeText(this, R.string.error_network, Toast.LENGTH_LONG).show();
+  @Override public DrawerLayout getDrawerLayout() {
+    return drawerLayout;
   }
 }

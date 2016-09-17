@@ -1,5 +1,6 @@
 package gregpearce.archivorg.di;
 
+import android.app.Activity;
 import dagger.Module;
 import dagger.Provides;
 import gregpearce.archivorg.di.annotations.ActivityScope;
@@ -8,13 +9,13 @@ import gregpearce.archivorg.ui.BaseActivity;
 import gregpearce.archivorg.ui.navigation.NavigatorImpl;
 
 @Module public class ActivityModule {
-  private BaseActivity activity;
+  private Activity activity;
 
-  public ActivityModule(BaseActivity activity) {
+  public ActivityModule(Activity activity) {
     this.activity = activity;
   }
 
-  @Provides @ActivityScope BaseActivity provideActivity() {
+  @Provides @ActivityScope Activity provideActivity() {
     return activity;
   }
 
