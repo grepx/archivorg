@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import gregpearce.archivorg.di.ControllerComponent;
-import gregpearce.archivorg.ui.activity.ActionBarProvider;
 import gregpearce.archivorg.ui.activity.ControllerComponentProvider;
 import gregpearce.archivorg.ui.activity.DrawerLayoutProvider;
 
@@ -53,13 +52,13 @@ public abstract class BaseController extends ButterKnifeController {
   }
 
   protected ActionBar getActionBar() {
-    ActionBarProvider actionBarProvider = (ActionBarProvider) getActivity();
-    return actionBarProvider != null ? actionBarProvider.getSupportActionBar() : null;
+    AppCompatActivity activity = (AppCompatActivity) getActivity();
+    return activity != null ? activity.getSupportActionBar() : null;
   }
 
   protected void setActionBar(Toolbar actionBar) {
-    AppCompatActivity actionBarProvider = (AppCompatActivity) getActivity();
-    actionBarProvider.setSupportActionBar(actionBar);
+    AppCompatActivity activity = (AppCompatActivity) getActivity();
+    activity.setSupportActionBar(actionBar);
   }
 
   protected DrawerLayout getDrawerLayout() {

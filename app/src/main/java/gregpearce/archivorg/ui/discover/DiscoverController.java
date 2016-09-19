@@ -5,6 +5,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class DiscoverController extends BaseController {
   @Override protected void onViewBound(@NonNull View view) {
     setupTabs();
     setupSearchView();
+    setupToolbar();
   }
 
   private void setupTabs() {
@@ -93,15 +95,15 @@ public class DiscoverController extends BaseController {
 
   @Override protected void onAttach(@NonNull View view) {
     super.onAttach(view);
-    setupToolbar();
+    getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
   }
 
   private void setupToolbar() {
+    setHasOptionsMenu(true);
     setActionBar(toolbar);
-    ActionBar actionBar = getActionBar();
-    actionBar.setTitle(getResources().getString(R.string.app_name));
-    actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-    actionBar.setDisplayHomeAsUpEnabled(true);
+    toolbar.setTitle(getResources().getString(R.string.app_name));
+    getActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+    getActionBar().setDisplayHomeAsUpEnabled(true);
   }
 
   @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

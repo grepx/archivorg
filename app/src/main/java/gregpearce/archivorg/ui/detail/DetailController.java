@@ -52,12 +52,15 @@ public class DetailController extends BaseController implements DetailView {
   }
 
   @Override protected void onViewBound(@NonNull View view) {
+    setHasOptionsMenu(true);
+
+    setActionBar(toolbar);
+    toolbar.setTitle("");
+    getActionBar().setDisplayHomeAsUpEnabled(false);
+    getActionBar().setho
+
     detailPresenter.registerView(this);
     detailPresenter.init(id);
-  }
-
-  @Override protected void onAttach(@NonNull View view) {
-    setActionBar(toolbar);
   }
 
   @Override public void updateLoading(boolean isLoading) {
