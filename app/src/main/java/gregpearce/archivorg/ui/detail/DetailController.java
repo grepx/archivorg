@@ -56,8 +56,8 @@ public class DetailController extends BaseController implements DetailView {
 
     setActionBar(toolbar);
     toolbar.setTitle("");
-    getActionBar().setDisplayHomeAsUpEnabled(false);
-    getActionBar().setho
+    getActionBar().setDisplayHomeAsUpEnabled(true);
+    getActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
 
     detailPresenter.registerView(this);
     detailPresenter.init(id);
