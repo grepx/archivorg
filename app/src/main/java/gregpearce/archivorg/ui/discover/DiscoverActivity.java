@@ -1,54 +1,52 @@
 package gregpearce.archivorg.ui.discover;
 
-import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.ActionBar;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.bluelinelabs.conductor.Controller;
+import com.bluelinelabs.conductor.support.ControllerPagerAdapter;
 import com.lapism.searchview.SearchView;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.discover.DiscoverPresenter;
-import gregpearce.archivorg.ui.BaseActivity;
+import gregpearce.archivorg.ui.BaseController;
 import javax.inject.Inject;
 
-public class DiscoverActivity extends BaseActivity {
+public class DiscoverActivity extends BaseController {
   @Inject DiscoverPresenter discoverPresenter;
 
-  @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
-  @BindView(R.id.toolbar) Toolbar toolbar;
+  private ControllerPagerAdapter pagerAdapter;
+
   @BindView(R.id.view_pager) ViewPager viewPager;
   @BindView(R.id.tab_layout) TabLayout tabLayout;
   @BindView(R.id.search_view) SearchView searchView;
   @BindView(R.id.navigation_view) NavigationView navigationView;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+  @Override protected void onCreate() {
+    pagerAdapter = new DiscoverPagerAdapter(this);
+  }
 
-    setContentView(R.layout.activity_discover);
-    getComponent().inject(this);
-    ButterKnife.bind(this);
+  @Override
+  protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+    return inflater.inflate(R.layout.activity_discover, container, false);
+  }
 
-    setupToolbar();
+  @Override protected void onViewBound(@NonNull View view) {
     setupTabs();
     setupSearchView();
   }
 
-  private void setupToolbar() {
-    toolbar.setNavigationContentDescription(getResources().getString(R.string.app_name));
-    toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
-    setSupportActionBar(toolbar);
-  }
-
   private void setupTabs() {
-    DiscoverPagerAdapter sectionsPagerAdapter =
-        new DiscoverPagerAdapter(getSupportFragmentManager());
-    viewPager.setAdapter(sectionsPagerAdapter);
+    viewPager.setAdapter(pagerAdapter);
     tabLayout.setupWithViewPager(viewPager);
   }
 
@@ -93,9 +91,20 @@ public class DiscoverActivity extends BaseActivity {
     });
   }
 
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_main, menu);
-    return true;
+  @Override protected void onAttach(@NonNull View view) {
+    super.onAttach(view);
+    setupToolbar();
+  }
+
+  private void setupToolbar() {
+    ActionBar actionBar = getActionBar();
+    actionBar.setTitle(getResources().getString(R.string.app_name));
+    actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+    actionBar.setDisplayHomeAsUpEnabled(true);
+  }
+
+  @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.menu_main, menu);
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -104,7 +113,7 @@ public class DiscoverActivity extends BaseActivity {
         searchView.open(true);
         return true;
       case android.R.id.home:
-        drawerLayout.openDrawer(GravityCompat.START);
+        getDrawerLayout().openDrawer(GravityCompat.START);
         return true;
       default:
         return super.onOptionsItemSelected(item);

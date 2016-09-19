@@ -10,6 +10,10 @@ public class BundleBuilder {
 
   private final Bundle bundle;
 
+  public BundleBuilder() {
+    this.bundle = new Bundle();
+  }
+
   public BundleBuilder(Bundle bundle) {
     this.bundle = bundle;
   }

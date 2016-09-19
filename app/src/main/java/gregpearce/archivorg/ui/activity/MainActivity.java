@@ -1,7 +1,5 @@
 package gregpearce.archivorg.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -18,18 +16,10 @@ import gregpearce.archivorg.R;
 import gregpearce.archivorg.di.ActivityComponent;
 import gregpearce.archivorg.di.ActivityModule;
 import gregpearce.archivorg.di.DaggerActivityComponent;
-import gregpearce.archivorg.ui.detail.DetailController;
+import gregpearce.archivorg.ui.discover.DiscoverActivity;
 
 public class MainActivity extends AppCompatActivity
     implements ActionBarProvider, DrawerLayoutProvider, ActivityComponentProvider {
-
-  private static String INTENT_EXTRA_ID = "INTENT_EXTRA_ID";
-
-  public static Intent getCallingIntent(Context context, String id) {
-    Intent intent = new Intent(context, MainActivity.class);
-    intent.putExtra(INTENT_EXTRA_ID, id);
-    return intent;
-  }
 
   @BindView(R.id.controller_container) ViewGroup container;
   @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -60,8 +50,7 @@ public class MainActivity extends AppCompatActivity
 
     router = Conductor.attachRouter(this, container, savedInstanceState);
     if (!router.hasRootController()) {
-      String id = getIntent().getExtras().getString(INTENT_EXTRA_ID);
-      router.setRoot(RouterTransaction.with(new DetailController(id)));
+      router.setRoot(RouterTransaction.with(new DiscoverActivity()));
     }
   }
 
@@ -88,7 +77,7 @@ public class MainActivity extends AppCompatActivity
     if (activityComponent == null) {
       activityComponent = DaggerActivityComponent.builder()
           .applicationComponent(MainApplication.APP_COMPONENT)
-          .activityModule(new ActivityModule(this))
+          .activityModule(new ActivityModule(router))
           .build();
     }
     return activityComponent;

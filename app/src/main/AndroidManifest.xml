@@ -15,7 +15,7 @@
     android:theme="@style/AppThemeLight"
     >
     <activity
-      android:name=".ui.discover.DiscoverActivity"
+      android:name=".ui.activity.MainActivity"
       android:label="@string/title_activity_main"
       android:screenOrientation="portrait"
       >
@@ -24,11 +24,6 @@
 
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
-    </activity>
-    <activity
-      android:name=".ui.activity.MainActivity"
-      android:theme="@style/AppThemeLight"
-      >
     </activity>
   </application>
 
