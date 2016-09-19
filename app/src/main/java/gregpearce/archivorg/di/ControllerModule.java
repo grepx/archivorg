@@ -8,10 +8,10 @@ import gregpearce.archivorg.di.annotations.ActivityScope;
 import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.navigation.NavigatorImpl;
 
-@Module public class ActivityModule {
+@Module public class ControllerModule {
   private Router router;
 
-  public ActivityModule(Router router) {
+  public ControllerModule(Router router) {
     this.router = router;
   }
 

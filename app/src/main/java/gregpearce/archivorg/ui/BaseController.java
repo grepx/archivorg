@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import gregpearce.archivorg.di.ActivityComponent;
+import gregpearce.archivorg.di.ControllerComponent;
 import gregpearce.archivorg.ui.activity.ActionBarProvider;
-import gregpearce.archivorg.ui.activity.ActivityComponentProvider;
+import gregpearce.archivorg.ui.activity.ControllerComponentProvider;
 import gregpearce.archivorg.ui.activity.DrawerLayoutProvider;
 
 public abstract class BaseController extends ButterKnifeController {
@@ -66,9 +66,10 @@ public abstract class BaseController extends ButterKnifeController {
     return drawerLayoutProvider != null ? drawerLayoutProvider.getDrawerLayout() : null;
   }
 
-  protected ActivityComponent getComponent() {
-    ActivityComponentProvider activityComponentProvider = (ActivityComponentProvider) getActivity();
-    return activityComponentProvider != null ? activityComponentProvider.getActivityComponent() : null;
+  protected ControllerComponent getComponent() {
+    ControllerComponentProvider
+        controllerComponentProvider = (ControllerComponentProvider) getActivity();
+    return controllerComponentProvider != null ? controllerComponentProvider.getControllerComponent() : null;
   }
 
   protected void onCreate() {

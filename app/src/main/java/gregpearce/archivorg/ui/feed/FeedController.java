@@ -21,7 +21,7 @@ import gregpearce.archivorg.util.BundleBuilder;
 import java.util.List;
 import javax.inject.Inject;
 
-public class FeedFragment extends BaseController implements FeedView {
+public class FeedController extends BaseController implements FeedView {
 
   @Inject FeedPresenterFactory feedPresenterFactory;
 
@@ -35,11 +35,11 @@ public class FeedFragment extends BaseController implements FeedView {
 
   private static final String ARGUMENT_TYPE = "ARGUMENT_TYPE";
 
-  public FeedFragment(FeedType feedType) {
+  public FeedController(FeedType feedType) {
     this(new BundleBuilder().putSerializable(ARGUMENT_TYPE, feedType).build());
   }
 
-  public FeedFragment(Bundle args) {
+  public FeedController(Bundle args) {
     super(args);
     feedType = (FeedType) args.getSerializable(ARGUMENT_TYPE);
   }
@@ -51,7 +51,7 @@ public class FeedFragment extends BaseController implements FeedView {
 
   @Override
   protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-    return inflater.inflate(R.layout.fragment_feed, container, false);
+    return inflater.inflate(R.layout.controller_feed, container, false);
   }
 
   @Override protected void onViewBound(@NonNull View view) {

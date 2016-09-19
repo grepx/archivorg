@@ -2,24 +2,24 @@ package gregpearce.archivorg.di;
 
 import dagger.Component;
 import gregpearce.archivorg.di.annotations.ActivityScope;
-import gregpearce.archivorg.ui.activity.MainActivity;
+import gregpearce.archivorg.ui.activity.MainController;
 import gregpearce.archivorg.ui.detail.DetailController;
-import gregpearce.archivorg.ui.discover.DiscoverActivity;
-import gregpearce.archivorg.ui.feed.FeedFragment;
+import gregpearce.archivorg.ui.discover.DiscoverController;
+import gregpearce.archivorg.ui.feed.FeedController;
 import gregpearce.archivorg.ui.feed.FeedItemViewHolder;
 
 @ActivityScope @Component(
     dependencies = ApplicationComponent.class,
     modules = {
-        ActivityModule.class
-    }) public interface ActivityComponent {
-  void inject(DiscoverActivity discoverActivity);
+        ControllerModule.class
+    }) public interface ControllerComponent {
+  void inject(DiscoverController discoverController);
 
-  void inject(FeedFragment feedFragment);
+  void inject(FeedController feedController);
 
   void inject(FeedItemViewHolder feedItemViewHolder);
 
-  void inject(MainActivity mainActivity);
+  void inject(MainController mainActivity);
 
   void inject(DetailController detailController);
 }

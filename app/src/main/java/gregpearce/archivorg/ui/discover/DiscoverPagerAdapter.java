@@ -1,11 +1,8 @@
 package gregpearce.archivorg.ui.discover;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.support.ControllerPagerAdapter;
-import gregpearce.archivorg.ui.feed.FeedFragment;
+import gregpearce.archivorg.ui.feed.FeedController;
 import gregpearce.archivorg.ui.feed.FeedType;
 
 public class DiscoverPagerAdapter extends ControllerPagerAdapter {
@@ -17,15 +14,15 @@ public class DiscoverPagerAdapter extends ControllerPagerAdapter {
   @Override public Controller getItem(int position) {
     switch (position) {
       case 0:
-        return new FeedFragment(FeedType.All);
+        return new FeedController(FeedType.All);
       case 1:
-        return new FeedFragment(FeedType.Audio);
+        return new FeedController(FeedType.Audio);
       case 2:
-        return new FeedFragment(FeedType.Video);
+        return new FeedController(FeedType.Video);
       case 3:
-        return new FeedFragment(FeedType.Book);
+        return new FeedController(FeedType.Book);
       case 4:
-        return new FeedFragment(FeedType.Image);
+        return new FeedController(FeedType.Image);
     }
     throw new RuntimeException();
   }

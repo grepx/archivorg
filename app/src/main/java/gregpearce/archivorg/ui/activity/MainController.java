@@ -13,20 +13,20 @@ import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.R;
-import gregpearce.archivorg.di.ActivityComponent;
-import gregpearce.archivorg.di.ActivityModule;
-import gregpearce.archivorg.di.DaggerActivityComponent;
-import gregpearce.archivorg.ui.discover.DiscoverActivity;
+import gregpearce.archivorg.di.ControllerComponent;
+import gregpearce.archivorg.di.ControllerModule;
+import gregpearce.archivorg.di.DaggerControllerComponent;
+import gregpearce.archivorg.ui.discover.DiscoverController;
 
-public class MainActivity extends AppCompatActivity
-    implements ActionBarProvider, DrawerLayoutProvider, ActivityComponentProvider {
+public class MainController extends AppCompatActivity
+    implements ActionBarProvider, DrawerLayoutProvider, ControllerComponentProvider {
 
   @BindView(R.id.controller_container) ViewGroup container;
   @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
   private Router router;
 
-  private ActivityComponent activityComponent;
+  private ControllerComponent controllerComponent;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
 
     router = Conductor.attachRouter(this, container, savedInstanceState);
     if (!router.hasRootController()) {
-      router.setRoot(RouterTransaction.with(new DiscoverActivity()));
+      router.setRoot(RouterTransaction.with(new DiscoverController()));
     }
   }
 
@@ -73,14 +73,14 @@ public class MainActivity extends AppCompatActivity
     });
   }
 
-  @Override public ActivityComponent getActivityComponent() {
-    if (activityComponent == null) {
-      activityComponent = DaggerActivityComponent.builder()
+  public ControllerComponent getControllerComponent() {
+    if (controllerComponent == null) {
+      controllerComponent = DaggerControllerComponent.builder()
           .applicationComponent(MainApplication.APP_COMPONENT)
-          .activityModule(new ActivityModule(router))
+          .controllerModule(new ControllerModule(router))
           .build();
     }
-    return activityComponent;
+    return controllerComponent;
   }
 
   @Override public DrawerLayout getDrawerLayout() {

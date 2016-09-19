@@ -15,7 +15,7 @@
     android:theme="@style/AppThemeLight"
     >
     <activity
-      android:name=".ui.activity.MainActivity"
+      android:name=".ui.activity.MainController"
       android:label="@string/title_activity_main"
       android:screenOrientation="portrait"
       >

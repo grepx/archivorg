@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
-import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.support.ControllerPagerAdapter;
 import com.lapism.searchview.SearchView;
 import gregpearce.archivorg.R;
@@ -21,7 +20,7 @@ import gregpearce.archivorg.domain.discover.DiscoverPresenter;
 import gregpearce.archivorg.ui.BaseController;
 import javax.inject.Inject;
 
-public class DiscoverActivity extends BaseController {
+public class DiscoverController extends BaseController {
   @Inject DiscoverPresenter discoverPresenter;
 
   private ControllerPagerAdapter pagerAdapter;
@@ -37,7 +36,7 @@ public class DiscoverActivity extends BaseController {
 
   @Override
   protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-    return inflater.inflate(R.layout.activity_discover, container, false);
+    return inflater.inflate(R.layout.controller_discover, container, false);
   }
 
   @Override protected void onViewBound(@NonNull View view) {
