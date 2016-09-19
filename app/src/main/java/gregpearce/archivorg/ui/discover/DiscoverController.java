@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,10 +26,10 @@ public class DiscoverController extends BaseController {
 
   private ControllerPagerAdapter pagerAdapter;
 
+  @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.view_pager) ViewPager viewPager;
   @BindView(R.id.tab_layout) TabLayout tabLayout;
   @BindView(R.id.search_view) SearchView searchView;
-  @BindView(R.id.navigation_view) NavigationView navigationView;
 
   @Override protected void onCreate() {
     pagerAdapter = new DiscoverPagerAdapter(this);
@@ -96,6 +97,7 @@ public class DiscoverController extends BaseController {
   }
 
   private void setupToolbar() {
+    setActionBar(toolbar);
     ActionBar actionBar = getActionBar();
     actionBar.setTitle(getResources().getString(R.string.app_name));
     actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);

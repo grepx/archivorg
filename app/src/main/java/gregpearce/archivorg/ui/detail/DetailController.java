@@ -2,6 +2,7 @@ package gregpearce.archivorg.ui.detail;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ public class DetailController extends BaseController implements DetailView {
 
   private String id;
 
+  @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.title) TextView titleTextView;
   @BindView(R.id.description) TextView descriptionTextView;
   @BindView(R.id.loading_progress_bar) ProgressBar loadingProgressBar;
@@ -52,6 +54,10 @@ public class DetailController extends BaseController implements DetailView {
   @Override protected void onViewBound(@NonNull View view) {
     detailPresenter.registerView(this);
     detailPresenter.init(id);
+  }
+
+  @Override protected void onAttach(@NonNull View view) {
+    setActionBar(toolbar);
   }
 
   @Override public void updateLoading(boolean isLoading) {

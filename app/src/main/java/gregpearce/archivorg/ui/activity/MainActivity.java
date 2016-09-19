@@ -18,7 +18,7 @@ import gregpearce.archivorg.di.ControllerModule;
 import gregpearce.archivorg.di.DaggerControllerComponent;
 import gregpearce.archivorg.ui.discover.DiscoverController;
 
-public class MainController extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
     implements ActionBarProvider, DrawerLayoutProvider, ControllerComponentProvider {
 
   @BindView(R.id.controller_container) ViewGroup container;
@@ -32,10 +32,6 @@ public class MainController extends AppCompatActivity
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_main);
-
-    // Set up the toolbar.
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
 
     // Set up the controller container.
     container = (ViewGroup) findViewById(R.id.controller_container);

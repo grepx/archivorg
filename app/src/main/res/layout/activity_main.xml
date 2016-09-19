@@ -6,35 +6,15 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.MainController"
+    tools:context=".ui.activity.MainActivity"
     tools:openDrawer="start"
     >
-  <LinearLayout
+  <com.bluelinelabs.conductor.ChangeHandlerFrameLayout
+      android:id="@+id/controller_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:orientation="vertical"
-      >
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-      <android.support.v7.widget.Toolbar
-          android:id="@+id/toolbar"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:background="?attr/colorPrimary"
-          android:minHeight="?attr/actionBarSize"
-          app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-          />
-          <!--android:theme="@style/Toolbar"-->
-    </android.support.design.widget.AppBarLayout>
-    <com.bluelinelabs.conductor.ChangeHandlerFrameLayout
-        android:id="@+id/controller_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
-  </LinearLayout>
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      />
   <android.support.design.widget.NavigationView
       android:id="@+id/nav_view"
       android:layout_width="wrap_content"
