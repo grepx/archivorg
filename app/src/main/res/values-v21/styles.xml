@@ -3,17 +3,14 @@
 
   <style name="AppThemeLight" parent="BaseAppThemeLight">
     <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    <item name="android:statusBarColor">@android:color/transparent</item>
   </style>
 
   <style name="AppThemeDark" parent="BaseAppThemeDark">
     <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    <item name="android:statusBarColor">@android:color/transparent</item>
   </style>
 
   <style name="AppThemeDayNight" parent="BaseAppThemeDayNight">
     <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    <item name="android:statusBarColor">@android:color/transparent</item>
   </style>
 
 </resources>
