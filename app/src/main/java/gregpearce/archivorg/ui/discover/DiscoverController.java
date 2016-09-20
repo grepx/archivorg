@@ -1,5 +1,6 @@
 package gregpearce.archivorg.ui.discover;
 
+import android.Manifest;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -44,7 +45,7 @@ public class DiscoverController extends BaseController {
   @Override protected void onViewBound(@NonNull View view) {
     setupTabs();
     setupSearchView();
-    setupToolbar();
+    setActionBar(toolbar);
   }
 
   private void setupTabs() {
@@ -53,22 +54,17 @@ public class DiscoverController extends BaseController {
   }
 
   protected void setupSearchView() {
-    searchView.setVersion(SearchView.VERSION_MENU_ITEM);
-    searchView.setVersionMargins(SearchView.VERSION_MARGINS_MENU_ITEM);
+    searchView.setVersion(SearchView.VERSION_TOOLBAR);
+    searchView.setVersionMargins(SearchView.VERSION_MARGINS_TOOLBAR_BIG);
     searchView.setTheme(SearchView.THEME_LIGHT, true);
-    searchView.setHint(R.string.search);
     searchView.setTextSize(16);
     searchView.setHint("Search Archive.org");
     searchView.setDivider(false);
     searchView.setVoice(false);
-    searchView.setVoiceText("Set permission on Android 6+ !");
     searchView.setAnimationDuration(SearchView.ANIMATION_DURATION);
-    // shadow = modal behavior, possibly revert back to this in the future
-    searchView.setShadow(false);
-    //    searchView.setShadowColor(ContextCompat.getColor(this, R.color.search_shadow_layout));
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override public boolean onQueryTextSubmit(String query) {
-        discoverPresenter.search(query);
+        //discoverPresenter.search(query);
         return true;
       }
 
@@ -82,7 +78,7 @@ public class DiscoverController extends BaseController {
 
       @Override public void onClose() {
         if (!initCall) {
-          discoverPresenter.onCloseSearch();
+          //discoverPresenter.onCloseSearch();
         } else {
           initCall = false;
         }
@@ -91,35 +87,11 @@ public class DiscoverController extends BaseController {
       @Override public void onOpen() {
       }
     });
+    searchView.setOnMenuClickListener(() -> getDrawerLayout().openDrawer(GravityCompat.START));
   }
 
   @Override protected void onAttach(@NonNull View view) {
     super.onAttach(view);
     getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
-  }
-
-  private void setupToolbar() {
-    setHasOptionsMenu(true);
-    setActionBar(toolbar);
-    toolbar.setTitle(getResources().getString(R.string.app_name));
-    getActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-    getActionBar().setDisplayHomeAsUpEnabled(true);
-  }
-
-  @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    inflater.inflate(R.menu.menu_main, menu);
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_search:
-        searchView.open(true);
-        return true;
-      case android.R.id.home:
-        getDrawerLayout().openDrawer(GravityCompat.START);
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
-    }
   }
 }
