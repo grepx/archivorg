@@ -34,7 +34,7 @@ public class DiscoverController extends BaseController {
   @BindView(R.id.search_view) SearchView searchView;
 
   @Override protected void onCreate() {
-    pagerAdapter = new DiscoverPagerAdapter(this);
+    getComponent().inject(this);
   }
 
   @Override
@@ -43,8 +43,11 @@ public class DiscoverController extends BaseController {
   }
 
   @Override protected void onViewBound(@NonNull View view) {
+    pagerAdapter = new DiscoverPagerAdapter(this);
+
     setupTabs();
     setupSearchView();
+
     setActionBar(toolbar);
   }
 
@@ -64,7 +67,8 @@ public class DiscoverController extends BaseController {
     searchView.setAnimationDuration(SearchView.ANIMATION_DURATION);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override public boolean onQueryTextSubmit(String query) {
-        //discoverPresenter.search(query);
+        discoverPresenter.search(query);
+        searchView.setShadow(false);
         return true;
       }
 
@@ -78,13 +82,14 @@ public class DiscoverController extends BaseController {
 
       @Override public void onClose() {
         if (!initCall) {
-          //discoverPresenter.onCloseSearch();
+          discoverPresenter.onCloseSearch();
         } else {
           initCall = false;
         }
       }
 
       @Override public void onOpen() {
+        searchView.setShadow(true);
       }
     });
     searchView.setOnMenuClickListener(() -> getDrawerLayout().openDrawer(GravityCompat.START));
