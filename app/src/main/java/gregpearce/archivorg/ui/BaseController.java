@@ -10,13 +10,16 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.di.ControllerComponent;
-import gregpearce.archivorg.ui.activity.ControllerComponentProvider;
+import gregpearce.archivorg.di.ControllerModule;
+import gregpearce.archivorg.di.DaggerControllerComponent;
 import gregpearce.archivorg.ui.activity.DrawerLayoutProvider;
 
 public abstract class BaseController extends ButterKnifeController {
 
   private boolean created = false;
+  private ControllerComponent controllerComponent;
 
   public BaseController() {
   }
@@ -66,10 +69,16 @@ public abstract class BaseController extends ButterKnifeController {
     return drawerLayoutProvider != null ? drawerLayoutProvider.getDrawerLayout() : null;
   }
 
-  protected ControllerComponent getComponent() {
-    ControllerComponentProvider
-        controllerComponentProvider = (ControllerComponentProvider) getActivity();
-    return controllerComponentProvider != null ? controllerComponentProvider.getControllerComponent() : null;
+  public ControllerComponent getComponent() {
+    if (controllerComponent == null) {
+      controllerComponent = DaggerControllerComponent.builder()
+                                                     .applicationComponent(
+                                                         MainApplication.APP_COMPONENT)
+                                                     .controllerModule(
+                                                         new ControllerModule(this))
+                                                     .build();
+    }
+    return controllerComponent;
   }
 
   protected void onCreate() {

@@ -15,10 +15,10 @@ import gregpearce.archivorg.R;
 import gregpearce.archivorg.di.ControllerComponent;
 import gregpearce.archivorg.di.ControllerModule;
 import gregpearce.archivorg.di.DaggerControllerComponent;
+import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.ui.discover.DiscoverController;
 
-public class MainActivity extends AppCompatActivity
-    implements DrawerLayoutProvider, ControllerComponentProvider {
+public class MainActivity extends AppCompatActivity implements DrawerLayoutProvider {
 
   @BindView(R.id.controller_container) ViewGroup container;
   @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -75,13 +75,7 @@ public class MainActivity extends AppCompatActivity
   }
 
   public ControllerComponent getControllerComponent() {
-    if (controllerComponent == null) {
-      controllerComponent = DaggerControllerComponent.builder()
-          .applicationComponent(MainApplication.APP_COMPONENT)
-          .controllerModule(new ControllerModule(router))
-          .build();
-    }
-    return controllerComponent;
+    return ((BaseController)router.getBackstack().get(0).controller()).getComponent();
   }
 
   @Override public DrawerLayout getDrawerLayout() {

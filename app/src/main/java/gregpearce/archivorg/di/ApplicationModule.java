@@ -3,6 +3,9 @@ package gregpearce.archivorg.di;
 import dagger.Module;
 import dagger.Provides;
 import gregpearce.archivorg.MainApplication;
+import gregpearce.archivorg.di.annotations.ActivityScope;
+import gregpearce.archivorg.domain.Navigator;
+import gregpearce.archivorg.ui.navigation.NavigatorImpl;
 import javax.inject.Singleton;
 
 @Module public class ApplicationModule {
@@ -14,5 +17,9 @@ import javax.inject.Singleton;
 
   @Provides @Singleton MainApplication provideMainApplication() {
     return application;
+  }
+
+  @Provides @ActivityScope Navigator provideNavigator(NavigatorImpl navigator) {
+    return navigator;
   }
 }
