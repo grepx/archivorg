@@ -58,6 +58,7 @@ public class DiscoverController extends BaseController {
 
   protected void setupSearchView() {
     searchView.setVersion(SearchView.VERSION_TOOLBAR);
+    searchView.setNavigationIconArrowHamburger();
     searchView.setVersionMargins(SearchView.VERSION_MARGINS_TOOLBAR_BIG);
     searchView.setTheme(SearchView.THEME_LIGHT, true);
     searchView.setTextSize(16);
@@ -86,6 +87,7 @@ public class DiscoverController extends BaseController {
         } else {
           initCall = false;
         }
+        searchView.setShadow(false);
       }
 
       @Override public void onOpen() {
