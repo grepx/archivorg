@@ -1,6 +1,6 @@
 package gregpearce.archivorg.domain.discover;
 
-import gregpearce.archivorg.di.annotations.ActivityScope;
+import gregpearce.archivorg.di.annotations.ControllerScope;
 import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.domain.BaseView;
 import gregpearce.archivorg.domain.feed.FeedPresenter;
@@ -8,7 +8,7 @@ import gregpearce.archivorg.domain.feed.FeedPresenterFactory;
 import gregpearce.archivorg.ui.feed.FeedType;
 import javax.inject.Inject;
 
-@ActivityScope public class DiscoverPresenter extends BasePresenter<BaseView> {
+@ControllerScope public class DiscoverPresenter extends BasePresenter<BaseView> {
 
   private FeedPresenter popularFeedPresenter;
   private FeedPresenter videoFeedPresenter;

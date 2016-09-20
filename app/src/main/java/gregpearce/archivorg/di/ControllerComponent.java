@@ -1,14 +1,14 @@
 package gregpearce.archivorg.di;
 
 import dagger.Component;
-import gregpearce.archivorg.di.annotations.ActivityScope;
+import gregpearce.archivorg.di.annotations.ControllerScope;
 import gregpearce.archivorg.ui.activity.MainActivity;
 import gregpearce.archivorg.ui.detail.DetailController;
 import gregpearce.archivorg.ui.discover.DiscoverController;
 import gregpearce.archivorg.ui.feed.FeedController;
 import gregpearce.archivorg.ui.feed.FeedItemViewHolder;
 
-@ActivityScope @Component(
+@ControllerScope @Component(
     dependencies = ApplicationComponent.class,
     modules = {
         ControllerModule.class

@@ -1,6 +1,6 @@
 package gregpearce.archivorg.domain.feed;
 
-import gregpearce.archivorg.di.annotations.ActivityScope;
+import gregpearce.archivorg.di.annotations.ControllerScope;
 import gregpearce.archivorg.domain.network.AllFeedService;
 import gregpearce.archivorg.domain.network.AudioFeedService;
 import gregpearce.archivorg.domain.network.BookFeedService;
@@ -9,7 +9,7 @@ import gregpearce.archivorg.domain.network.VideoFeedService;
 import gregpearce.archivorg.ui.feed.FeedType;
 import javax.inject.Inject;
 
-@ActivityScope public class FeedPresenterFactory {
+@ControllerScope public class FeedPresenterFactory {
 
   @Inject AllFeedService allSearchService;
   @Inject VideoFeedService videoSearchService;

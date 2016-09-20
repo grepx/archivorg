@@ -1,6 +1,6 @@
 package gregpearce.archivorg.domain.detail;
 
-import gregpearce.archivorg.di.annotations.ActivityScope;
+import gregpearce.archivorg.di.annotations.ControllerScope;
 import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.network.DetailService;
@@ -8,7 +8,7 @@ import gregpearce.archivorg.util.RxUtil;
 import javax.inject.Inject;
 import timber.log.Timber;
 
-@ActivityScope public class DetailPresenter extends BasePresenter<DetailView> {
+@ControllerScope public class DetailPresenter extends BasePresenter<DetailView> {
 
   @Inject DetailService detailService;
 

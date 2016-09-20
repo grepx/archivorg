@@ -3,7 +3,7 @@ package gregpearce.archivorg.di;
 import dagger.Module;
 import dagger.Provides;
 import gregpearce.archivorg.MainApplication;
-import gregpearce.archivorg.di.annotations.ActivityScope;
+import gregpearce.archivorg.di.annotations.ControllerScope;
 import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.navigation.NavigatorImpl;
 import javax.inject.Singleton;
@@ -19,7 +19,7 @@ import javax.inject.Singleton;
     return application;
   }
 
-  @Provides @ActivityScope Navigator provideNavigator(NavigatorImpl navigator) {
+  @Provides @ControllerScope Navigator provideNavigator(NavigatorImpl navigator) {
     return navigator;
   }
 }

@@ -1,11 +1,9 @@
 package gregpearce.archivorg.di;
 
-import android.app.Activity;
 import com.bluelinelabs.conductor.Controller;
-import com.bluelinelabs.conductor.Router;
 import dagger.Module;
 import dagger.Provides;
-import gregpearce.archivorg.di.annotations.ActivityScope;
+import gregpearce.archivorg.di.annotations.ControllerScope;
 import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.navigation.NavigatorImpl;
 
@@ -16,11 +14,11 @@ import gregpearce.archivorg.ui.navigation.NavigatorImpl;
     this.controller = controller;
   }
 
-  @Provides @ActivityScope Controller provideController() {
+  @Provides @ControllerScope Controller provideController() {
     return controller;
   }
 
-  @Provides @ActivityScope Navigator provideNavigator(NavigatorImpl navigator) {
+  @Provides @ControllerScope Navigator provideNavigator(NavigatorImpl navigator) {
     return navigator;
   }
 }
