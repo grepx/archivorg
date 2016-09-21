@@ -1,6 +1,7 @@
 package gregpearce.archivorg.ui.discover;
 
 import android.Manifest;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -65,6 +66,7 @@ public class DiscoverController extends BaseController {
     searchView.setHint("Search Archive.org");
     searchView.setDivider(false);
     searchView.setVoice(false);
+    searchView.setShadow(false);
     searchView.setAnimationDuration(SearchView.ANIMATION_DURATION);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override public boolean onQueryTextSubmit(String query) {
@@ -100,5 +102,17 @@ public class DiscoverController extends BaseController {
   @Override protected void onAttach(@NonNull View view) {
     super.onAttach(view);
     getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
+  }
+
+  private static final String INSTANCE_STATE_SEARCH_VIEW = "INSTANCE_STATE_SEARCH_VIEW";
+
+  @Override protected void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putParcelable(INSTANCE_STATE_SEARCH_VIEW, searchView.onSaveInstanceState());
+  }
+
+  @Override protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+    super.onRestoreInstanceState(savedInstanceState);
+    searchView.onRestoreInstanceState(savedInstanceState.getParcelable(INSTANCE_STATE_SEARCH_VIEW));
   }
 }
