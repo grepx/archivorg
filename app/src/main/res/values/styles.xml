@@ -1,31 +1,24 @@
 <resources>
-  <!-- Base -->
-  <style name="BaseAppThemeDark" parent="Theme.AppCompat.NoActionBar">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccentDark</item>
-  </style>
+  <!-- APP THEME STYLES -->
+  <style name="AppTheme" parent="AppTheme.Base.Overrides"/>
 
-  <style name="BaseAppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="AppTheme.Base" parent="Theme.AppCompat.DayNight.NoActionBar">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccentLight</item>
   </style>
 
-  <style name="BaseAppThemeDayNight" parent="Theme.AppCompat.DayNight.NoActionBar">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccentLight</item>
+  <style name="AppTheme.Base.Overrides">
+    <!-- Higher API levels can override here -->
   </style>
 
-  <!-- AppTheme -->
-  <style name="AppThemeLight" parent="BaseAppThemeDayNight"/>
+  <!-- ACTION BAR STYLES -->
+  <style name="ActionBar" parent="ActionBar.Base.Overrides"/>
 
-  <style name="AppThemeDark" parent="BaseAppThemeDark"/>
+  <style name="ActionBar.Base" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+  </style>
 
-  <style name="AppThemeDayNight" parent="BaseAppThemeDayNight"/>
-
-  <style name="AppThemeLight.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-  <style name="AppThemeLight.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+  <style name="ActionBar.Base.Overrides">
+    <!-- Higher API levels can override here -->
+  </style>
 </resources>

@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-  <style name="AppThemeLight" parent="BaseAppThemeLight">
+  <style name="AppTheme.Base.Overrides">
     <item name="android:windowDrawsSystemBarBackgrounds">true</item>
   </style>
-
-  <style name="AppThemeDark" parent="BaseAppThemeDark">
-    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-  </style>
-
-  <style name="AppThemeDayNight" parent="BaseAppThemeDayNight">
-    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-  </style>
-
 </resources>
