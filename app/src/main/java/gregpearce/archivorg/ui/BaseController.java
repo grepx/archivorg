@@ -37,11 +37,7 @@ public abstract class BaseController extends ButterKnifeController {
     return super.onCreateView(inflater, container);
   }
 
-  @Override protected void onAttach(@NonNull View view) {
-    super.onAttach(view);
-
-    DrawerLayout drawerLayout = getDrawerLayout();
-    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+  protected void onCreate() {
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -72,7 +68,7 @@ public abstract class BaseController extends ButterKnifeController {
   public ControllerComponent getComponent() {
     if (controllerComponent == null) {
       if (getParentController() != null) {
-        // this is a child controller - use the parents component
+        // this is a child controller - use the parent's component
         // perhaps in the future child controller scope will be added
         controllerComponent = ((BaseController) getParentController()).getComponent();
       } else {
@@ -84,8 +80,5 @@ public abstract class BaseController extends ButterKnifeController {
       }
     }
     return controllerComponent;
-  }
-
-  protected void onCreate() {
   }
 }

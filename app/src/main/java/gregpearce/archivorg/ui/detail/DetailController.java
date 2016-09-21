@@ -14,11 +14,11 @@ import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.detail.DetailPresenter;
 import gregpearce.archivorg.domain.detail.DetailView;
 import gregpearce.archivorg.domain.model.ArchiveItem;
-import gregpearce.archivorg.ui.BaseController;
+import gregpearce.archivorg.ui.ActivityController;
 import gregpearce.archivorg.util.BundleBuilder;
 import javax.inject.Inject;
 
-public class DetailController extends BaseController implements DetailView {
+public class DetailController extends ActivityController implements DetailView {
 
   private static String ARGUMENT_ID = "ARGUMENT_ID";
 

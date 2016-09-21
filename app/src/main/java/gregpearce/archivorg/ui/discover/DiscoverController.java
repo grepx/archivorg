@@ -21,10 +21,11 @@ import com.bluelinelabs.conductor.support.ControllerPagerAdapter;
 import com.lapism.searchview.SearchView;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.discover.DiscoverPresenter;
+import gregpearce.archivorg.ui.ActivityController;
 import gregpearce.archivorg.ui.BaseController;
 import javax.inject.Inject;
 
-public class DiscoverController extends BaseController {
+public class DiscoverController extends ActivityController {
   @Inject DiscoverPresenter discoverPresenter;
 
   private ControllerPagerAdapter pagerAdapter;
