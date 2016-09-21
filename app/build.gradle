@@ -50,7 +50,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.2.1'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
 
-    compile 'com.lapism:searchview:3.6.2'
+    compile 'com.github.gregpearce:SearchView:-SNAPSHOT'
 
     // DI
     compile 'com.google.dagger:dagger:2.5'

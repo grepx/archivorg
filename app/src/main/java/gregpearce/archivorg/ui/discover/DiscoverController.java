@@ -60,20 +60,17 @@ public class DiscoverController extends ActivityController {
   }
 
   protected void setupSearchView() {
+    searchView.setShouldClearOnClose(false);
+    searchView.setShouldClearOnOpen(false);
     searchView.setVersion(SearchView.VERSION_TOOLBAR);
-    searchView.setNavigationIconArrowHamburger();
     searchView.setVersionMargins(SearchView.VERSION_MARGINS_TOOLBAR_BIG);
     searchView.setTheme(SearchView.THEME_LIGHT, true);
     searchView.setTextSize(16);
     searchView.setHint("Search Archive.org");
-    searchView.setDivider(false);
-    searchView.setVoice(false);
-    searchView.setShadow(false);
     searchView.setAnimationDuration(SearchView.ANIMATION_DURATION);
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override public boolean onQueryTextSubmit(String query) {
         discoverPresenter.search(query);
-        searchView.setShadow(false);
         return true;
       }
 
@@ -91,11 +88,9 @@ public class DiscoverController extends ActivityController {
         } else {
           initCall = false;
         }
-        searchView.setShadow(false);
       }
 
       @Override public void onOpen() {
-        searchView.setShadow(true);
       }
     });
     searchView.setOnMenuClickListener(() -> getDrawerLayout().openDrawer(GravityCompat.START));
