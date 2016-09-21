@@ -71,12 +71,17 @@ public abstract class BaseController extends ButterKnifeController {
 
   public ControllerComponent getComponent() {
     if (controllerComponent == null) {
-      controllerComponent = DaggerControllerComponent.builder()
-                                                     .applicationComponent(
-                                                         MainApplication.APP_COMPONENT)
-                                                     .controllerModule(
-                                                         new ControllerModule(this))
-                                                     .build();
+      if (getParentController() != null) {
+        // this is a child controller - use the parents component
+        // perhaps in the future child controller scope will be added
+        controllerComponent = ((BaseController) getParentController()).getComponent();
+      } else {
+        controllerComponent = DaggerControllerComponent.builder()
+                                                       .applicationComponent(
+                                                           MainApplication.APP_COMPONENT)
+                                                       .controllerModule(new ControllerModule(this))
+                                                       .build();
+      }
     }
     return controllerComponent;
   }
