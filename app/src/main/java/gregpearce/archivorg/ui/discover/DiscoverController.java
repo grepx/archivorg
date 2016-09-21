@@ -45,6 +45,7 @@ public class DiscoverController extends ActivityController {
   }
 
   @Override protected void onViewBound(@NonNull View view) {
+    getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
     pagerAdapter = new DiscoverPagerAdapter(this);
 
     setupTabs();
@@ -98,22 +99,5 @@ public class DiscoverController extends ActivityController {
       }
     });
     searchView.setOnMenuClickListener(() -> getDrawerLayout().openDrawer(GravityCompat.START));
-  }
-
-  @Override protected void onAttach(@NonNull View view) {
-    super.onAttach(view);
-    getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
-  }
-
-  private static final String INSTANCE_STATE_SEARCH_VIEW = "INSTANCE_STATE_SEARCH_VIEW";
-
-  @Override protected void onSaveInstanceState(@NonNull Bundle outState) {
-    super.onSaveInstanceState(outState);
-    outState.putParcelable(INSTANCE_STATE_SEARCH_VIEW, searchView.onSaveInstanceState());
-  }
-
-  @Override protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-    super.onRestoreInstanceState(savedInstanceState);
-    searchView.onRestoreInstanceState(savedInstanceState.getParcelable(INSTANCE_STATE_SEARCH_VIEW));
   }
 }
