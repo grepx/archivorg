@@ -4,7 +4,8 @@ import dagger.Component;
 import gregpearce.archivorg.di.annotations.ControllerScope;
 import gregpearce.archivorg.ui.activity.MainActivity;
 import gregpearce.archivorg.ui.detail.DetailController;
-import gregpearce.archivorg.ui.discover.DiscoverController;
+import gregpearce.archivorg.ui.discover.BaseDiscoverController;
+import gregpearce.archivorg.ui.discover.SearchController;
 import gregpearce.archivorg.ui.feed.FeedController;
 import gregpearce.archivorg.ui.feed.FeedItemViewHolder;
 
@@ -13,7 +14,7 @@ import gregpearce.archivorg.ui.feed.FeedItemViewHolder;
     modules = {
         ControllerModule.class
     }) public interface ControllerComponent {
-  void inject(DiscoverController discoverController);
+  void inject(BaseDiscoverController baseDiscoverController);
 
   void inject(FeedController feedController);
 
@@ -22,4 +23,6 @@ import gregpearce.archivorg.ui.feed.FeedItemViewHolder;
   void inject(MainActivity mainActivity);
 
   void inject(DetailController detailController);
+
+  void inject(SearchController searchController);
 }

@@ -1,4 +1,4 @@
-package gregpearce.archivorg.domain.discover;
+package gregpearce.archivorg.domain.search;
 
 import gregpearce.archivorg.di.annotations.ControllerScope;
 import gregpearce.archivorg.domain.BasePresenter;
@@ -8,7 +8,7 @@ import gregpearce.archivorg.domain.feed.FeedPresenterFactory;
 import gregpearce.archivorg.ui.feed.FeedType;
 import javax.inject.Inject;
 
-@ControllerScope public class DiscoverPresenter extends BasePresenter<BaseView> {
+@ControllerScope public class SearchPresenter extends BasePresenter<BaseView> {
 
   private FeedPresenter popularFeedPresenter;
   private FeedPresenter videoFeedPresenter;
@@ -16,7 +16,7 @@ import javax.inject.Inject;
   private FeedPresenter bookFeedPresenter;
   private FeedPresenter imageFeedPresenter;
 
-  @Inject public DiscoverPresenter(FeedPresenterFactory feedPresenterFactory) {
+  @Inject public SearchPresenter(FeedPresenterFactory feedPresenterFactory) {
     popularFeedPresenter = feedPresenterFactory.get(FeedType.All);
     videoFeedPresenter = feedPresenterFactory.get(FeedType.Video);
     audioFeedPresenter = feedPresenterFactory.get(FeedType.Audio);

@@ -10,11 +10,8 @@ import butterknife.BindView;
 import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
-import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.di.ControllerComponent;
-import gregpearce.archivorg.di.ControllerModule;
-import gregpearce.archivorg.di.DaggerControllerComponent;
 import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.ui.discover.DiscoverController;
 

@@ -33,7 +33,7 @@ public class DetailController extends ActivityController implements DetailView {
   //@BindView(R.id.toolbar_image) ImageView toolbarImageView;
 
   public DetailController(String id) {
-    this(new BundleBuilder().putString(ARGUMENT_ID, id).build());
+    this(BundleBuilder.create().putString(ARGUMENT_ID, id).build());
   }
 
   public DetailController(Bundle args) {

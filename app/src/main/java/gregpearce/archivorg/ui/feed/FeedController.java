@@ -36,7 +36,7 @@ public class FeedController extends BaseController implements FeedView {
   private static final String ARGUMENT_TYPE = "ARGUMENT_TYPE";
 
   public FeedController(FeedType feedType) {
-    this(new BundleBuilder().putSerializable(ARGUMENT_TYPE, feedType).build());
+    this(BundleBuilder.create().putSerializable(ARGUMENT_TYPE, feedType).build());
   }
 
   public FeedController(Bundle args) {

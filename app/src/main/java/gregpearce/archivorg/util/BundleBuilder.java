@@ -10,12 +10,20 @@ public class BundleBuilder {
 
   private final Bundle bundle;
 
-  public BundleBuilder() {
+  private BundleBuilder() {
     this.bundle = new Bundle();
   }
 
-  public BundleBuilder(Bundle bundle) {
+  private BundleBuilder(Bundle bundle) {
     this.bundle = bundle;
+  }
+
+  public static BundleBuilder create() {
+    return new BundleBuilder();
+  }
+
+  public static BundleBuilder from(Bundle bundle) {
+    return new BundleBuilder(bundle);
   }
 
   public BundleBuilder putAll(Bundle bundle) {
