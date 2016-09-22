@@ -78,6 +78,7 @@ public class FeedController extends BaseController implements FeedView {
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     recyclerView.setAdapter(adapter);
     swipeRefreshLayout.setOnRefreshListener(() -> presenter.refresh());
+    presenter.start();
   }
 
   @Override protected void onAttach(@NonNull View view) {
