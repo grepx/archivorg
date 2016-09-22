@@ -21,7 +21,7 @@ import javax.inject.Inject;
 public abstract class BaseDiscoverController extends ActivityController {
   @Inject Navigator navigator;
 
-  private PagerAdapter pagerAdapter;
+  protected PagerAdapter pagerAdapter;
 
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.view_pager) ViewPager viewPager;

@@ -29,5 +29,14 @@ class PagerAdapter extends ControllerPagerAdapter {
   public FeedType getFeedType(int position) {
     return tabs[position].feedType;
   }
+
+  public int getFeedPosition(FeedType feedType) {
+    for (int i = 0; i < tabs.length; i++) {
+      if (tabs[i].feedType == feedType) {
+        return i;
+      }
+    }
+    throw new RuntimeException();
+  }
 }
 

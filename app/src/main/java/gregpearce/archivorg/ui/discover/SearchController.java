@@ -34,6 +34,10 @@ public class SearchController extends BaseDiscoverController {
 
   @Override protected void onViewBound(@NonNull View view) {
     super.onViewBound(view);
+
+    int startTabIndex = pagerAdapter.getFeedPosition(startTab);
+    viewPager.setCurrentItem(startTabIndex);
+
     searchView.setShouldClearOnClose(false);
     searchView.setShouldClearOnOpen(false);
     searchView.setOnMenuClickListener(() -> getRouter().popController(this));
