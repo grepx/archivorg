@@ -7,7 +7,7 @@ import java.util.List;
 public interface FeedView extends BaseView {
   void updateRefreshing(boolean isRefreshing);
 
-  void updateFeed(List<FeedItem> feedItems, boolean reachedEndOfFeed);
+  void updateFeed(List<FeedItem> feedItems, boolean reachedBottomOfFeed);
 
   void showError();
 }

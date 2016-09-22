@@ -4,7 +4,7 @@ import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
 import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.detail.DetailController;
-import gregpearce.archivorg.ui.feed.FeedType;
+import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.ui.discover.SearchController;
 import javax.inject.Inject;
 

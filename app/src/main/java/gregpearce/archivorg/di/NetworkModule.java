@@ -2,18 +2,10 @@ package gregpearce.archivorg.di;
 
 import dagger.Module;
 import dagger.Provides;
-import gregpearce.archivorg.domain.network.AllFeedService;
-import gregpearce.archivorg.domain.network.AudioFeedService;
-import gregpearce.archivorg.domain.network.BookFeedService;
-import gregpearce.archivorg.domain.network.ImageFeedService;
-import gregpearce.archivorg.domain.network.VideoFeedService;
-import gregpearce.archivorg.network.AllFeedServiceImpl;
+import gregpearce.archivorg.domain.network.FeedServiceFactory;
 import gregpearce.archivorg.network.ArchiveOrgApiV1;
 import gregpearce.archivorg.network.ArchiveOrgApiV2;
-import gregpearce.archivorg.network.AudioFeedServiceImpl;
-import gregpearce.archivorg.network.BookFeedServiceImpl;
-import gregpearce.archivorg.network.ImageFeedServiceImpl;
-import gregpearce.archivorg.network.VideoFeedServiceImpl;
+import gregpearce.archivorg.network.FeedServiceFactoryImpl;
 import javax.inject.Singleton;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -52,27 +44,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
     return retrofit.create(ArchiveOrgApiV2.class);
   }
 
-  // hide the implementation of each network service behind an interface
-  @Provides @Singleton AllFeedService provideAllFeedService(AllFeedServiceImpl allFeedService) {
-    return allFeedService;
-  }
-
-  @Provides @Singleton AudioFeedService provideAudioFeedService(
-      AudioFeedServiceImpl audioFeedService) {
-    return audioFeedService;
-  }
-
-  @Provides @Singleton BookFeedService provideBookFeedService(BookFeedServiceImpl bookFeedService) {
-    return bookFeedService;
-  }
-
-  @Provides @Singleton ImageFeedService provideImageFeedService(
-      ImageFeedServiceImpl imageFeedService) {
-    return imageFeedService;
-  }
-
-  @Provides @Singleton VideoFeedService provideVideoFeedService(
-      VideoFeedServiceImpl videoFeedService) {
-    return videoFeedService;
+  @Provides @Singleton FeedServiceFactory provideFeedServiceFactory(FeedServiceFactoryImpl feedServiceFactory) {
+    return feedServiceFactory;
   }
 }

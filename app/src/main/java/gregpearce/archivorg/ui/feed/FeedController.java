@@ -13,9 +13,10 @@ import android.widget.Toast;
 import butterknife.BindView;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.feed.FeedPresenter;
-import gregpearce.archivorg.domain.feed.FeedPresenterFactory;
 import gregpearce.archivorg.domain.feed.FeedView;
 import gregpearce.archivorg.domain.model.FeedItem;
+import gregpearce.archivorg.domain.model.FeedType;
+import gregpearce.archivorg.domain.network.FeedServiceFactory;
 import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.util.BundleBuilder;
 import java.util.List;
@@ -23,30 +24,48 @@ import javax.inject.Inject;
 
 public class FeedController extends BaseController implements FeedView {
 
-  @Inject FeedPresenterFactory feedPresenterFactory;
+  @Inject FeedServiceFactory feedServiceFactory;
 
   private FeedPresenter presenter;
-  private FeedAdapter adapter;
   private FeedType feedType;
+  private String query;
 
+  private FeedAdapter adapter;
   @BindView(R.id.recycler_view) RecyclerView recyclerView;
   @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
   @BindView(R.id.empty_message_text_view) TextView emptyMessageTextView;
 
-  private static final String ARGUMENT_TYPE = "ARGUMENT_TYPE";
+  private static final String ARGUMENT_FEED_TYPE = "ARGUMENT_FEED_TYPE";
+  private static final String ARGUMENT_QUERY = "ARGUMENT_QUERY";
 
-  public FeedController(FeedType feedType) {
-    this(BundleBuilder.create().putSerializable(ARGUMENT_TYPE, feedType).build());
+  public static FeedController createTopFeedInstance(FeedType feedType) {
+    return new FeedController(feedType, null);
+  }
+
+  public static FeedController createSearchFeedInstance(FeedType feedType, String query) {
+    return new FeedController(feedType, query);
+  }
+
+  private FeedController(FeedType feedType, String query) {
+    this(BundleBuilder.create()
+                      .putSerializable(ARGUMENT_FEED_TYPE, feedType)
+                      .putString(ARGUMENT_QUERY, query)
+                      .build());
   }
 
   public FeedController(Bundle args) {
     super(args);
-    feedType = (FeedType) args.getSerializable(ARGUMENT_TYPE);
+    feedType = (FeedType) args.getSerializable(ARGUMENT_FEED_TYPE);
+    query = args.getString(ARGUMENT_QUERY);
   }
 
   @Override protected void onCreate() {
     getComponent().inject(this);
-    presenter = feedPresenterFactory.get(feedType);
+    if (query != null) {
+      presenter = new FeedPresenter(feedServiceFactory.getSearchFeed(feedType, query));
+    } else {
+      presenter = new FeedPresenter(feedServiceFactory.getTopFeed(feedType));
+    }
   }
 
   @Override
@@ -55,10 +74,9 @@ public class FeedController extends BaseController implements FeedView {
   }
 
   @Override protected void onViewBound(@NonNull View view) {
-    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     adapter = new FeedAdapter(presenter);
+    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     recyclerView.setAdapter(adapter);
-
     swipeRefreshLayout.setOnRefreshListener(() -> presenter.refresh());
   }
 
@@ -76,8 +94,8 @@ public class FeedController extends BaseController implements FeedView {
     swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(isRefreshing));
   }
 
-  @Override public void updateFeed(List<FeedItem> feedItems, boolean endOfFeed) {
-    adapter.updateFeed(feedItems, endOfFeed);
+  @Override public void updateFeed(List<FeedItem> feedItems, boolean reachedBottomOfFeed) {
+    adapter.updateFeed(feedItems, reachedBottomOfFeed);
     if (feedItems.size() > 0) {
       emptyMessageTextView.setVisibility(View.GONE);
     } else {

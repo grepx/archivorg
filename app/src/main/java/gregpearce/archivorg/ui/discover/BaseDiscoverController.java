@@ -15,7 +15,7 @@ import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.ActivityController;
 import gregpearce.archivorg.ui.feed.FeedController;
-import gregpearce.archivorg.ui.feed.FeedType;
+import gregpearce.archivorg.domain.model.FeedType;
 import javax.inject.Inject;
 
 public abstract class BaseDiscoverController extends ActivityController {

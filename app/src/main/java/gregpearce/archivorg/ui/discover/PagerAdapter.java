@@ -2,8 +2,7 @@ package gregpearce.archivorg.ui.discover;
 
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.support.ControllerPagerAdapter;
-import gregpearce.archivorg.ui.feed.FeedController;
-import gregpearce.archivorg.ui.feed.FeedType;
+import gregpearce.archivorg.domain.model.FeedType;
 
 class PagerAdapter extends ControllerPagerAdapter {
 

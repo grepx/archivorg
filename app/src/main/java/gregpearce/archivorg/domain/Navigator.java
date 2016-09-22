@@ -1,7 +1,6 @@
 package gregpearce.archivorg.domain;
 
-import com.bluelinelabs.conductor.Router;
-import gregpearce.archivorg.ui.feed.FeedType;
+import gregpearce.archivorg.domain.model.FeedType;
 
 public interface Navigator {
   void navigateToDiscover();

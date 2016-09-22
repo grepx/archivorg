@@ -1,7 +1,7 @@
 package gregpearce.archivorg.ui.discover;
 
 import gregpearce.archivorg.ui.feed.FeedController;
-import gregpearce.archivorg.ui.feed.FeedType;
+import gregpearce.archivorg.domain.model.FeedType;
 
 class FeedTab {
   FeedController controller;

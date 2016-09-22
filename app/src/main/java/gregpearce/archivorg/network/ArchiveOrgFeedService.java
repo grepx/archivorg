@@ -2,6 +2,7 @@ package gregpearce.archivorg.network;
 
 import gregpearce.archivorg.Constants;
 import gregpearce.archivorg.domain.model.FeedItem;
+import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.util.NullUtil;
 import java.util.ArrayList;
@@ -21,6 +22,21 @@ import timber.log.Timber;
   public static final String REVIEW_DATE_DESC = "publicdate desc";
   public static final String DOWNLOADS_DESC = "downloads desc";
   public static final String TOP_QUERY = "downloads:[1000 TO 100000000] AND avg_rating:[3 TO 5]";
+
+  public static String getFeedTypeClause(FeedType feedType) {
+    switch (feedType) {
+      case Audio:
+        return " AND mediatype:(audio)";
+      case Book:
+        return " AND mediatype:(texts)";
+      case Image:
+        return " AND mediatype:(image)";
+      case Video:
+        return " AND mediatype:(movies)";
+      default:
+        return "";
+    }
+  }
 
   public Observable<ResultPage> search(String query, int page, String sort) {
     if (query.isEmpty()) {

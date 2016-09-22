@@ -14,13 +14,11 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   FeedService feedService;
 
-  private String query = null;
   private boolean refreshing = false;
   private final List<FeedItem> feedItems = new ArrayList<>();
-  private int currentPage = 0;
+  private int currentPage = 1;
   private boolean fetchingNextPage = false;
   private boolean reachedBottomOfFeed = false;
-  private boolean resultsNeedUpdating = false;
 
   public FeedPresenter(FeedService feedService) {
     this.feedService = feedService;
@@ -28,37 +26,13 @@ public class FeedPresenter extends BasePresenter<FeedView> {
 
   @Override public void start() {
     super.start();
-    // do the initial feed load
-    search("");
-  }
-
-  @Override public void resume() {
-    super.resume();
-    if (resultsNeedUpdating) {
-      updateResults();
-    }
+    setRefreshing(true);
+    fetchPage();
   }
 
   @Override protected void syncView(FeedView view) {
-    if (!resultsNeedUpdating) {
-      // prevent the view from updating with stale information if we are in the middle of an update
-      view.updateFeed(feedItems, reachedBottomOfFeed);
-    }
+    view.updateFeed(feedItems, reachedBottomOfFeed);
     view.updateRefreshing(this.refreshing);
-  }
-
-  public void search(String query) {
-    if (query.equals(this.query)) {
-      // prevent unnecessary data loss and network calls
-      return;
-    }
-    this.query = query;
-    // optimise network calls to only happen when/if a presenter is not paused
-    if (isNotPaused()) {
-      updateResults();
-    } else {
-      resultsNeedUpdating = true;
-    }
   }
 
   public void scrolledToIndex(int index) {
@@ -77,7 +51,6 @@ public class FeedPresenter extends BasePresenter<FeedView> {
   }
 
   private void updateResults() {
-    resultsNeedUpdating = false;
     if (!refreshing) {
       currentPage = 1;
       reachedBottomOfFeed = false;
@@ -95,26 +68,22 @@ public class FeedPresenter extends BasePresenter<FeedView> {
     fetchingNextPage = true;
     Observable<ResultPage> serviceCall;
 
-    // if the query is empty, get the latest items, otherwise, do a search
-    if (query.isEmpty()) {
-      serviceCall = feedService.latest(currentPage);
-    } else {
-      serviceCall = feedService.search(query, currentPage);
-    }
+    serviceCall = feedService.getPage(currentPage);
 
-    serviceCall.compose(RxUtil.subscribeDefaults()).subscribe(result -> {
-      Timber.d("Feed refresh complete, results count: %d", result.totalCount());
-      if (currentPage == 1) {
-        feedItems.clear();
-      }
-      processPage(result);
-      setRefreshing(false);
-      fetchingNextPage = false;
-    }, error -> {
-      view.notNull(view -> view.showError());
-      setRefreshing(false);
-      fetchingNextPage = false;
-    });
+    serviceCall.compose(RxUtil.subscribeDefaults()).subscribe(
+        result -> {
+          if (currentPage == 1) {
+            feedItems.clear();
+          }
+          processPage(result);
+          setRefreshing(false);
+          fetchingNextPage = false;
+        },
+        error -> {
+          view.notNull(view -> view.showError());
+          setRefreshing(false);
+          fetchingNextPage = false;
+        });
   }
 
   private void processPage(ResultPage page) {
