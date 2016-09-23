@@ -48,7 +48,7 @@ public class DetailController extends ActivityController implements DetailView {
 
   @Override
   protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-    return inflater.inflate(R.layout.activity_detail, container, false);
+    return inflater.inflate(R.layout.controller_detail, container, false);
   }
 
   @Override protected void onViewBound(@NonNull View view) {
