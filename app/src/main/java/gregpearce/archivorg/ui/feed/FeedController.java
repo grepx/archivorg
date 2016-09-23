@@ -22,12 +22,14 @@ import gregpearce.archivorg.ui.model.StateTransition;
 import gregpearce.archivorg.util.BundleBuilder;
 import java.util.List;
 import javax.inject.Inject;
+import rx.Subscription;
 
 public class FeedController extends BaseController {
 
   @Inject FeedServiceFactory feedServiceFactory;
 
   private FeedPresenter presenter;
+  private Subscription viewStateSubscription;
   private FeedType feedType;
   private String query;
 
@@ -82,16 +84,22 @@ public class FeedController extends BaseController {
   }
 
   @Override protected void onAttach(@NonNull View view) {
-    presenter.getViewState()
-             .map(viewState -> new StateTransition<>(viewState))
-             .scan((transition, nextState) -> transition.next(nextState))
-             .subscribe(
-                 transition -> {
-                   processTransition(transition.old(), transition.current());
-                 },
-                 throwable -> {
-                   throw new RuntimeException(throwable);
-                 });
+    viewStateSubscription =
+        presenter.getViewState()
+                 .map(viewState -> new StateTransition<>(viewState))
+                 .scan((transition, nextState) -> transition.next(nextState))
+                 .subscribe(
+                     transition -> {
+                       processTransition(transition.old(),
+                                         transition.current());
+                     },
+                     throwable -> {
+                       throw new RuntimeException(throwable);
+                     });
+  }
+
+  @Override protected void onDetach(@NonNull View view) {
+    viewStateSubscription.unsubscribe();
   }
 
   private void processTransition(FeedViewState old, FeedViewState current) {
@@ -119,11 +127,8 @@ public class FeedController extends BaseController {
     }
   }
 
-  @Override protected void onDetach(@NonNull View view) {
-  }
-
   public void setRefreshing(boolean isRefreshing) {
-    swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(isRefreshing));
+    swipeRefreshLayout.setRefreshing(isRefreshing);
   }
 
   public void setFeed(List<FeedItem> feedItems, boolean showBottomLoading) {
