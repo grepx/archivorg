@@ -1,10 +1,12 @@
 package gregpearce.archivorg;
 
 import android.app.Application;
+import com.crashlytics.android.Crashlytics;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import gregpearce.archivorg.di.ApplicationComponent;
 import gregpearce.archivorg.di.ApplicationModule;
 import gregpearce.archivorg.di.DaggerApplicationComponent;
+import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 public class MainApplication extends Application {
@@ -15,6 +17,7 @@ public class MainApplication extends Application {
 
   @Override public void onCreate() {
     super.onCreate();
+    Fabric.with(this, new Crashlytics());
     Timber.plant(new Timber.DebugTree());
     INSTANCE = this;
 
