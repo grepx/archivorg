@@ -1,6 +1,5 @@
 package gregpearce.archivorg.domain.feed;
 
-import com.google.auto.value.AutoValue;
 import gregpearce.archivorg.domain.model.FeedItem;
 import java.util.List;
 import org.immutables.value.Value;
@@ -11,6 +10,8 @@ public abstract class FeedViewState {
   public abstract boolean refreshing();
 
   public abstract List<FeedItem> feedItems();
+
+  public abstract boolean showEmptyFeedMessage();
 
   public abstract boolean showBottomLoading();
 

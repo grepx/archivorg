@@ -7,8 +7,6 @@ import java.util.Collections;
 import rx.Observable;
 import timber.log.Timber;
 
-import static gregpearce.archivorg.domain.feed.FeedViewState.from;
-
 public class FeedPresenter {
 
   private FeedService feedService;
@@ -25,6 +23,7 @@ public class FeedPresenter {
                             .showBottomLoading(false)
                             .showError(false)
                             .refreshing(true)
+                            .showEmptyFeedMessage(false)
                             .feedItems(Collections.EMPTY_LIST)
                             .build();
 
@@ -57,16 +56,16 @@ public class FeedPresenter {
       final int LOAD_NEXT_PAGE_MARGIN = 10;
       if (index > viewState.feedItems().size() - LOAD_NEXT_PAGE_MARGIN) {
         fetchPage();
-        nextPageToFetch++;
       }
     }
   }
 
   public void refresh() {
-    viewState = from(viewState)
+    viewState = FeedViewState.from(viewState)
         .showBottomLoading(false)
         .showError(false)
         .refreshing(true)
+        .showEmptyFeedMessage(false)
         .feedItems(Collections.EMPTY_LIST)
         .build();
     updateView();
@@ -85,6 +84,7 @@ public class FeedPresenter {
         result -> {
           showPage(result);
           fetchingNextPage = false;
+          nextPageToFetch++;
         },
         error -> {
           showError();
@@ -94,17 +94,20 @@ public class FeedPresenter {
 
   private void showPage(ResultPage page) {
     reachedBottomOfFeed = page.isLastPage();
+    boolean feedIsEmpty = reachedBottomOfFeed &&
+                          viewState.feedItems().size() == 0 && page.results().size() == 0;
     // update presenter state
-    viewState = from(viewState)
+    viewState = FeedViewState.from(viewState)
         .addAllFeedItems(page.results())
         .showBottomLoading(!reachedBottomOfFeed)
+        .showEmptyFeedMessage(feedIsEmpty)
         .refreshing(false)
         .build();
     updateView();
   }
 
   private void showError() {
-    viewState = from(viewState)
+    viewState = FeedViewState.from(viewState)
         .showError(true)
         .refreshing(false)
         .showBottomLoading(false)

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ViewUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.domain.network.FeedServiceFactory;
 import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.util.BundleBuilder;
+import gregpearce.archivorg.util.ViewUtil;
 import javax.inject.Inject;
 
 public class FeedController extends BaseController implements FeedView {
@@ -100,6 +102,9 @@ public class FeedController extends BaseController implements FeedView {
         oldViewState.showBottomLoading() != viewState.showBottomLoading()) {
       updateFeed();
     }
+    if (oldViewState.showEmptyFeedMessage() != viewState.showEmptyFeedMessage()) {
+      ViewUtil.setVisible(emptyMessageTextView, viewState.showEmptyFeedMessage());
+    }
     if (oldViewState.showError() != viewState.showError()) {
       updateError();
     }
@@ -117,11 +122,6 @@ public class FeedController extends BaseController implements FeedView {
 
   public void updateFeed() {
     adapter.updateFeed(viewState.feedItems(), viewState.showBottomLoading());
-    if (viewState.feedItems().size() > 0) {
-      emptyMessageTextView.setVisibility(View.GONE);
-    } else {
-      emptyMessageTextView.setVisibility(View.VISIBLE);
-    }
   }
 
   public void updateError() {
