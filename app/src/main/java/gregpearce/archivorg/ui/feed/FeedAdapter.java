@@ -8,13 +8,14 @@ import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.feed.FeedPresenter;
 import gregpearce.archivorg.domain.model.FeedItem;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private FeedPresenter presenter;
-  private List<FeedItem> feedItems = new ArrayList<>(0);
-  private boolean endOfFeed;
+  private List<FeedItem> feedItems = Collections.EMPTY_LIST;
+  private boolean showBottomLoading;
   private int count = 0;
 
   private static final int VIEW_TYPE_FEED_ITEM = 1;
@@ -24,10 +25,10 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     this.presenter = presenter;
   }
 
-  void updateFeed(List<FeedItem> feedItems, boolean endOfFeed) {
+  void updateFeed(List<FeedItem> feedItems, boolean showBottomLoading) {
     this.feedItems = feedItems;
-    this.endOfFeed = endOfFeed;
-    count = feedItems.size() + (endOfFeed ? 0 : 1);
+    this.showBottomLoading = showBottomLoading;
+    count = feedItems.size() + (showBottomLoading ? 1 : 0);
     notifyDataSetChanged();
   }
 
@@ -44,7 +45,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   }
 
   @Override public int getItemViewType(int position) {
-    if (!endOfFeed && position == count - 1) {
+    if (showBottomLoading && position == count - 1) {
       return VIEW_TYPE_FEED_LOADING;
     } else {
       return VIEW_TYPE_FEED_ITEM;

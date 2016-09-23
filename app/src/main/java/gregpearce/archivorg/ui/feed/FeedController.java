@@ -13,16 +13,17 @@ import android.widget.Toast;
 import butterknife.BindView;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.feed.FeedPresenter;
-import gregpearce.archivorg.domain.feed.FeedView;
+import gregpearce.archivorg.domain.feed.FeedViewState;
 import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.domain.network.FeedServiceFactory;
 import gregpearce.archivorg.ui.BaseController;
+import gregpearce.archivorg.ui.model.StateTransition;
 import gregpearce.archivorg.util.BundleBuilder;
 import java.util.List;
 import javax.inject.Inject;
 
-public class FeedController extends BaseController implements FeedView {
+public class FeedController extends BaseController {
 
   @Inject FeedServiceFactory feedServiceFactory;
 
@@ -78,25 +79,55 @@ public class FeedController extends BaseController implements FeedView {
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     recyclerView.setAdapter(adapter);
     swipeRefreshLayout.setOnRefreshListener(() -> presenter.refresh());
-    presenter.start();
   }
 
   @Override protected void onAttach(@NonNull View view) {
-    presenter.registerView(this);
-    presenter.resume();
+    presenter.getViewState()
+             .map(viewState -> new StateTransition<>(viewState))
+             .scan((transition, nextState) -> transition.next(nextState))
+             .subscribe(
+                 transition -> {
+                   processTransition(transition.old(), transition.current());
+                 },
+                 throwable -> {
+                   throw new RuntimeException(throwable);
+                 });
+  }
+
+  private void processTransition(FeedViewState old, FeedViewState current) {
+    if (old == null) {
+      setupView(current);
+      return;
+    }
+    if (old.refreshing() != current.refreshing()) {
+      setRefreshing(current.refreshing());
+    }
+    if (old.feedItems() != current.feedItems() ||
+        old.showBottomLoading() != current.showBottomLoading()) {
+      setFeed(current.feedItems(), current.showBottomLoading());
+    }
+    if (old.showError() != current.showError()) {
+      showError();
+    }
+  }
+
+  private void setupView(FeedViewState viewState) {
+    setFeed(viewState.feedItems(), viewState.showBottomLoading());
+    setRefreshing(viewState.refreshing());
+    if (viewState.showError()) {
+      showError();
+    }
   }
 
   @Override protected void onDetach(@NonNull View view) {
-    presenter.unregisterView();
-    presenter.pause();
   }
 
-  @Override public void updateRefreshing(boolean isRefreshing) {
+  public void setRefreshing(boolean isRefreshing) {
     swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(isRefreshing));
   }
 
-  @Override public void updateFeed(List<FeedItem> feedItems, boolean reachedBottomOfFeed) {
-    adapter.updateFeed(feedItems, reachedBottomOfFeed);
+  public void setFeed(List<FeedItem> feedItems, boolean showBottomLoading) {
+    adapter.updateFeed(feedItems, showBottomLoading);
     if (feedItems.size() > 0) {
       emptyMessageTextView.setVisibility(View.GONE);
     } else {
@@ -104,7 +135,7 @@ public class FeedController extends BaseController implements FeedView {
     }
   }
 
-  @Override public void showError() {
+  public void showError() {
     Toast.makeText(getActivity(), R.string.error_network, Toast.LENGTH_LONG).show();
   }
 }

@@ -1,94 +1,118 @@
 package gregpearce.archivorg.domain.feed;
 
-import gregpearce.archivorg.domain.BasePresenter;
-import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.network.FeedService;
 import gregpearce.archivorg.util.RxUtil;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 import rx.Observable;
+import rx.subjects.BehaviorSubject;
 import timber.log.Timber;
 
-public class FeedPresenter extends BasePresenter<FeedView> {
+import static gregpearce.archivorg.domain.feed.FeedViewState.from;
 
-  FeedService feedService;
+public class FeedPresenter {
 
-  private boolean refreshing = false;
-  private final List<FeedItem> feedItems = new ArrayList<>();
-  private int currentPage = 1;
+  private FeedService feedService;
+
+  private boolean started = false;
   private boolean fetchingNextPage = false;
   private boolean reachedBottomOfFeed = false;
+  private int nextPageToFetch = 1;
+
+  private FeedViewState viewState =
+      ImmutableFeedViewState.builder()
+                            .showBottomLoading(false)
+                            .showError(false)
+                            .refreshing(true)
+                            .feedItems(Collections.EMPTY_LIST)
+                            .build();
+  BehaviorSubject<FeedViewState> viewState$ = BehaviorSubject.create(viewState);
 
   public FeedPresenter(FeedService feedService) {
     this.feedService = feedService;
   }
 
-  @Override public void start() {
-    super.start();
-    setRefreshing(true);
-    fetchPage();
+  public Observable<FeedViewState> getViewState() {
+    start();
+    return viewState$.asObservable().distinctUntilChanged();
+    //return viewMutations.asObservable()
+    //                    // use the stream of view state mutators to mutate the view state
+    //                    .scan(INITIAL_VIEW_STATE,
+    //                          (currentState, mutator) -> mutator.call(currentState))
+    //                    // the mutators will often just set something that was already set
+    //                    // for efficiency, eliminate the view from receiving duplicates
+    //                    .distinctUntilChanged();
   }
 
-  @Override protected void syncView(FeedView view) {
-    view.updateFeed(feedItems, reachedBottomOfFeed);
-    view.updateRefreshing(this.refreshing);
+  private void start() {
+    if (!started) {
+      started = true;
+      fetchPage();
+    }
   }
 
   public void scrolledToIndex(int index) {
     Timber.d("Scrolled to index: %d", index);
     if (!reachedBottomOfFeed && !fetchingNextPage) {
       final int LOAD_NEXT_PAGE_MARGIN = 10;
-      if (index > feedItems.size() - LOAD_NEXT_PAGE_MARGIN) {
-        currentPage++;
+      if (index > viewState.feedItems().size() - LOAD_NEXT_PAGE_MARGIN) {
         fetchPage();
+        nextPageToFetch++;
       }
     }
   }
 
   public void refresh() {
-    updateResults();
-  }
+    viewState = from(viewState)
+        .showBottomLoading(false)
+        .showError(false)
+        .refreshing(true)
+        .feedItems(Collections.EMPTY_LIST)
+        .build();
+    updateViewState();
 
-  private void updateResults() {
-    if (!refreshing) {
-      currentPage = 1;
-      reachedBottomOfFeed = false;
-      setRefreshing(true);
-      fetchPage();
-    }
-  }
-
-  private void setRefreshing(boolean refreshing) {
-    this.refreshing = refreshing;
-    view.notNull(view -> view.updateRefreshing(this.refreshing));
+    nextPageToFetch = 1;
+    fetchPage();
   }
 
   private void fetchPage() {
     fetchingNextPage = true;
     Observable<ResultPage> serviceCall;
 
-    serviceCall = feedService.getPage(currentPage);
+    serviceCall = feedService.getPage(nextPageToFetch);
 
     serviceCall.compose(RxUtil.subscribeDefaults()).subscribe(
         result -> {
-          if (currentPage == 1) {
-            feedItems.clear();
-          }
-          processPage(result);
-          setRefreshing(false);
+          showPage(result);
           fetchingNextPage = false;
         },
         error -> {
-          view.notNull(view -> view.showError());
-          setRefreshing(false);
+          showError();
           fetchingNextPage = false;
         });
   }
 
-  private void processPage(ResultPage page) {
-    feedItems.addAll(page.results());
+  private void showPage(ResultPage page) {
     reachedBottomOfFeed = page.isLastPage();
-    view.notNull(view -> view.updateFeed(feedItems, reachedBottomOfFeed));
+    // update presenter state
+    viewState = from(viewState)
+        .addAllFeedItems(page.results())
+        .showBottomLoading(!reachedBottomOfFeed)
+        .refreshing(false)
+        .build();
+    updateViewState();
+  }
+
+  private void showError() {
+    viewState = from(viewState)
+        .showError(true)
+        .refreshing(false)
+        .showBottomLoading(false)
+        .build();
+    updateViewState();
+  }
+
+  private void updateViewState() {
+    viewState$.onNext(viewState);
   }
 }
