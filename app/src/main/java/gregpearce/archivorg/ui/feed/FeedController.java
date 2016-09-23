@@ -13,23 +13,21 @@ import android.widget.Toast;
 import butterknife.BindView;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.feed.FeedPresenter;
+import gregpearce.archivorg.domain.feed.FeedView;
 import gregpearce.archivorg.domain.feed.FeedViewState;
-import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.domain.network.FeedServiceFactory;
 import gregpearce.archivorg.ui.BaseController;
-import gregpearce.archivorg.ui.model.StateTransition;
 import gregpearce.archivorg.util.BundleBuilder;
-import java.util.List;
 import javax.inject.Inject;
-import rx.Subscription;
 
-public class FeedController extends BaseController {
+public class FeedController extends BaseController implements FeedView {
 
   @Inject FeedServiceFactory feedServiceFactory;
 
   private FeedPresenter presenter;
-  private Subscription viewStateSubscription;
+  private FeedViewState viewState;
+
   private FeedType feedType;
   private String query;
 
@@ -84,63 +82,51 @@ public class FeedController extends BaseController {
   }
 
   @Override protected void onAttach(@NonNull View view) {
-    viewStateSubscription =
-        presenter.getViewState()
-                 .map(viewState -> new StateTransition<>(viewState))
-                 .scan((transition, nextState) -> transition.next(nextState))
-                 .subscribe(
-                     transition -> {
-                       processTransition(transition.old(),
-                                         transition.current());
-                     },
-                     throwable -> {
-                       throw new RuntimeException(throwable);
-                     });
+    viewState = presenter.subscribe(this);
+    setupView();
   }
 
   @Override protected void onDetach(@NonNull View view) {
-    viewStateSubscription.unsubscribe();
+    presenter.unsubscribe();
   }
 
-  private void processTransition(FeedViewState old, FeedViewState current) {
-    if (old == null) {
-      setupView(current);
-      return;
+  @Override public void update(FeedViewState updatedViewState) {
+    FeedViewState oldViewState = viewState;
+    viewState = updatedViewState;
+    if (oldViewState.refreshing() != viewState.refreshing()) {
+      updateRefreshing();
     }
-    if (old.refreshing() != current.refreshing()) {
-      setRefreshing(current.refreshing());
+    if (oldViewState.feedItems() != viewState.feedItems() ||
+        oldViewState.showBottomLoading() != viewState.showBottomLoading()) {
+      updateFeed();
     }
-    if (old.feedItems() != current.feedItems() ||
-        old.showBottomLoading() != current.showBottomLoading()) {
-      setFeed(current.feedItems(), current.showBottomLoading());
-    }
-    if (old.showError() != current.showError()) {
-      showError();
-    }
-  }
-
-  private void setupView(FeedViewState viewState) {
-    setFeed(viewState.feedItems(), viewState.showBottomLoading());
-    setRefreshing(viewState.refreshing());
-    if (viewState.showError()) {
-      showError();
+    if (oldViewState.showError() != viewState.showError()) {
+      updateError();
     }
   }
 
-  public void setRefreshing(boolean isRefreshing) {
-    swipeRefreshLayout.setRefreshing(isRefreshing);
+  private void setupView() {
+    updateFeed();
+    updateRefreshing();
+    updateError();
   }
 
-  public void setFeed(List<FeedItem> feedItems, boolean showBottomLoading) {
-    adapter.updateFeed(feedItems, showBottomLoading);
-    if (feedItems.size() > 0) {
+  public void updateRefreshing() {
+    swipeRefreshLayout.setRefreshing(viewState.refreshing());
+  }
+
+  public void updateFeed() {
+    adapter.updateFeed(viewState.feedItems(), viewState.showBottomLoading());
+    if (viewState.feedItems().size() > 0) {
       emptyMessageTextView.setVisibility(View.GONE);
     } else {
       emptyMessageTextView.setVisibility(View.VISIBLE);
     }
   }
 
-  public void showError() {
-    Toast.makeText(getActivity(), R.string.error_network, Toast.LENGTH_LONG).show();
+  public void updateError() {
+    if (viewState.showError()) {
+      Toast.makeText(getActivity(), R.string.error_network, Toast.LENGTH_LONG).show();
+    }
   }
 }

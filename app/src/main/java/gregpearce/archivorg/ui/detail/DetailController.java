@@ -75,4 +75,8 @@ public class DetailController extends ActivityController implements DetailView {
   @Override public void showError() {
     Toast.makeText(getActivity(), R.string.error_network, Toast.LENGTH_LONG).show();
   }
+
+  @Override public void update(Object updatedViewState) {
+
+  }
 }

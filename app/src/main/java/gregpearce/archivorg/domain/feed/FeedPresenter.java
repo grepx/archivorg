@@ -5,7 +5,6 @@ import gregpearce.archivorg.domain.network.FeedService;
 import gregpearce.archivorg.util.RxUtil;
 import java.util.Collections;
 import rx.Observable;
-import rx.subjects.BehaviorSubject;
 import timber.log.Timber;
 
 import static gregpearce.archivorg.domain.feed.FeedViewState.from;
@@ -19,6 +18,8 @@ public class FeedPresenter {
   private boolean reachedBottomOfFeed = false;
   private int nextPageToFetch = 1;
 
+  private FeedView view;
+
   private FeedViewState viewState =
       ImmutableFeedViewState.builder()
                             .showBottomLoading(false)
@@ -26,22 +27,21 @@ public class FeedPresenter {
                             .refreshing(true)
                             .feedItems(Collections.EMPTY_LIST)
                             .build();
-  BehaviorSubject<FeedViewState> viewState$ = BehaviorSubject.create(viewState);
 
   public FeedPresenter(FeedService feedService) {
     this.feedService = feedService;
   }
 
-  public Observable<FeedViewState> getViewState() {
+  public FeedViewState subscribe(FeedView view) {
+    this.view = view;
+
     start();
-    return viewState$.asObservable().distinctUntilChanged();
-    //return viewMutations.asObservable()
-    //                    // use the stream of view state mutators to mutate the view state
-    //                    .scan(INITIAL_VIEW_STATE,
-    //                          (currentState, mutator) -> mutator.call(currentState))
-    //                    // the mutators will often just set something that was already set
-    //                    // for efficiency, eliminate the view from receiving duplicates
-    //                    .distinctUntilChanged();
+
+    return viewState;
+  }
+
+  public void unsubscribe() {
+    view = null;
   }
 
   private void start() {
@@ -69,7 +69,7 @@ public class FeedPresenter {
         .refreshing(true)
         .feedItems(Collections.EMPTY_LIST)
         .build();
-    updateViewState();
+    updateView();
 
     nextPageToFetch = 1;
     fetchPage();
@@ -100,7 +100,7 @@ public class FeedPresenter {
         .showBottomLoading(!reachedBottomOfFeed)
         .refreshing(false)
         .build();
-    updateViewState();
+    updateView();
   }
 
   private void showError() {
@@ -109,10 +109,12 @@ public class FeedPresenter {
         .refreshing(false)
         .showBottomLoading(false)
         .build();
-    updateViewState();
+    updateView();
   }
 
-  private void updateViewState() {
-    viewState$.onNext(viewState);
+  private void updateView() {
+    if (view != null) {
+      view.update(viewState);
+    }
   }
 }
