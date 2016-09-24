@@ -1,21 +1,20 @@
 package gregpearce.archivorg.network;
 
+import com.google.auto.factory.AutoFactory;
+import com.google.auto.factory.Provided;
 import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.network.FeedService;
 import javax.inject.Inject;
 import rx.Observable;
 
+@AutoFactory
 public class TopFeedService implements FeedService {
-
-  @Inject ArchiveOrgFeedService archiveOrgFeedService;
-
+  private ArchiveOrgFeedService archiveOrgFeedService;
   private String filter = "";
 
-  @Inject TopFeedService() {
-  }
-
-  public void configure(FeedType feedType) {
+  TopFeedService(@Provided ArchiveOrgFeedService archiveOrgFeedService, FeedType feedType) {
+    this.archiveOrgFeedService = archiveOrgFeedService;
     filter = ArchiveOrgFeedService.getFeedTypeClause(feedType);
   }
 

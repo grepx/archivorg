@@ -4,25 +4,22 @@ import gregpearce.archivorg.domain.network.FeedService;
 import gregpearce.archivorg.domain.network.FeedServiceFactory;
 import gregpearce.archivorg.domain.model.FeedType;
 import javax.inject.Inject;
-import javax.inject.Provider;
 
 public class FeedServiceFactoryImpl implements FeedServiceFactory {
 
-  @Inject Provider<TopFeedService> topFeedServiceProvider;
-  @Inject Provider<SearchFeedService> searchFeedServiceProvider;
+  @Inject TopFeedServiceFactory topFeedServiceFactory;
+  @Inject SearchFeedServiceFactory searchFeedServiceProvider;
 
   @Inject public FeedServiceFactoryImpl() {
   }
 
   @Override public FeedService getTopFeed(FeedType feedType) {
-    TopFeedService feedService = topFeedServiceProvider.get();
-    feedService.configure(feedType);
+    TopFeedService feedService = topFeedServiceFactory.create(feedType);
     return feedService;
   }
 
   @Override public FeedService getSearchFeed(FeedType feedType, String query) {
-    SearchFeedService feedService = searchFeedServiceProvider.get();
-    feedService.configure(feedType, query);
+    SearchFeedService feedService = searchFeedServiceProvider.create(feedType, query);
     return feedService;
   }
 }
