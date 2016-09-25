@@ -3,7 +3,8 @@ package gregpearce.archivorg.domain.model;
 import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 
-@AutoValue public abstract class ArchiveFile {
+@AutoValue
+public abstract class ArchiveFile {
   public static ArchiveFile create(@Nullable String name, @Nullable String size,
                                    @Nullable String length, @Nullable String source,
                                    @Nullable String format) {

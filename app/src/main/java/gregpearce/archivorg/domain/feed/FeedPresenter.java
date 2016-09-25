@@ -1,9 +1,11 @@
 package gregpearce.archivorg.domain.feed;
 
 import com.google.auto.factory.AutoFactory;
+import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.network.FeedService;
 import gregpearce.archivorg.util.RxUtil;
+import java.util.ArrayList;
 import java.util.Collections;
 import rx.Observable;
 import timber.log.Timber;
@@ -20,14 +22,13 @@ public class FeedPresenter {
 
   private FeedView view;
 
-  private FeedViewState viewState =
-      ImmutableFeedViewState.builder()
-                            .showBottomLoading(false)
-                            .showError(false)
-                            .refreshing(true)
-                            .showEmptyFeedMessage(false)
-                            .feedItems(Collections.EMPTY_LIST)
-                            .build();
+  private FeedViewState viewState = FeedViewState.builder()
+                                                 .showBottomLoading(false)
+                                                 .showError(false)
+                                                 .refreshing(true)
+                                                 .showEmptyFeedMessage(false)
+                                                 .feedItems(Collections.EMPTY_LIST)
+                                                 .build();
 
   public FeedPresenter(FeedService feedService) {
     this.feedService = feedService;
@@ -63,13 +64,13 @@ public class FeedPresenter {
   }
 
   public void refresh() {
-    viewState = FeedViewState.from(viewState)
-                             .showBottomLoading(false)
-                             .showError(false)
-                             .refreshing(true)
-                             .showEmptyFeedMessage(false)
-                             .feedItems(Collections.EMPTY_LIST)
-                             .build();
+    viewState = viewState.toBuilder()
+                         .showBottomLoading(false)
+                         .showError(false)
+                         .refreshing(true)
+                         .showEmptyFeedMessage(false)
+                         .feedItems(Collections.EMPTY_LIST)
+                         .build();
     updateView();
 
     nextPageToFetch = 1;
@@ -99,21 +100,26 @@ public class FeedPresenter {
     boolean feedIsEmpty = reachedBottomOfFeed &&
                           viewState.feedItems().size() == 0 && page.results().size() == 0;
     // update presenter state
-    viewState = FeedViewState.from(viewState)
-                             .addAllFeedItems(page.results())
-                             .showBottomLoading(!reachedBottomOfFeed)
-                             .showEmptyFeedMessage(feedIsEmpty)
-                             .refreshing(false)
-                             .build();
+    ArrayList<FeedItem> feedItems =
+        new ArrayList<>(viewState.feedItems().size() + page.results().size());
+    feedItems.addAll(viewState.feedItems());
+    feedItems.addAll(page.results());
+
+    viewState = viewState.toBuilder()
+                         .feedItems(feedItems)
+                         .showBottomLoading(!reachedBottomOfFeed)
+                         .showEmptyFeedMessage(feedIsEmpty)
+                         .refreshing(false)
+                         .build();
     updateView();
   }
 
   private void showError() {
-    viewState = FeedViewState.from(viewState)
-                             .showError(true)
-                             .refreshing(false)
-                             .showBottomLoading(false)
-                             .build();
+    viewState = viewState.toBuilder()
+                         .showError(true)
+                         .refreshing(false)
+                         .showBottomLoading(false)
+                         .build();
     updateView();
   }
 

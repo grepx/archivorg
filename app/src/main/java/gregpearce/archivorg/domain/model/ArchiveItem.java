@@ -5,7 +5,8 @@ import com.google.auto.value.AutoValue;
 import java.util.List;
 import org.threeten.bp.Instant;
 
-@AutoValue public abstract class ArchiveItem {
+@AutoValue
+public abstract class ArchiveItem {
   public static ArchiveItem create(String title, String description, Instant publishedDate,
                                    MediaType mediaType, String creator, String uploader,
                                    List<ArchiveFile> files) {

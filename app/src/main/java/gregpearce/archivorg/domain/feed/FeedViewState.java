@@ -1,11 +1,13 @@
 package gregpearce.archivorg.domain.feed;
 
+import com.google.auto.value.AutoValue;
 import gregpearce.archivorg.domain.model.FeedItem;
 import java.util.List;
-import org.immutables.value.Value;
 
-@Value.Immutable
+@AutoValue
 public abstract class FeedViewState {
+
+  // Properties
 
   public abstract boolean refreshing();
 
@@ -17,7 +19,27 @@ public abstract class FeedViewState {
 
   public abstract boolean showError();
 
-  public static ImmutableFeedViewState.Builder from(FeedViewState feedViewState) {
-    return ImmutableFeedViewState.builder().from(feedViewState);
+  // Builder
+
+  @AutoValue.Builder
+  abstract static class Builder {
+
+    public abstract Builder refreshing(boolean refreshing);
+
+    public abstract Builder feedItems(List<FeedItem> feedItems);
+
+    public abstract Builder showEmptyFeedMessage(boolean showEmptyFeedMessage);
+
+    public abstract Builder showBottomLoading(boolean showBottomLoading);
+
+    public abstract Builder showError(boolean showError);
+
+    abstract FeedViewState build();
+  }
+
+  public abstract Builder toBuilder();
+
+  static Builder builder() {
+    return new AutoValue_FeedViewState.Builder();
   }
 }

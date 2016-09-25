@@ -73,16 +73,10 @@ dependencies {
   apt 'com.google.dagger:dagger-compiler:2.5'
   provided 'org.glassfish:javax.annotation:10.0-b28'
 
-  // AutoValue
+  // AutoValue + AutoFactory
   provided 'com.google.auto.value:auto-value:1.2'
   apt 'com.google.auto.value:auto-value:1.2'
-
-  // AutoFactory
   compile 'com.google.auto.factory:auto-factory:1.0-beta3'
-
-  // Immutables
-  provided "org.immutables:value:2.3"
-  apt "org.immutables:value:2.3"
 
   // Crashlytics
   compile('com.crashlytics.sdk.android:crashlytics:2.6.4@aar') {
