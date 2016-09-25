@@ -1,5 +1,6 @@
 package gregpearce.archivorg.domain.feed;
 
+import com.google.auto.factory.AutoFactory;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.network.FeedService;
 import gregpearce.archivorg.util.RxUtil;
@@ -7,6 +8,7 @@ import java.util.Collections;
 import rx.Observable;
 import timber.log.Timber;
 
+@AutoFactory
 public class FeedPresenter {
 
   private FeedService feedService;

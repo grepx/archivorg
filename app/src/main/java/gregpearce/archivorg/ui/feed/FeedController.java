@@ -14,9 +14,11 @@ import android.widget.Toast;
 import butterknife.BindView;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.feed.FeedPresenter;
+import gregpearce.archivorg.domain.feed.FeedPresenterFactory;
 import gregpearce.archivorg.domain.feed.FeedView;
 import gregpearce.archivorg.domain.feed.FeedViewState;
 import gregpearce.archivorg.domain.model.FeedType;
+import gregpearce.archivorg.domain.network.FeedService;
 import gregpearce.archivorg.domain.network.FeedServiceFactory;
 import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.util.BundleBuilder;
@@ -26,6 +28,7 @@ import javax.inject.Inject;
 public class FeedController extends BaseController implements FeedView {
 
   @Inject FeedServiceFactory feedServiceFactory;
+  @Inject FeedPresenterFactory feedPresenterFactory;
 
   private FeedPresenter presenter;
   private FeedViewState viewState;
@@ -64,11 +67,12 @@ public class FeedController extends BaseController implements FeedView {
 
   @Override protected void onCreate() {
     getComponent().inject(this);
-    if (query != null) {
-      presenter = new FeedPresenter(feedServiceFactory.getSearchFeed(feedType, query));
-    } else {
-      presenter = new FeedPresenter(feedServiceFactory.getTopFeed(feedType));
-    }
+    FeedService feedService = query != null ?
+                              // if we have a query, configure service to be search results
+                              feedServiceFactory.getSearchFeed(feedType, query) :
+                              // otherwise, configure it to be top results
+                              feedServiceFactory.getTopFeed(feedType);
+    presenter = feedPresenterFactory.create(feedService);
   }
 
   @Override
