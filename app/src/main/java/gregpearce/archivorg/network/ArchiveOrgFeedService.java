@@ -45,27 +45,27 @@ import timber.log.Timber;
       return Observable.just(ResultPage.create(new ArrayList<>(0), 0, page, true));
     }
     return api.search(query, page, Constants.PAGE_SIZE, sort)
-        // retry on network failure 3 times
-        .retry(3)
-        // map the network response to the domain model
-        .map(apiResponse -> {
-          FeedResponse.Response response = apiResponse.response;
+              // retry on network failure 3 times
+              .retry(3)
+              // map the network response to the domain model
+              .map(apiResponse -> {
+                FeedResponse.Response response = apiResponse.response;
 
-          List<FeedItem> results = new ArrayList<>();
-          for (FeedResponse.Response.Doc doc : response.docs) {
-            FeedItem feedItem = FeedItem.create(doc.identifier,
-                                                // archive.org data is full of nulls, protect against it where possible
-                                                NullUtil.defaultValue(doc.title),
-                                                NullUtil.defaultValue(doc.description),
-                                                ArchiveOrgUtil.parseDateApiV1(doc.publicdate),
-                                                ArchiveOrgUtil.parseMediaType(doc.mediatype,
-                                                                              doc.type));
-            results.add(feedItem);
-          }
+                List<FeedItem> results = new ArrayList<>();
+                for (FeedResponse.Response.Doc doc : response.docs) {
+                  FeedItem feedItem = FeedItem.create(doc.identifier,
+                                                      // archive.org data is full of nulls, protect against it where possible
+                                                      NullUtil.defaultValue(doc.title),
+                                                      NullUtil.defaultValue(doc.description),
+                                                      ArchiveOrgUtil.parseDateApiV1(doc.publicdate),
+                                                      ArchiveOrgUtil.parseMediaType(doc.mediatype,
+                                                                                    doc.type));
+                  results.add(feedItem);
+                }
 
-          boolean isLastPage = (response.numFound - response.start) <= Constants.PAGE_SIZE;
+                boolean isLastPage = (response.numFound - response.start) <= Constants.PAGE_SIZE;
 
-          return ResultPage.create(results, response.numFound, page, isLastPage);
-        });
+                return ResultPage.create(results, response.numFound, page, isLastPage);
+              });
   }
 }

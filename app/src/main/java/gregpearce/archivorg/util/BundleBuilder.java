@@ -166,7 +166,8 @@ public class BundleBuilder {
     return this;
   }
 
-  public BundleBuilder putSparseParcelableArray(String key, SparseArray<? extends Parcelable> value) {
+  public BundleBuilder putSparseParcelableArray(String key,
+                                                SparseArray<? extends Parcelable> value) {
     bundle.putSparseParcelableArray(key, value);
     return this;
   }

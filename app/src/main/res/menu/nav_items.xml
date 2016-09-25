@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-<!--
-    &lt;!&ndash; android:id="@+id/group_toolbar" &ndash;&gt;
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_light_toolbar"
-            android:icon="@drawable/ic_menu_search"
-            android:title="@string/light_toolbar" />
-        <item
-            android:id="@+id/nav_dark_toolbar"
-            android:icon="@drawable/ic_menu_search"
-            android:title="@string/dark_toolbar" />
-    </group>
+  <!--
+      &lt;!&ndash; android:id="@+id/group_toolbar" &ndash;&gt;
+      <group android:checkableBehavior="single">
+          <item
+              android:id="@+id/nav_light_toolbar"
+              android:icon="@drawable/ic_menu_search"
+              android:title="@string/light_toolbar" />
+          <item
+              android:id="@+id/nav_dark_toolbar"
+              android:icon="@drawable/ic_menu_search"
+              android:title="@string/dark_toolbar" />
+      </group>
 
-    &lt;!&ndash; android:id="@+id/group_menu_item" &ndash;&gt;
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_light_menu_item"
-            android:icon="@drawable/ic_menu_search"
-            android:title="@string/light_menu_item" />
-        <item
-            android:id="@+id/nav_dark_menu_item"
-            android:icon="@drawable/ic_menu_search"
-            android:title="@string/dark_menu_item" />
-    </group>
+      &lt;!&ndash; android:id="@+id/group_menu_item" &ndash;&gt;
+      <group android:checkableBehavior="single">
+          <item
+              android:id="@+id/nav_light_menu_item"
+              android:icon="@drawable/ic_menu_search"
+              android:title="@string/light_menu_item" />
+          <item
+              android:id="@+id/nav_dark_menu_item"
+              android:icon="@drawable/ic_menu_search"
+              android:title="@string/dark_menu_item" />
+      </group>
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_toggle_versions"
-            android:icon="@drawable/ic_menu_search"
-            android:title="@string/toggle_versions" />
-    </group>
+      <group android:checkableBehavior="single">
+          <item
+              android:id="@+id/nav_toggle_versions"
+              android:icon="@drawable/ic_menu_search"
+              android:title="@string/toggle_versions" />
+      </group>
 
-    <item android:title="@string/about">
-        <menu>
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_search"
-                android:title="@string/about" />
-        </menu>
-    </item>
+      <item android:title="@string/about">
+          <menu>
+              <item
+                  android:id="@+id/nav_about"
+                  android:icon="@drawable/ic_menu_search"
+                  android:title="@string/about" />
+          </menu>
+      </item>
 
--->
+  -->
 </menu>

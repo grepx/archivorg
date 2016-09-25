@@ -39,7 +39,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
       return new FeedItemViewHolder(feedItemView);
     } else {
       View feedLoadingView = LayoutInflater.from(viewGroup.getContext())
-          .inflate(R.layout.feed_loading, viewGroup, false);
+                                           .inflate(R.layout.feed_loading, viewGroup, false);
       return new FeedLoadingViewHolder(feedLoadingView);
     }
   }

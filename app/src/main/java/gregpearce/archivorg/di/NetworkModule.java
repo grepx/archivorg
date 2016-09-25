@@ -27,24 +27,27 @@ import retrofit2.converter.gson.GsonConverterFactory;
     }).build();
 
     Retrofit retrofit = new Retrofit.Builder().baseUrl("https://archive.org/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-        .client(httpClient)
-        .build();
+                                              .addConverterFactory(GsonConverterFactory.create())
+                                              .addCallAdapterFactory(
+                                                  RxJavaCallAdapterFactory.create())
+                                              .client(httpClient)
+                                              .build();
 
     return retrofit.create(ArchiveOrgApiV1.class);
   }
 
   @Provides @Singleton ArchiveOrgApiV2 provideArchiveOrgApiV2() {
     Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.archivelab.org/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-        .build();
+                                              .addConverterFactory(GsonConverterFactory.create())
+                                              .addCallAdapterFactory(
+                                                  RxJavaCallAdapterFactory.create())
+                                              .build();
 
     return retrofit.create(ArchiveOrgApiV2.class);
   }
 
-  @Provides @Singleton FeedServiceFactory provideFeedServiceFactory(FeedServiceFactoryImpl feedServiceFactory) {
+  @Provides @Singleton FeedServiceFactory provideFeedServiceFactory(
+      FeedServiceFactoryImpl feedServiceFactory) {
     return feedServiceFactory;
   }
 }

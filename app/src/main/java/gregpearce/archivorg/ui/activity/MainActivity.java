@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
   }
 
   public ControllerComponent getControllerComponent() {
-    return ((BaseController)router.getBackstack().get(0).controller()).getComponent();
+    return ((BaseController) router.getBackstack().get(0).controller()).getComponent();
   }
 
   @Override public DrawerLayout getDrawerLayout() {

@@ -64,12 +64,12 @@ public class FeedPresenter {
 
   public void refresh() {
     viewState = FeedViewState.from(viewState)
-        .showBottomLoading(false)
-        .showError(false)
-        .refreshing(true)
-        .showEmptyFeedMessage(false)
-        .feedItems(Collections.EMPTY_LIST)
-        .build();
+                             .showBottomLoading(false)
+                             .showError(false)
+                             .refreshing(true)
+                             .showEmptyFeedMessage(false)
+                             .feedItems(Collections.EMPTY_LIST)
+                             .build();
     updateView();
 
     nextPageToFetch = 1;
@@ -100,20 +100,20 @@ public class FeedPresenter {
                           viewState.feedItems().size() == 0 && page.results().size() == 0;
     // update presenter state
     viewState = FeedViewState.from(viewState)
-        .addAllFeedItems(page.results())
-        .showBottomLoading(!reachedBottomOfFeed)
-        .showEmptyFeedMessage(feedIsEmpty)
-        .refreshing(false)
-        .build();
+                             .addAllFeedItems(page.results())
+                             .showBottomLoading(!reachedBottomOfFeed)
+                             .showEmptyFeedMessage(feedIsEmpty)
+                             .refreshing(false)
+                             .build();
     updateView();
   }
 
   private void showError() {
     viewState = FeedViewState.from(viewState)
-        .showError(true)
-        .refreshing(false)
-        .showBottomLoading(false)
-        .build();
+                             .showError(true)
+                             .refreshing(false)
+                             .showBottomLoading(false)
+                             .build();
     updateView();
   }
 
