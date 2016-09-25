@@ -18,8 +18,4 @@ import javax.inject.Singleton;
   @Provides @Singleton MainApplication provideMainApplication() {
     return application;
   }
-
-  @Provides @ControllerScope Navigator provideNavigator(NavigatorImpl navigator) {
-    return navigator;
-  }
 }
