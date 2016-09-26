@@ -3,7 +3,7 @@ package gregpearce.archivorg.ui.navigation;
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
 import gregpearce.archivorg.domain.Navigator;
-import gregpearce.archivorg.ui.ActivityController;
+import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.ui.OverlayChildRouter;
 import gregpearce.archivorg.ui.activity.MainActivity;
 import gregpearce.archivorg.domain.model.FeedType;
@@ -20,7 +20,7 @@ public class NavigatorImpl implements Navigator {
   }
 
   @Override public void navigateToDetailBottomSheet(String itemId) {
-    ActivityController activityController =
+    BaseController activityController =
         ((MainActivity) this.controller.getActivity()).getActivityController();
     if (activityController instanceof OverlayChildRouter) {
       ((OverlayChildRouter) activityController).pushOverlayController(

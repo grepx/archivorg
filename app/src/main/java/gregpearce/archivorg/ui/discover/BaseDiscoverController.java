@@ -14,15 +14,13 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import com.lapism.searchview.SearchView;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.Navigator;
-import gregpearce.archivorg.ui.ActivityController;
+import gregpearce.archivorg.domain.model.FeedType;
+import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.ui.OverlayChildRouter;
 import gregpearce.archivorg.ui.feed.FeedController;
-import gregpearce.archivorg.domain.model.FeedType;
 import javax.inject.Inject;
 
-public abstract class BaseDiscoverController
-    extends ActivityController
-    implements OverlayChildRouter {
+public abstract class BaseDiscoverController extends BaseController implements OverlayChildRouter {
   @Inject Navigator navigator;
 
   protected PagerAdapter pagerAdapter;

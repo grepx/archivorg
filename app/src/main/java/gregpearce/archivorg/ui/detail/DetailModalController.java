@@ -2,34 +2,27 @@ package gregpearce.archivorg.ui.detail;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import butterknife.BindView;
-import butterknife.OnClick;
 import butterknife.OnTouch;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.detail.DetailPresenter;
 import gregpearce.archivorg.domain.detail.DetailPresenterFactory;
 import gregpearce.archivorg.domain.detail.DetailView;
 import gregpearce.archivorg.domain.detail.DetailViewState;
-import gregpearce.archivorg.domain.feed.FeedViewState;
 import gregpearce.archivorg.domain.model.ArchiveItem;
-import gregpearce.archivorg.ui.ActivityController;
+import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.util.BundleBuilder;
-import gregpearce.archivorg.util.ViewUtil;
 import javax.inject.Inject;
 import timber.log.Timber;
 
 import static gregpearce.archivorg.util.ViewUtil.setVisible;
 
-public class DetailModalController extends ActivityController implements DetailView {
+public class DetailModalController extends BaseController implements DetailView {
 
   private static String ARGUMENT_ID = "ARGUMENT_ID";
 
@@ -65,6 +58,7 @@ public class DetailModalController extends ActivityController implements DetailV
   }
 
   @Override protected void onViewBound(@NonNull View view) {
+    getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     setHasOptionsMenu(true);
   }
 

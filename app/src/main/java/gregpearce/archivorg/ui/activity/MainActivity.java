@@ -9,15 +9,12 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bluelinelabs.conductor.Conductor;
-import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.di.ControllerComponent;
-import gregpearce.archivorg.ui.ActivityController;
 import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.ui.OverlayChildRouter;
-import gregpearce.archivorg.ui.discover.BaseDiscoverController;
 import gregpearce.archivorg.ui.discover.DiscoverController;
 import java.util.List;
 
@@ -74,17 +71,9 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
     }
   }
 
-  public ActivityController getActivityController() {
+  public BaseController getActivityController() {
     List<RouterTransaction> backstack = router.getBackstack();
-    return (ActivityController) backstack.get(backstack.size()-1).controller();
-  }
-
-  public void pushModalController(RouterTransaction transaction) {
-    ((OverlayChildRouter) getActivityController()).pushOverlayController(transaction);
-    //getActivityController()
-    //    .getChildRouter(modalContainer, "MODAL_ROUTER")
-    //    .setPopsLastView(true)
-    //    .setRoot(transaction);
+    return (BaseController) backstack.get(backstack.size()-1).controller();
   }
 
   @Override public DrawerLayout getDrawerLayout() {
