@@ -53,13 +53,16 @@ import timber.log.Timber;
 
                 List<FeedItem> results = new ArrayList<>();
                 for (FeedResponse.Response.Doc doc : response.docs) {
-                  FeedItem feedItem = FeedItem.create(doc.identifier,
-                                                      // archive.org data is full of nulls, protect against it where possible
-                                                      NullUtil.defaultValue(doc.title),
-                                                      NullUtil.defaultValue(doc.description),
-                                                      ArchiveOrgUtil.parseDateApiV1(doc.publicdate),
-                                                      ArchiveOrgUtil.parseMediaType(doc.mediatype,
-                                                                                    doc.type));
+                  FeedItem feedItem =
+                      FeedItem.builder()
+                              .id(doc.identifier)
+                              // archive.org data is full of nulls, protect against it where possible
+                              .title(NullUtil.defaultValue(doc.title))
+                              .description(NullUtil.defaultValue(doc.description))
+                              .publishedDate(ArchiveOrgUtil.parseDateApiV1(doc.publicdate))
+                              .mediaType(ArchiveOrgUtil.parseMediaType(doc.mediatype,
+                                                                       doc.type))
+                              .build();
                   results.add(feedItem);
                 }
 

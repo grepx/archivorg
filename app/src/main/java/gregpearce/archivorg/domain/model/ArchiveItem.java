@@ -7,18 +7,12 @@ import org.threeten.bp.Instant;
 
 @AutoValue
 public abstract class ArchiveItem {
-  public static ArchiveItem create(String title, String description, Instant publishedDate,
-                                   MediaType mediaType, String creator, String uploader,
-                                   List<ArchiveFile> files) {
-    return new AutoValue_ArchiveItem(title, description, publishedDate, mediaType, creator,
-                                     uploader, files);
-  }
 
   public abstract String title();
 
   public abstract String description();
 
-  @Nullable public abstract Instant publishedDate();
+  public abstract @Nullable Instant publishedDate();
 
   public abstract MediaType mediaType();
 
@@ -27,4 +21,30 @@ public abstract class ArchiveItem {
   public abstract String uploader();
 
   public abstract List<ArchiveFile> files();
+
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract ArchiveItem.Builder title(String title);
+
+    public abstract ArchiveItem.Builder description(String description);
+
+    public abstract ArchiveItem.Builder publishedDate(Instant publishedDate);
+
+    public abstract ArchiveItem.Builder mediaType(MediaType mediaType);
+
+    public abstract ArchiveItem.Builder creator(String creator);
+
+    public abstract ArchiveItem.Builder uploader(String uploader);
+
+    public abstract ArchiveItem.Builder files(List<ArchiveFile> files);
+
+    public abstract ArchiveItem build();
+  }
+
+  public abstract ArchiveItem.Builder toBuilder();
+
+  public static ArchiveItem.Builder builder() {
+    return new AutoValue_ArchiveItem.Builder();
+  }
 }

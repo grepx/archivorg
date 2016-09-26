@@ -6,18 +6,35 @@ import org.threeten.bp.Instant;
 
 @AutoValue
 public abstract class FeedItem {
-  public static FeedItem create(String id, String title, String description, Instant publishedDate,
-                                MediaType mediaType) {
-    return new AutoValue_FeedItem(id, title, description, publishedDate, mediaType);
-  }
-
   public abstract String id();
 
   public abstract String title();
 
   public abstract String description();
 
-  @Nullable public abstract Instant publishedDate();
+  public abstract @Nullable Instant publishedDate();
 
   public abstract MediaType mediaType();
+
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract FeedItem.Builder id(String id);
+
+    public abstract FeedItem.Builder title(String title);
+
+    public abstract FeedItem.Builder description(String description);
+
+    public abstract FeedItem.Builder publishedDate(@Nullable Instant publishedDate);
+
+    public abstract FeedItem.Builder mediaType(MediaType mediaType);
+
+    public abstract FeedItem build();
+  }
+
+  public abstract FeedItem.Builder toBuilder();
+
+  public static FeedItem.Builder builder() {
+    return new AutoValue_FeedItem.Builder();
+  }
 }

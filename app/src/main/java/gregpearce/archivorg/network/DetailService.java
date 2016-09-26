@@ -24,18 +24,25 @@ import rx.Observable;
               .map(response -> {
                 List<ArchiveFile> files = new ArrayList<>(response.files.size());
                 for (ItemResponse.File file : response.files) {
-                  files.add(
-                      ArchiveFile.create(file.name, file.size, file.length, file.source,
-                                         file.format));
+                  files.add(ArchiveFile.builder()
+                                       .name(file.name)
+                                       .size(file.size)
+                                       .length(file.length)
+                                       .source(file.source)
+                                       .format(file.format)
+                                       .build());
                 }
                 ItemResponse.Metadata metadata = response.metadata;
-                return ArchiveItem.create(NullUtil.defaultValue(metadata.title),
-                                          NullUtil.defaultValue(metadata.description),
-                                          ArchiveOrgUtil.parseDateApiV2(metadata.publicdate),
-                                          ArchiveOrgUtil.parseMediaType(metadata.mediatype,
-                                                                        metadata.type),
-                                          NullUtil.defaultValue(metadata.creator),
-                                          NullUtil.defaultValue(metadata.uploader), files);
+                return ArchiveItem.builder()
+                                  .title(NullUtil.defaultValue(metadata.title))
+                                  .description(NullUtil.defaultValue(metadata.description))
+                                  .publishedDate(ArchiveOrgUtil.parseDateApiV2(metadata.publicdate))
+                                  .mediaType(ArchiveOrgUtil.parseMediaType(metadata.mediatype,
+                                                                           metadata.type))
+                                  .creator(NullUtil.defaultValue(metadata.creator))
+                                  .uploader(NullUtil.defaultValue(metadata.uploader))
+                                  .files(files)
+                                  .build();
               });
   }
 }
