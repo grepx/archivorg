@@ -22,7 +22,7 @@ import timber.log.Timber;
 
 import static gregpearce.archivorg.util.ViewUtil.setVisible;
 
-public class DetailModalController extends BaseController implements DetailView {
+public class DetailController extends BaseController implements DetailView {
 
   private static String ARGUMENT_ID = "ARGUMENT_ID";
 
@@ -37,11 +37,11 @@ public class DetailModalController extends BaseController implements DetailView 
   @BindView(R.id.loading_progress_bar) View  loadingProgressBar;
   //@BindView(R.id.toolbar_image) ImageView toolbarImageView;
 
-  public DetailModalController(String id) {
+  public DetailController(String id) {
     this(BundleBuilder.create().putString(ARGUMENT_ID, id).build());
   }
 
-  public DetailModalController(Bundle args) {
+  public DetailController(Bundle args) {
     super(args);
     id = args.getString(ARGUMENT_ID);
   }
@@ -54,7 +54,7 @@ public class DetailModalController extends BaseController implements DetailView 
 
   @Override
   protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-    return inflater.inflate(R.layout.controller_bottom_sheet, container, false);
+    return inflater.inflate(R.layout.controller_detail, container, false);
   }
 
   @Override protected void onViewBound(@NonNull View view) {

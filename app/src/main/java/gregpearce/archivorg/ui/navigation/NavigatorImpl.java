@@ -7,7 +7,7 @@ import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.ui.OverlayChildRouter;
 import gregpearce.archivorg.ui.activity.MainActivity;
 import gregpearce.archivorg.domain.model.FeedType;
-import gregpearce.archivorg.ui.detail.DetailModalController;
+import gregpearce.archivorg.ui.detail.DetailController;
 import gregpearce.archivorg.ui.discover.SearchController;
 import javax.inject.Inject;
 import timber.log.Timber;
@@ -24,7 +24,7 @@ public class NavigatorImpl implements Navigator {
         ((MainActivity) this.controller.getActivity()).getActivityController();
     if (activityController instanceof OverlayChildRouter) {
       ((OverlayChildRouter) activityController).pushOverlayController(
-          RouterTransaction.with(new DetailModalController(itemId)));
+          RouterTransaction.with(new DetailController(itemId)));
     } else {
       Timber.e("Activity Controller is not capable of hosting an overlay router.");
     }
