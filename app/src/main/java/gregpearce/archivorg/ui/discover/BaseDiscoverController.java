@@ -48,12 +48,15 @@ public abstract class BaseDiscoverController extends BaseController implements O
   }
 
   @Override protected void onViewBound(@NonNull View view) {
-    getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
-
     setupTabs();
     setupSearchView();
 
     setActionBar(toolbar);
+  }
+
+  @Override protected void onAttach(@NonNull View view) {
+    super.onAttach(view);
+    getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
   }
 
   /**

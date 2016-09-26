@@ -58,7 +58,6 @@ public class DetailModalController extends BaseController implements DetailView 
   }
 
   @Override protected void onViewBound(@NonNull View view) {
-    getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     setHasOptionsMenu(true);
   }
 
@@ -107,11 +106,18 @@ public class DetailModalController extends BaseController implements DetailView 
   }
 
   @Override protected void onAttach(@NonNull View view) {
+    getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
     viewState = presenter.subscribe(this);
     setupView();
   }
 
   @Override protected void onDetach(@NonNull View view) {
+    super.onDetach(view);
+    // Manually set the drawer state to what it should be after this Controller terminates.
+    // Don't know a clean way to do this. Would need a onResume method on BaseDiscoverController.
+    getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
+
     presenter.unsubscribe();
   }
 }
