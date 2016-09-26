@@ -19,7 +19,7 @@ public class FeedItemPresenter extends BasePresenter<BaseView> {
   }
 
   public void click() {
-    navigator.navigateToDetail(id);
+    navigator.navigateToDetailBottomSheet(id);
   }
 
   @Override protected void syncView(BaseView view) {

@@ -7,5 +7,7 @@ public interface Navigator {
 
   void navigateToDetail(String itemId);
 
+  void navigateToDetailBottomSheet(String itemId);
+
   void navigateToSearch(FeedType feedType, String query);
 }

@@ -11,8 +11,10 @@ public class ComponentUtil {
    */
   public static ControllerComponent getComponent(View view) {
     Context context = view.getContext();
+    // todo: this is dumb, and doesn't work for controllers on a child router.
+    // todo: refactor code using this to be less dumb.
     if (context instanceof MainActivity) {
-      return ((MainActivity) view.getContext()).getControllerComponent();
+      return ((MainActivity) view.getContext()).getActivityController().getComponent();
     } else {
       throw new RuntimeException("View Context was not a MainActivity instance.");
     }

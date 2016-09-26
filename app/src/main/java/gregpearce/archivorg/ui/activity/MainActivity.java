@@ -7,17 +7,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.bluelinelabs.conductor.Conductor;
+import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.di.ControllerComponent;
+import gregpearce.archivorg.ui.ActivityController;
 import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.ui.discover.DiscoverController;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DrawerLayoutProvider {
 
   @BindView(R.id.controller_container) ViewGroup container;
+  @BindView(R.id.modal_controller_container) ViewGroup modalContainer;
   @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
   private Router router;
@@ -28,12 +33,9 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_main);
-
-    // Set up the controller container.
-    container = (ViewGroup) findViewById(R.id.controller_container);
+    ButterKnife.bind(this);
 
     // Set up the navigation drawer.
-    drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     if (navigationView != null) {
@@ -71,8 +73,16 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
     }
   }
 
-  public ControllerComponent getControllerComponent() {
-    return ((BaseController) router.getBackstack().get(0).controller()).getComponent();
+  public ActivityController getActivityController() {
+    List<RouterTransaction> backstack = router.getBackstack();
+    return (ActivityController) backstack.get(backstack.size()-1).controller();
+  }
+
+  public void pushModalController(RouterTransaction transaction) {
+    getActivityController()
+        .getChildRouter(modalContainer, "MODAL_ROUTER")
+        .setPopsLastView(true)
+        .setRoot(transaction);
   }
 
   @Override public DrawerLayout getDrawerLayout() {
