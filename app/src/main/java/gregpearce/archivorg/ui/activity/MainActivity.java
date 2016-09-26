@@ -16,13 +16,14 @@ import gregpearce.archivorg.R;
 import gregpearce.archivorg.di.ControllerComponent;
 import gregpearce.archivorg.ui.ActivityController;
 import gregpearce.archivorg.ui.BaseController;
+import gregpearce.archivorg.ui.OverlayChildRouter;
+import gregpearce.archivorg.ui.discover.BaseDiscoverController;
 import gregpearce.archivorg.ui.discover.DiscoverController;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DrawerLayoutProvider {
 
   @BindView(R.id.controller_container) ViewGroup container;
-  @BindView(R.id.modal_controller_container) ViewGroup modalContainer;
   @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
   private Router router;
@@ -79,10 +80,11 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
   }
 
   public void pushModalController(RouterTransaction transaction) {
-    getActivityController()
-        .getChildRouter(modalContainer, "MODAL_ROUTER")
-        .setPopsLastView(true)
-        .setRoot(transaction);
+    ((OverlayChildRouter) getActivityController()).pushOverlayController(transaction);
+    //getActivityController()
+    //    .getChildRouter(modalContainer, "MODAL_ROUTER")
+    //    .setPopsLastView(true)
+    //    .setRoot(transaction);
   }
 
   @Override public DrawerLayout getDrawerLayout() {

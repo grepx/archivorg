@@ -10,15 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
+import com.bluelinelabs.conductor.RouterTransaction;
 import com.lapism.searchview.SearchView;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.ActivityController;
+import gregpearce.archivorg.ui.OverlayChildRouter;
 import gregpearce.archivorg.ui.feed.FeedController;
 import gregpearce.archivorg.domain.model.FeedType;
 import javax.inject.Inject;
 
-public abstract class BaseDiscoverController extends ActivityController {
+public abstract class BaseDiscoverController
+    extends ActivityController
+    implements OverlayChildRouter {
   @Inject Navigator navigator;
 
   protected PagerAdapter pagerAdapter;
@@ -27,6 +31,7 @@ public abstract class BaseDiscoverController extends ActivityController {
   @BindView(R.id.view_pager) ViewPager viewPager;
   @BindView(R.id.tab_layout) TabLayout tabLayout;
   @BindView(R.id.search_view) SearchView searchView;
+  @BindView(R.id.modal_controller_container) ViewGroup modalContainer;
 
   public BaseDiscoverController() {
   }
@@ -98,5 +103,11 @@ public abstract class BaseDiscoverController extends ActivityController {
     int tabPosition = viewPager.getCurrentItem();
     FeedType feedType = pagerAdapter.getFeedType(tabPosition);
     navigator.navigateToSearch(feedType, query);
+  }
+
+  public void pushOverlayController(RouterTransaction transaction) {
+    getChildRouter(modalContainer, "OVERLAY_ROUTER")
+        .setPopsLastView(true)
+        .setRoot(transaction);
   }
 }

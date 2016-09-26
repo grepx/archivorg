@@ -3,12 +3,15 @@ package gregpearce.archivorg.ui.navigation;
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
 import gregpearce.archivorg.domain.Navigator;
+import gregpearce.archivorg.ui.ActivityController;
+import gregpearce.archivorg.ui.OverlayChildRouter;
 import gregpearce.archivorg.ui.activity.MainActivity;
 import gregpearce.archivorg.ui.detail.DetailController;
 import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.ui.detail.DetailModalController;
 import gregpearce.archivorg.ui.discover.SearchController;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 public class NavigatorImpl implements Navigator {
 
@@ -25,8 +28,14 @@ public class NavigatorImpl implements Navigator {
   }
 
   @Override public void navigateToDetailBottomSheet(String itemId) {
-    ((MainActivity) controller.getActivity())
-        .pushModalController(RouterTransaction.with(new DetailModalController(itemId)));
+    ActivityController activityController =
+        ((MainActivity) this.controller.getActivity()).getActivityController();
+    if (activityController instanceof OverlayChildRouter) {
+      ((OverlayChildRouter) activityController).pushOverlayController(
+          RouterTransaction.with(new DetailModalController(itemId)));
+    } else {
+      Timber.e("Activity Controller is not capable of hosting an overlay router.");
+    }
   }
 
   @Override public void navigateToSearch(FeedType feedType, String query) {
