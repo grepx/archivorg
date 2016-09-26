@@ -40,7 +40,7 @@ public class SearchController extends BaseDiscoverController {
 
     searchView.setShouldClearOnClose(false);
     searchView.setShouldClearOnOpen(false);
-    searchView.setOnMenuClickListener(() -> getRouter().popController(this));
+    searchView.setOnMenuClickListener(() -> finish());
   }
 
   @Override protected void onAttach(@NonNull View view) {
