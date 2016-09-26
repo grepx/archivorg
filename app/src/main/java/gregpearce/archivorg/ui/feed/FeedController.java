@@ -107,7 +107,7 @@ public class FeedController extends BaseController implements FeedView {
       updateFeed();
     }
     if (oldViewState.showEmptyFeedMessage() != viewState.showEmptyFeedMessage()) {
-      ViewUtil.setVisible(emptyMessageTextView, viewState.showEmptyFeedMessage());
+      ViewUtil.setVisible(viewState.showEmptyFeedMessage(), emptyMessageTextView);
     }
     if (oldViewState.showError() != viewState.showError()) {
       updateError();

@@ -22,7 +22,8 @@ public abstract class BasePresenter2<ViewType extends BaseView<ViewStateType>, V
     view = null;
   }
 
-  protected void updateView() {
+  protected void updateViewState(ViewStateType newViewState) {
+    viewState = newViewState;
     if (view != null) {
       view.update(viewState);
     }

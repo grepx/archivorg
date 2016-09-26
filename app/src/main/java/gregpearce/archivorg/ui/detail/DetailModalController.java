@@ -16,20 +16,28 @@ import butterknife.OnClick;
 import butterknife.OnTouch;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.detail.DetailPresenter;
+import gregpearce.archivorg.domain.detail.DetailPresenterFactory;
 import gregpearce.archivorg.domain.detail.DetailView;
+import gregpearce.archivorg.domain.detail.DetailViewState;
+import gregpearce.archivorg.domain.feed.FeedViewState;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.ui.ActivityController;
 import gregpearce.archivorg.util.BundleBuilder;
 import gregpearce.archivorg.util.ViewUtil;
 import javax.inject.Inject;
+import timber.log.Timber;
+
+import static gregpearce.archivorg.util.ViewUtil.setVisible;
 
 public class DetailModalController extends ActivityController implements DetailView {
 
   private static String ARGUMENT_ID = "ARGUMENT_ID";
 
-  @Inject DetailPresenter detailPresenter;
+  @Inject DetailPresenterFactory detailPresenterFactory;
 
+  private DetailPresenter presenter;
   private String id;
+  DetailViewState viewState;
 
   @BindView(R.id.title) TextView titleTextView;
   @BindView(R.id.description) TextView descriptionTextView;
@@ -48,6 +56,7 @@ public class DetailModalController extends ActivityController implements DetailV
   @Override protected void onCreate() {
     super.onCreate();
     getComponent().inject(this);
+    presenter = detailPresenterFactory.create(id);
   }
 
   @Override
@@ -58,25 +67,41 @@ public class DetailModalController extends ActivityController implements DetailV
   @Override protected void onViewBound(@NonNull View view) {
     setHasOptionsMenu(true);
 
-    detailPresenter.registerView(this);
-    detailPresenter.init(id);
+    viewState = presenter.subscribe(this);
   }
 
-  @Override public void updateLoading(boolean isLoading) {
-    ViewUtil.setVisible(loadingProgressBar, isLoading);
+  @Override public void update(DetailViewState updatedViewState) {
+    DetailViewState oldViewState = viewState;
+    viewState = updatedViewState;
+    if (oldViewState.screen() != viewState.screen()) {
+      updateScreen();
+    }
+    if (oldViewState.item() != viewState.item()) {
+      updateItem();
+    }
   }
 
-  @Override public void updateItem(ArchiveItem archiveItem) {
-    titleTextView.setText(archiveItem.title());
-    descriptionTextView.setText(archiveItem.description());
+  public void updateScreen() {
+    setVisible(false, titleTextView, descriptionTextView, loadingProgressBar);
+    switch (viewState.screen()) {
+      case Detail:
+        setVisible(true, titleTextView, descriptionTextView);
+        break;
+      case Loading:
+        setVisible(true, loadingProgressBar);
+        break;
+      case Error:
+        // todo: add error screen
+        break;
+      default:
+        Timber.e("Unknown screen type");
+    }
   }
 
-  @Override public void showError() {
-    Toast.makeText(getActivity(), R.string.error_network, Toast.LENGTH_LONG).show();
-  }
-
-  @Override public void update(Object updatedViewState) {
-
+  public void updateItem() {
+    ArchiveItem item = viewState.item();
+    titleTextView.setText(item.title());
+    descriptionTextView.setText(item.description());
   }
 
   @OnTouch(R.id.modal_background)

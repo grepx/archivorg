@@ -49,14 +49,13 @@ public class FeedPresenter extends BasePresenter2<FeedView, FeedViewState> {
   }
 
   public void refresh() {
-    viewState = viewState.toBuilder()
-                         .showBottomLoading(false)
-                         .showError(false)
-                         .refreshing(true)
-                         .showEmptyFeedMessage(false)
-                         .feedItems(Collections.EMPTY_LIST)
-                         .build();
-    updateView();
+    updateViewState(viewState.toBuilder()
+                             .showBottomLoading(false)
+                             .showError(false)
+                             .refreshing(true)
+                             .showEmptyFeedMessage(false)
+                             .feedItems(Collections.EMPTY_LIST)
+                             .build());
 
     nextPageToFetch = 1;
     fetchPage();
@@ -90,21 +89,19 @@ public class FeedPresenter extends BasePresenter2<FeedView, FeedViewState> {
     feedItems.addAll(viewState.feedItems());
     feedItems.addAll(page.results());
 
-    viewState = viewState.toBuilder()
-                         .feedItems(feedItems)
-                         .showBottomLoading(!reachedBottomOfFeed)
-                         .showEmptyFeedMessage(feedIsEmpty)
-                         .refreshing(false)
-                         .build();
-    updateView();
+    updateViewState(viewState.toBuilder()
+                             .feedItems(feedItems)
+                             .showBottomLoading(!reachedBottomOfFeed)
+                             .showEmptyFeedMessage(feedIsEmpty)
+                             .refreshing(false)
+                             .build());
   }
 
   private void showError() {
-    viewState = viewState.toBuilder()
-                         .showError(true)
-                         .refreshing(false)
-                         .showBottomLoading(false)
-                         .build();
-    updateView();
+    updateViewState(viewState.toBuilder()
+                             .showError(true)
+                             .refreshing(false)
+                             .showBottomLoading(false)
+                             .build());
   }
 }

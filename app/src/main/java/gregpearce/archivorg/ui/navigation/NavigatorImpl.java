@@ -6,7 +6,6 @@ import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.ActivityController;
 import gregpearce.archivorg.ui.OverlayChildRouter;
 import gregpearce.archivorg.ui.activity.MainActivity;
-import gregpearce.archivorg.ui.detail.DetailController;
 import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.ui.detail.DetailModalController;
 import gregpearce.archivorg.ui.discover.SearchController;
@@ -18,13 +17,6 @@ public class NavigatorImpl implements Navigator {
   @Inject Controller controller;
 
   @Inject public NavigatorImpl() {
-  }
-
-  @Override public void navigateToDiscover() {
-  }
-
-  @Override public void navigateToDetail(String itemId) {
-    processTransaction(RouterTransaction.with(new DetailController(itemId)));
   }
 
   @Override public void navigateToDetailBottomSheet(String itemId) {
