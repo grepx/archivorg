@@ -2,14 +2,13 @@ package gregpearce.archivorg.domain.detail;
 
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
-import gregpearce.archivorg.domain.BasePresenter2;
+import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.network.DetailService;
 import gregpearce.archivorg.util.RxUtil;
-import javax.inject.Inject;
 import timber.log.Timber;
 
 @AutoFactory
-public class DetailPresenter extends BasePresenter2<DetailView, DetailViewState> {
+public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> {
 
   private DetailService detailService;
   private String id;

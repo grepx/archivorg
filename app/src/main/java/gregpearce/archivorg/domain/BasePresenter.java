@@ -1,6 +1,6 @@
 package gregpearce.archivorg.domain;
 
-public abstract class BasePresenter2<ViewType extends BaseView<ViewStateType>, ViewStateType> {
+public abstract class BasePresenter<ViewType extends BaseView<ViewStateType>, ViewStateType> {
   private boolean started = false;
 
   protected ViewStateType viewState;

@@ -1,7 +1,7 @@
 package gregpearce.archivorg.domain.feed;
 
 import com.google.auto.factory.AutoFactory;
-import gregpearce.archivorg.domain.BasePresenter2;
+import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.network.FeedService;
@@ -12,7 +12,7 @@ import rx.Observable;
 import timber.log.Timber;
 
 @AutoFactory
-public class FeedPresenter extends BasePresenter2<FeedView, FeedViewState> {
+public class FeedPresenter extends BasePresenter<FeedView, FeedViewState> {
 
   private FeedService feedService;
 
