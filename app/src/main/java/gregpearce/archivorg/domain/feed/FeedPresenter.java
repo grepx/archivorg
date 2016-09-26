@@ -1,6 +1,7 @@
 package gregpearce.archivorg.domain.feed;
 
 import com.google.auto.factory.AutoFactory;
+import gregpearce.archivorg.domain.BasePresenter2;
 import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.network.FeedService;
@@ -11,46 +12,30 @@ import rx.Observable;
 import timber.log.Timber;
 
 @AutoFactory
-public class FeedPresenter {
+public class FeedPresenter extends BasePresenter2<FeedView, FeedViewState> {
 
   private FeedService feedService;
 
-  private boolean started = false;
   private boolean fetchingNextPage = false;
   private boolean reachedBottomOfFeed = false;
   private int nextPageToFetch = 1;
-
-  private FeedView view;
-
-  private FeedViewState viewState = FeedViewState.builder()
-                                                 .showBottomLoading(false)
-                                                 .showError(false)
-                                                 .refreshing(true)
-                                                 .showEmptyFeedMessage(false)
-                                                 .feedItems(Collections.EMPTY_LIST)
-                                                 .build();
 
   public FeedPresenter(FeedService feedService) {
     this.feedService = feedService;
   }
 
-  public FeedViewState subscribe(FeedView view) {
-    this.view = view;
-
-    start();
-
-    return viewState;
+  @Override protected FeedViewState initViewState() {
+    return FeedViewState.builder()
+                        .showBottomLoading(false)
+                        .showError(false)
+                        .refreshing(true)
+                        .showEmptyFeedMessage(false)
+                        .feedItems(Collections.EMPTY_LIST)
+                        .build();
   }
 
-  public void unsubscribe() {
-    view = null;
-  }
-
-  private void start() {
-    if (!started) {
-      started = true;
-      fetchPage();
-    }
+  @Override protected void start() {
+    fetchPage();
   }
 
   public void scrolledToIndex(int index) {
@@ -121,11 +106,5 @@ public class FeedPresenter {
                          .showBottomLoading(false)
                          .build();
     updateView();
-  }
-
-  private void updateView() {
-    if (view != null) {
-      view.update(viewState);
-    }
   }
 }
