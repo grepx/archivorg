@@ -25,6 +25,8 @@ import gregpearce.archivorg.util.BundleBuilder;
 import gregpearce.archivorg.util.ViewUtil;
 import javax.inject.Inject;
 
+import static gregpearce.archivorg.util.ViewUtil.setVisible;
+
 public class FeedController extends BaseController implements FeedView {
 
   @Inject FeedServiceFactory feedServiceFactory;
@@ -87,18 +89,16 @@ public class FeedController extends BaseController implements FeedView {
     swipeRefreshLayout.setOnRefreshListener(() -> presenter.refresh());
   }
 
-  @Override protected void onAttach(@NonNull View view) {
-    viewState = presenter.subscribe(this);
-    setupView();
-  }
-
-  @Override protected void onDetach(@NonNull View view) {
-    presenter.unsubscribe();
+  private void setupView() {
+    updateRefreshing();
+    updateFeed();
+    updateError();
   }
 
   @Override public void update(FeedViewState updatedViewState) {
     FeedViewState oldViewState = viewState;
     viewState = updatedViewState;
+
     if (oldViewState.refreshing() != viewState.refreshing()) {
       updateRefreshing();
     }
@@ -107,30 +107,33 @@ public class FeedController extends BaseController implements FeedView {
       updateFeed();
     }
     if (oldViewState.showEmptyFeedMessage() != viewState.showEmptyFeedMessage()) {
-      ViewUtil.setVisible(viewState.showEmptyFeedMessage(), emptyMessageTextView);
+      setVisible(viewState.showEmptyFeedMessage(), emptyMessageTextView);
     }
     if (oldViewState.showError() != viewState.showError()) {
       updateError();
     }
   }
 
-  private void setupView() {
-    updateFeed();
-    updateRefreshing();
-    updateError();
-  }
-
-  public void updateRefreshing() {
+  private void updateRefreshing() {
     swipeRefreshLayout.setRefreshing(viewState.refreshing());
   }
 
-  public void updateFeed() {
+  private void updateFeed() {
     adapter.updateFeed(viewState.feedItems(), viewState.showBottomLoading());
   }
 
-  public void updateError() {
+  private void updateError() {
     if (viewState.showError()) {
       Toast.makeText(getActivity(), R.string.error_network, Toast.LENGTH_LONG).show();
     }
+  }
+
+  @Override protected void onAttach(@NonNull View view) {
+    viewState = presenter.subscribe(this);
+    setupView();
+  }
+
+  @Override protected void onDetach(@NonNull View view) {
+    presenter.unsubscribe();
   }
 }

@@ -66,8 +66,10 @@ public class DetailModalController extends ActivityController implements DetailV
 
   @Override protected void onViewBound(@NonNull View view) {
     setHasOptionsMenu(true);
+  }
 
-    viewState = presenter.subscribe(this);
+  private void setupView() {
+    updateScreen();
   }
 
   @Override public void update(DetailViewState updatedViewState) {
@@ -81,7 +83,7 @@ public class DetailModalController extends ActivityController implements DetailV
     }
   }
 
-  public void updateScreen() {
+  private void updateScreen() {
     setVisible(false, titleTextView, descriptionTextView, loadingProgressBar);
     switch (viewState.screen()) {
       case Detail:
@@ -98,7 +100,7 @@ public class DetailModalController extends ActivityController implements DetailV
     }
   }
 
-  public void updateItem() {
+  private void updateItem() {
     ArchiveItem item = viewState.item();
     titleTextView.setText(item.title());
     descriptionTextView.setText(item.description());
@@ -108,5 +110,14 @@ public class DetailModalController extends ActivityController implements DetailV
   boolean onClickModalBackground() {
     getRouter().popController(this);
     return true;
+  }
+
+  @Override protected void onAttach(@NonNull View view) {
+    viewState = presenter.subscribe(this);
+    setupView();
+  }
+
+  @Override protected void onDetach(@NonNull View view) {
+    presenter.unsubscribe();
   }
 }
