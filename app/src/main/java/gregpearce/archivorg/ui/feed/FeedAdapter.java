@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.feed.FeedPresenter;
 import gregpearce.archivorg.domain.model.FeedItem;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
       FeedItemViewHolder feedItemViewHolder = (FeedItemViewHolder) viewHolder;
       presenter.scrolledToIndex(position);
       FeedItem feedItem = feedItems.get(position);
-      feedItemViewHolder.updateViewModel(feedItem);
+      feedItemViewHolder.update(feedItem);
     }
   }
 

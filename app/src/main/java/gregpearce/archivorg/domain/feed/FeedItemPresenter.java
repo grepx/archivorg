@@ -1,27 +1,21 @@
 package gregpearce.archivorg.domain.feed;
 
-import gregpearce.archivorg.domain.BasePresenter;
-import gregpearce.archivorg.domain.BaseView;
+import com.google.auto.factory.AutoFactory;
+import com.google.auto.factory.Provided;
 import gregpearce.archivorg.domain.Navigator;
-import javax.inject.Inject;
 
-public class FeedItemPresenter extends BasePresenter<BaseView> {
+@AutoFactory
+public class FeedItemPresenter {
 
-  @Inject Navigator navigator;
-
+  private Navigator navigator;
   private String id;
 
-  @Inject public FeedItemPresenter() {
-  }
-
-  public void init(String id) {
+  public FeedItemPresenter(String id, @Provided Navigator navigator) {
     this.id = id;
+    this.navigator = navigator;
   }
 
   public void click() {
     navigator.navigateToDetailBottomSheet(id);
-  }
-
-  @Override protected void syncView(BaseView view) {
   }
 }

@@ -12,6 +12,7 @@ import butterknife.OnClick;
 import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.feed.FeedItemPresenter;
+import gregpearce.archivorg.domain.feed.FeedItemPresenterFactory;
 import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.MediaType;
 import gregpearce.archivorg.ui.util.ComponentUtil;
@@ -26,7 +27,9 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
   @BindView(R.id.thumbnail) ImageView thumbnailImageView;
   @BindView(R.id.date) TextView dateTextView;
 
-  @Inject FeedItemPresenter presenter;
+  @Inject FeedItemPresenterFactory feedItemPresenterFactory;
+
+  FeedItemPresenter presenter;
 
   public FeedItemViewHolder(View view) {
     super(view);
@@ -34,13 +37,13 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
     ComponentUtil.getComponent(view).inject(this);
   }
 
-  public void updateViewModel(FeedItem feedItem) {
+  public void update(FeedItem feedItem) {
     titleTextView.setText(feedItem.title());
     descriptionTextView.setText(feedItem.description());
     setupThumbnail(feedItem.mediaType());
     setupDate(feedItem.publishedDate());
-    // setup presenter
-    presenter.init(feedItem.id());
+
+    presenter = feedItemPresenterFactory.create(feedItem.id());
   }
 
   private void setupThumbnail(MediaType mediaType) {
