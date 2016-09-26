@@ -81,4 +81,8 @@ public abstract class BaseController extends ButterKnifeController {
     }
     return controllerComponent;
   }
+
+  public void finish() {
+    getRouter().popController(this);
+  }
 }

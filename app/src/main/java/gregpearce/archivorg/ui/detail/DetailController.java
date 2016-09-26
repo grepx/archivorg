@@ -2,6 +2,7 @@ package gregpearce.archivorg.ui.detail;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,12 +31,12 @@ public class DetailController extends BaseController implements DetailView {
 
   private DetailPresenter presenter;
   private String id;
-  DetailViewState viewState;
+  private DetailViewState viewState;
 
+  @BindView(R.id.bottom_sheet_layout) View bottomSheetLayout;
   @BindView(R.id.title) TextView titleTextView;
   @BindView(R.id.description) TextView descriptionTextView;
   @BindView(R.id.loading_progress_bar) View  loadingProgressBar;
-  //@BindView(R.id.toolbar_image) ImageView toolbarImageView;
 
   public DetailController(String id) {
     this(BundleBuilder.create().putString(ARGUMENT_ID, id).build());
@@ -59,6 +60,18 @@ public class DetailController extends BaseController implements DetailView {
 
   @Override protected void onViewBound(@NonNull View view) {
     setHasOptionsMenu(true);
+
+    BottomSheetBehavior.from(bottomSheetLayout).setBottomSheetCallback(
+        new BottomSheetBehavior.BottomSheetCallback() {
+          @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
+            if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+              finish();
+            }
+          }
+
+          @Override public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+          }
+        });
   }
 
   private void setupView() {
@@ -101,7 +114,7 @@ public class DetailController extends BaseController implements DetailView {
 
   @OnTouch(R.id.modal_background)
   boolean onClickModalBackground() {
-    getRouter().popController(this);
+    finish();
     return true;
   }
 
