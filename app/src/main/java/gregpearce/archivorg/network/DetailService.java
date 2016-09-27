@@ -33,9 +33,10 @@ import rx.Observable;
                                        .build());
                 }
                 ItemResponse.Metadata metadata = response.metadata;
+                String description = NullUtil.defaultValue(metadata.description).replace("//web.archive.org", "https://web.archive.org");
                 return ArchiveItem.builder()
                                   .title(NullUtil.defaultValue(metadata.title))
-                                  .description(NullUtil.defaultValue(metadata.description))
+                                  .description(description)
                                   .publishedDate(ArchiveOrgUtil.parseDateApiV2(metadata.publicdate))
                                   .mediaType(ArchiveOrgUtil.parseMediaType(metadata.mediatype,
                                                                            metadata.type))

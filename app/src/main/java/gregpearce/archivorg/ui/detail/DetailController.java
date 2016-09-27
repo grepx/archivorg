@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnTouch;
@@ -35,7 +36,7 @@ public class DetailController extends BaseController implements DetailView {
 
   @BindView(R.id.bottom_sheet_layout) View bottomSheetLayout;
   @BindView(R.id.title) TextView titleTextView;
-  @BindView(R.id.description) TextView descriptionTextView;
+  @BindView(R.id.description) WebView descriptionView;
   @BindView(R.id.loading_progress_bar) View  loadingProgressBar;
 
   public DetailController(String id) {
@@ -60,6 +61,7 @@ public class DetailController extends BaseController implements DetailView {
 
   @Override protected void onViewBound(@NonNull View view) {
     setHasOptionsMenu(true);
+    descriptionView.getSettings().setJavaScriptEnabled(true);
 
     BottomSheetBehavior.from(bottomSheetLayout).setBottomSheetCallback(
         new BottomSheetBehavior.BottomSheetCallback() {
@@ -90,10 +92,10 @@ public class DetailController extends BaseController implements DetailView {
   }
 
   private void updateScreen() {
-    setVisible(false, titleTextView, descriptionTextView, loadingProgressBar);
+    setVisible(false, titleTextView, descriptionView, loadingProgressBar);
     switch (viewState.screen()) {
       case Detail:
-        setVisible(true, titleTextView, descriptionTextView);
+        setVisible(true, titleTextView, descriptionView);
         break;
       case Loading:
         setVisible(true, loadingProgressBar);
@@ -109,7 +111,7 @@ public class DetailController extends BaseController implements DetailView {
   private void updateItem() {
     ArchiveItem item = viewState.item();
     titleTextView.setText(item.title());
-    descriptionTextView.setText(item.description());
+    descriptionView.loadDataWithBaseURL("", item.description(), "text/html", "UTF-8", "");
   }
 
   @OnTouch(R.id.modal_background)

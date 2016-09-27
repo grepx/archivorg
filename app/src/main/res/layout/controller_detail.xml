@@ -27,7 +27,7 @@
         >
       <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          android:layout_height="match_parent"
           android:background="@android:color/white"
           android:orientation="vertical"
           >
@@ -61,7 +61,7 @@
             android:textStyle="bold"
             tools:text="Placeholder Title"
             />
-        <TextView
+        <WebView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
