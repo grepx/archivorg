@@ -10,7 +10,7 @@
       android:id="@+id/modal_background"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/modal_background"
+      android:background="@color/black_transparent_50"
       />
   <android.support.design.widget.CoordinatorLayout
       android:layout_width="match_parent"
@@ -54,12 +54,47 @@
             android:textStyle="bold"
             tools:text="Placeholder Title"
             />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+          <gregpearce.archivorg.ui.widget.ProfileButton
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              app:src="@drawable/ic_star_border_black_24dp"
+              app:text="@string/about"
+              app:tint="@color/button_profile_tint"
+              >
+          </gregpearce.archivorg.ui.widget.ProfileButton>
+          <gregpearce.archivorg.ui.widget.ProfileButton
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              app:src="@drawable/ic_share_black_24dp"
+              app:text="@string/share"
+              app:tint="@color/button_profile_tint"
+              >
+          </gregpearce.archivorg.ui.widget.ProfileButton>
+          <gregpearce.archivorg.ui.widget.ProfileButton
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              app:src="@drawable/ic_file_download_black_24dp"
+              app:text="@string/files"
+              app:tint="@color/button_profile_tint"
+              >
+          </gregpearce.archivorg.ui.widget.ProfileButton>
+        </LinearLayout>
         <WebView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:layout_margin="@dimen/text_margin"
+            android:visibility="gone"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sollicitudin sagittis egestas. Sed non ornare diam, in iaculis magna. Vivamus scelerisque sapien sem, in tristique orci ullamcorper vel. Cras elit orci, mollis vel arcu sit amet, elementum ornare lacus. Maecenas egestas est sit amet diam congue, sit amet fermentum metus vestibulum. Curabitur porta consectetur est vel accumsan. Nullam sapien massa, porta interdum bibendum ut, pharetra at lorem."
             />
       </LinearLayout>

@@ -19,6 +19,11 @@
   <string name="all">All</string>
   <string name="about">About</string>
 
+  <string name="bookmark">Bookmark</string>
+  <string name="share">Share</string>
+  <string name="files">Files</string>
+  <string name="items">Items</string>
+
   <string name="menu_night_mode">Night mode</string>
   <string name="menu_night_mode_system">Follow system</string>
   <string name="menu_night_mode_day">Day (always)</string>

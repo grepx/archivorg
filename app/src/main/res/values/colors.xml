@@ -11,5 +11,6 @@
   <color name="colorPrimary500">#8bc34a</color>
   <color name="colorPrimary800">#558b2f</color>
 
-  <color name="modal_background">#88000000</color>
+  <color name="black">#000000</color>
+  <color name="black_transparent_50">#88000000</color>
 </resources>
