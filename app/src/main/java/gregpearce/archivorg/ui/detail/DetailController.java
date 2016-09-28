@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import butterknife.OnTouch;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.detail.DetailPresenter;
@@ -35,9 +36,11 @@ public class DetailController extends BaseController implements DetailView {
   private DetailViewState viewState;
 
   @BindView(R.id.bottom_sheet_layout) View bottomSheetLayout;
-  @BindView(R.id.title) TextView titleTextView;
+  @BindView(R.id.tap_to_retry_view) TextView tapToRetryView;
+  @BindView(R.id.details_view) View detailsView;
+  @BindView(R.id.title) TextView titleView;
   @BindView(R.id.description) WebView descriptionView;
-  @BindView(R.id.loading_progress_bar) View  loadingProgressBar;
+  @BindView(R.id.loading_view) View loadingView;
 
   public DetailController(String id) {
     this(BundleBuilder.create().putString(ARGUMENT_ID, id).build());
@@ -92,16 +95,16 @@ public class DetailController extends BaseController implements DetailView {
   }
 
   private void updateScreen() {
-    setVisible(false, titleTextView, descriptionView, loadingProgressBar);
+    setVisible(false, loadingView, detailsView, tapToRetryView);
     switch (viewState.screen()) {
       case Detail:
-        setVisible(true, titleTextView, descriptionView);
+        setVisible(true, detailsView);
         break;
       case Loading:
-        setVisible(true, loadingProgressBar);
+        setVisible(true, loadingView);
         break;
       case Error:
-        // todo: add error screen
+        setVisible(true, tapToRetryView);
         break;
       default:
         Timber.e("Unknown screen type");
@@ -110,14 +113,19 @@ public class DetailController extends BaseController implements DetailView {
 
   private void updateItem() {
     ArchiveItem item = viewState.item();
-    titleTextView.setText(item.title());
+    titleView.setText(item.title());
     descriptionView.loadDataWithBaseURL("", item.description(), "text/html", "UTF-8", "");
   }
 
   @OnTouch(R.id.modal_background)
-  boolean onClickModalBackground() {
+  boolean onTouchModalBackground() {
     finish();
     return true;
+  }
+
+  @OnClick(R.id.tap_to_retry_view)
+  void onClickTapToRetry() {
+    presenter.refresh();
   }
 
   @Override protected void onAttach(@NonNull View view) {

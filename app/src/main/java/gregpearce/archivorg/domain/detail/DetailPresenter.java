@@ -4,6 +4,7 @@ import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
 import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.network.DetailService;
+import gregpearce.archivorg.util.RxDevUtil;
 import gregpearce.archivorg.util.RxUtil;
 import timber.log.Timber;
 
@@ -18,24 +19,35 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
     this.detailService = detailService;
   }
 
-  @Override protected void start() {
-    detailService.get(id).compose(RxUtil.subscribeDefaults()).subscribe(item -> {
-      Timber.d("Loaded archive item, id: %s", id);
-      updateViewState(viewState.toBuilder()
-                               .screen(DetailViewState.Screen.Detail)
-                               .item(item)
-                               .build());
-    }, error -> {
-      updateViewState(viewState.toBuilder()
-                               .screen(DetailViewState.Screen.Error)
-                               .build());
-    });
-  }
-
   @Override protected DetailViewState initViewState() {
     return DetailViewState.builder()
                           .item(null)
                           .screen(DetailViewState.Screen.Loading)
                           .build();
+  }
+
+  @Override protected void start() {
+    fetchItem();
+  }
+
+  private void fetchItem() {
+    detailService.get(id)
+                 .compose(RxUtil.subscribeDefaults())
+                 .subscribe(item -> {
+                   Timber.d("Loaded archive item, id: %s", id);
+                   updateViewState(viewState.toBuilder()
+                                            .screen(DetailViewState.Screen.Detail)
+                                            .item(item)
+                                            .build());
+                 }, error -> {
+                   updateViewState(viewState.toBuilder()
+                                            .screen(DetailViewState.Screen.Error)
+                                            .build());
+                 });
+  }
+
+  public void refresh() {
+    updateViewState(initViewState());
+    fetchItem();
   }
 }

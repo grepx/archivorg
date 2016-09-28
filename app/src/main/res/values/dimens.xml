@@ -16,5 +16,7 @@
   <dimen name="app_bar_height">180dp</dimen>
   <dimen name="text_margin">16dp</dimen>
 
+  <dimen name="detail_sheet_peek_height">420dp</dimen>
+
 
 </resources>
