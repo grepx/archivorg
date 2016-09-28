@@ -14,6 +14,7 @@ import gregpearce.archivorg.ui.feed.FeedItemViewHolder;
     modules = {
         ControllerModule.class,
         PlatformModule.class,
+        ViewModule.class,
     }) public interface ControllerComponent {
   void inject(BaseDiscoverController baseDiscoverController);
 

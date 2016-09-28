@@ -80,7 +80,7 @@ public class FeedController extends BaseController implements FeedView {
   }
 
   @Override protected void onViewBound(@NonNull View view) {
-    adapter = new FeedAdapter(presenter);
+    adapter = new FeedAdapter(getComponent(), presenter);
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     recyclerView.setAdapter(adapter);
     swipeRefreshLayout.setOnRefreshListener(() -> presenter.refresh());

@@ -43,7 +43,7 @@ public abstract class BaseController extends ButterKnifeController {
 
   @Override public void onDestroy() {
     super.onDestroy();
-    MainApplication.getRefWatcher().watch(this);
+    getApplication().getRefWatcher().watch(this);
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -78,14 +78,18 @@ public abstract class BaseController extends ButterKnifeController {
         // perhaps in the future child controller scope will be added
         controllerComponent = ((BaseController) getParentController()).getComponent();
       } else {
-        controllerComponent = DaggerControllerComponent.builder()
-                                                       .applicationComponent(
-                                                           MainApplication.APP_COMPONENT)
-                                                       .controllerModule(new ControllerModule(this))
-                                                       .build();
+        controllerComponent =
+            DaggerControllerComponent.builder()
+                                     .applicationComponent(getApplication().getComponent())
+                                     .controllerModule(new ControllerModule(this))
+                                     .build();
       }
     }
     return controllerComponent;
+  }
+
+  private MainApplication getApplication() {
+    return (MainApplication) getActivity().getApplication();
   }
 
   public void finish() {

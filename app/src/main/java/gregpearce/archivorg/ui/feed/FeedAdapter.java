@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import gregpearce.archivorg.R;
+import gregpearce.archivorg.di.ControllerComponent;
 import gregpearce.archivorg.domain.feed.FeedPresenter;
 import gregpearce.archivorg.domain.model.FeedItem;
 import java.util.Collections;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+  private ControllerComponent component;
   private FeedPresenter presenter;
   private List<FeedItem> feedItems = Collections.EMPTY_LIST;
   private boolean showBottomLoading;
@@ -22,7 +24,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private static final int VIEW_TYPE_FEED_LOADING = 2;
   private static final int VIEW_TYPE_FEED_ERROR = 3;
 
-  public FeedAdapter(FeedPresenter presenter) {
+  public FeedAdapter(ControllerComponent component, FeedPresenter presenter) {
+    this.component = component;
     this.presenter = presenter;
   }
 
@@ -43,7 +46,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     if (i == VIEW_TYPE_FEED_ITEM) {
       View view = LayoutInflater.from(viewGroup.getContext())
                                 .inflate(R.layout.feed_item, viewGroup, false);
-      return new FeedItemViewHolder(view);
+      return new FeedItemViewHolder(component, view);
     } else if (i == VIEW_TYPE_FEED_LOADING) {
       View view = LayoutInflater.from(viewGroup.getContext())
                                 .inflate(R.layout.feed_loading, viewGroup, false);

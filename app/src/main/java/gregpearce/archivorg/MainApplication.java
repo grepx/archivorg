@@ -14,14 +14,15 @@ import timber.log.Timber;
 public class MainApplication extends Application {
 
   // This is used to do dependency injection using the Application scope.
-  public static ApplicationComponent APP_COMPONENT;
-  public static MainApplication INSTANCE;
-  private static RefWatcher refWatcher;
+  public static MainApplication instance;
+
+  private ApplicationComponent component;
+  private RefWatcher refWatcher;
 
   @Override public void onCreate() {
     super.onCreate();
 
-    INSTANCE = this;
+    instance = this;
 
     setupFabric();
     setupTimber();
@@ -32,7 +33,7 @@ public class MainApplication extends Application {
         DaggerApplicationComponent.builder()
                                   .applicationModule(new ApplicationModule(this))
                                   .build();
-    APP_COMPONENT = component;
+    this.component = component;
   }
 
   private void setupFabric() {
@@ -58,7 +59,11 @@ public class MainApplication extends Application {
     refWatcher = LeakCanary.install(this);
   }
 
-  public static RefWatcher getRefWatcher() {
+  public ApplicationComponent getComponent() {
+    return component;
+  }
+
+  public RefWatcher getRefWatcher() {
     return refWatcher;
   }
 }
