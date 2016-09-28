@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import butterknife.ButterKnife;
 import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.di.ControllerComponent;
 import gregpearce.archivorg.di.ControllerModule;
@@ -38,6 +39,11 @@ public abstract class BaseController extends ButterKnifeController {
   }
 
   protected void onCreate() {
+  }
+
+  @Override public void onDestroy() {
+    super.onDestroy();
+    MainApplication.getRefWatcher().watch(this);
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
