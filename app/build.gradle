@@ -32,7 +32,14 @@ android {
     vectorDrawables.useSupportLibrary = true
   }
   buildTypes {
+    debug {
+      // This can be used to easily route OKHTTP requests via a proxy (e.g. Charles)
+      // Example address: "192.168.0.1:8888"
+      buildConfigField "String", "HTTP_PROXY_IP_AND_PORT", "null"
+    }
     release {
+      buildConfigField "String", "HTTP_PROXY_IP_AND_PORT", "null"
+
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
@@ -41,6 +48,7 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
+
 }
 
 dependencies {
