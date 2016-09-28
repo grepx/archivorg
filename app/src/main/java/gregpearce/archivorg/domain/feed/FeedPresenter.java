@@ -5,17 +5,17 @@ import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.network.FeedService;
-import gregpearce.archivorg.util.RxDevUtil;
 import gregpearce.archivorg.util.RxUtil;
 import java.util.ArrayList;
 import java.util.Collections;
+import rx.Subscription;
 
 @AutoFactory
 public class FeedPresenter extends BasePresenter<FeedView, FeedViewState> {
 
   private FeedService feedService;
 
-  private boolean fetchingNextPage = false;
+  private Subscription nextPageSubscription = null;
   private boolean reachedBottomOfFeed = false;
   private int nextPageToFetch = 1;
 
@@ -37,7 +37,15 @@ public class FeedPresenter extends BasePresenter<FeedView, FeedViewState> {
     fetchPage();
   }
 
-  private static final int LOAD_NEXT_PAGE_MARGIN = 10;
+  private void reset() {
+    if (nextPageSubscription != null) {
+      nextPageSubscription.unsubscribe();
+    }
+    updateViewState(initViewState());
+    nextPageSubscription = null;
+    reachedBottomOfFeed = false;
+    nextPageToFetch = 1;
+  }
 
   public void scrolledToIndex(int index) {
     if (index > viewState.feedItems().size() - LOAD_NEXT_PAGE_MARGIN) {
@@ -59,37 +67,32 @@ public class FeedPresenter extends BasePresenter<FeedView, FeedViewState> {
     fetchPage();
   }
 
-  private void reset() {
-    updateViewState(initViewState());
-    fetchingNextPage = false;
-    reachedBottomOfFeed = false;
-    nextPageToFetch = 1;
-  }
+  private static final int LOAD_NEXT_PAGE_MARGIN = 10;
 
   private void fetchPage() {
-    if (reachedBottomOfFeed || fetchingNextPage) {
+    if (reachedBottomOfFeed || nextPageSubscription != null) {
       return;
     }
-    fetchingNextPage = true;
-    feedService.getPage(nextPageToFetch)
-               .compose(RxUtil.subscribeDefaults())
-               .subscribe(
-                   result -> {
-                     showPage(result);
-                     fetchingNextPage = false;
-                     nextPageToFetch++;
-                   },
-                   error -> {
-                     showError();
-                     fetchingNextPage = false;
-                   });
+    nextPageSubscription =
+        feedService.getPage(nextPageToFetch)
+                   .compose(RxUtil.subscribeDefaults())
+                   .subscribe(
+                       result -> {
+                         showPage(result);
+                         nextPageSubscription = null;
+                         nextPageToFetch++;
+                       },
+                       error -> {
+                         showError();
+                         nextPageSubscription = null;
+                       });
   }
 
   private void showPage(ResultPage page) {
     reachedBottomOfFeed = page.isLastPage();
     boolean feedIsEmpty = reachedBottomOfFeed &&
                           viewState.feedItems().size() == 0 && page.results().size() == 0;
-    // update presenter state
+
     ArrayList<FeedItem> feedItems =
         new ArrayList<>(viewState.feedItems().size() + page.results().size());
     feedItems.addAll(viewState.feedItems());
