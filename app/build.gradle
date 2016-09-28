@@ -31,6 +31,32 @@ android {
 
     vectorDrawables.useSupportLibrary = true
   }
+
+  // Get release key details, they should be set in ~/.gradle/gradle.properties
+  def releaseStoreFilePath =
+      project.hasProperty("RELEASE_STORE_FILE") ?
+          RELEASE_STORE_FILE :
+          "[RELEASE_STORE_FILE NOT SET]"
+  def releaseStorePassword =
+      project.hasProperty("RELEASE_STORE_PASSWORD") ?
+          RELEASE_STORE_PASSWORD :
+          "[RELEASE_STORE_PASSWORD NOT SET]"
+  def releaseKeyAlias =
+      project.hasProperty("RELEASE_KEY_ALIAS") ?
+          RELEASE_KEY_ALIAS :
+          "[RELEASE_KEY_ALIAS NOT SET]"
+  def releaseKeyPassword=
+      project.hasProperty("RELEASE_KEY_PASSWORD") ?
+          RELEASE_KEY_PASSWORD :
+          "[RELEASE_KEY_PASSWORD NOT SET]"
+  signingConfigs {
+    release {
+      storeFile file(releaseStoreFilePath)
+      storePassword releaseStorePassword
+      keyAlias releaseKeyAlias
+      keyPassword releaseKeyPassword
+    }
+  }
   buildTypes {
     debug {
       // This can be used to easily route OKHTTP requests via a proxy (e.g. Charles)
@@ -41,6 +67,7 @@ android {
       buildConfigField "String", "HTTP_PROXY_IP_AND_PORT", "null"
 
       minifyEnabled false
+      signingConfig signingConfigs.release
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
@@ -48,7 +75,6 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
-
 }
 
 dependencies {
