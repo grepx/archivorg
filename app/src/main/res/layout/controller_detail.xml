@@ -48,7 +48,7 @@
             android:layout_height="@dimen/detail_sheet_peek_height"
             android:gravity="center"
             android:minHeight="64sp"
-            android:text="Failed to load content.\nTap here to retry."
+            android:text="@string/tap_to_retry"
             />
         <LinearLayout
             android:id="@+id/details_view"
