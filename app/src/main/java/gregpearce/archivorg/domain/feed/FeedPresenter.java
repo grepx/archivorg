@@ -5,11 +5,10 @@ import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.network.FeedService;
+import gregpearce.archivorg.util.RxDevUtil;
 import gregpearce.archivorg.util.RxUtil;
 import java.util.ArrayList;
 import java.util.Collections;
-import rx.Observable;
-import timber.log.Timber;
 
 @AutoFactory
 public class FeedPresenter extends BasePresenter<FeedView, FeedViewState> {
@@ -28,7 +27,7 @@ public class FeedPresenter extends BasePresenter<FeedView, FeedViewState> {
     return FeedViewState.builder()
                         .showBottomLoading(false)
                         .showError(false)
-                        .refreshing(true)
+                        .showRefreshing(true)
                         .showEmptyFeedMessage(false)
                         .feedItems(Collections.EMPTY_LIST)
                         .build();
@@ -38,45 +37,52 @@ public class FeedPresenter extends BasePresenter<FeedView, FeedViewState> {
     fetchPage();
   }
 
+  private static final int LOAD_NEXT_PAGE_MARGIN = 10;
+
   public void scrolledToIndex(int index) {
-    Timber.d("Scrolled to index: %d", index);
-    if (!reachedBottomOfFeed && !fetchingNextPage) {
-      final int LOAD_NEXT_PAGE_MARGIN = 10;
-      if (index > viewState.feedItems().size() - LOAD_NEXT_PAGE_MARGIN) {
-        fetchPage();
-      }
+    if (index > viewState.feedItems().size() - LOAD_NEXT_PAGE_MARGIN) {
+      fetchPage();
     }
   }
 
   public void refresh() {
-    updateViewState(viewState.toBuilder()
-                             .showBottomLoading(false)
-                             .showError(false)
-                             .refreshing(true)
-                             .showEmptyFeedMessage(false)
-                             .feedItems(Collections.EMPTY_LIST)
-                             .build());
-
-    nextPageToFetch = 1;
+    reset();
     fetchPage();
   }
 
+  public void retry() {
+    updateViewState(viewState.toBuilder()
+                             .showError(false)
+                             .showBottomLoading(nextPageToFetch != 1)
+                             .showRefreshing(nextPageToFetch == 1)
+                             .build());
+    fetchPage();
+  }
+
+  private void reset() {
+    updateViewState(initViewState());
+    fetchingNextPage = false;
+    reachedBottomOfFeed = false;
+    nextPageToFetch = 1;
+  }
+
   private void fetchPage() {
+    if (reachedBottomOfFeed || fetchingNextPage) {
+      return;
+    }
     fetchingNextPage = true;
-    Observable<ResultPage> serviceCall;
-
-    serviceCall = feedService.getPage(nextPageToFetch);
-
-    serviceCall.compose(RxUtil.subscribeDefaults()).subscribe(
-        result -> {
-          showPage(result);
-          fetchingNextPage = false;
-          nextPageToFetch++;
-        },
-        error -> {
-          showError();
-          fetchingNextPage = false;
-        });
+    feedService.getPage(nextPageToFetch)
+               .compose(RxUtil.subscribeDefaults())
+               .subscribe(
+                   result -> {
+                     showPage(result);
+                     fetchingNextPage = false;
+                     nextPageToFetch++;
+                   },
+                   error -> {
+                     showError();
+                     fetchingNextPage = false;
+                   });
   }
 
   private void showPage(ResultPage page) {
@@ -93,14 +99,14 @@ public class FeedPresenter extends BasePresenter<FeedView, FeedViewState> {
                              .feedItems(feedItems)
                              .showBottomLoading(!reachedBottomOfFeed)
                              .showEmptyFeedMessage(feedIsEmpty)
-                             .refreshing(false)
+                             .showRefreshing(false)
                              .build());
   }
 
   private void showError() {
     updateViewState(viewState.toBuilder()
                              .showError(true)
-                             .refreshing(false)
+                             .showRefreshing(false)
                              .showBottomLoading(false)
                              .build());
   }

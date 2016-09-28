@@ -15,40 +15,56 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private FeedPresenter presenter;
   private List<FeedItem> feedItems = Collections.EMPTY_LIST;
   private boolean showBottomLoading;
+  private boolean showError;
   private int count = 0;
 
   private static final int VIEW_TYPE_FEED_ITEM = 1;
   private static final int VIEW_TYPE_FEED_LOADING = 2;
+  private static final int VIEW_TYPE_FEED_ERROR = 3;
 
   public FeedAdapter(FeedPresenter presenter) {
     this.presenter = presenter;
   }
 
-  void updateFeed(List<FeedItem> feedItems, boolean showBottomLoading) {
+  void  updateFeed(List<FeedItem> feedItems, boolean showBottomLoading, boolean showError) {
     this.feedItems = feedItems;
     this.showBottomLoading = showBottomLoading;
-    count = feedItems.size() + (showBottomLoading ? 1 : 0);
+    this.showError = showError;
+
+    count = feedItems.size();
+    if (showBottomLoading || showError) {
+      count++;
+    }
+
     notifyDataSetChanged();
   }
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
     if (i == VIEW_TYPE_FEED_ITEM) {
-      View feedItemView =
-          LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feed_item, viewGroup, false);
-      return new FeedItemViewHolder(feedItemView);
+      View view = LayoutInflater.from(viewGroup.getContext())
+                                .inflate(R.layout.feed_item, viewGroup, false);
+      return new FeedItemViewHolder(view);
+    } else if (i == VIEW_TYPE_FEED_LOADING) {
+      View view = LayoutInflater.from(viewGroup.getContext())
+                                .inflate(R.layout.feed_loading, viewGroup, false);
+      return new FeedLoadingViewHolder(view);
     } else {
-      View feedLoadingView = LayoutInflater.from(viewGroup.getContext())
-                                           .inflate(R.layout.feed_loading, viewGroup, false);
-      return new FeedLoadingViewHolder(feedLoadingView);
+      // default: show error tap to retry
+      View view = LayoutInflater.from(viewGroup.getContext())
+                                .inflate(R.layout.tap_to_retry, viewGroup, false);
+      return new FeedErrorViewHolder(view, presenter);
     }
   }
 
   @Override public int getItemViewType(int position) {
-    if (showBottomLoading && position == count - 1) {
+    boolean isLastItem = position == count - 1;
+    if (isLastItem && showBottomLoading) {
       return VIEW_TYPE_FEED_LOADING;
-    } else {
-      return VIEW_TYPE_FEED_ITEM;
     }
+    if (isLastItem && showError) {
+      return VIEW_TYPE_FEED_ERROR;
+    }
+    return VIEW_TYPE_FEED_ITEM;
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {

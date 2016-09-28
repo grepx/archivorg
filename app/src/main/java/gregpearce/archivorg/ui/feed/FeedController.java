@@ -5,12 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.ViewUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import butterknife.BindView;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.feed.FeedPresenter;
@@ -22,7 +20,6 @@ import gregpearce.archivorg.domain.network.FeedService;
 import gregpearce.archivorg.domain.network.FeedServiceFactory;
 import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.util.BundleBuilder;
-import gregpearce.archivorg.util.ViewUtil;
 import javax.inject.Inject;
 
 import static gregpearce.archivorg.util.ViewUtil.setVisible;
@@ -92,14 +89,13 @@ public class FeedController extends BaseController implements FeedView {
   private void setupView() {
     updateRefreshing();
     updateFeed();
-    updateError();
   }
 
   @Override public void update(FeedViewState updatedViewState) {
     FeedViewState oldViewState = viewState;
     viewState = updatedViewState;
 
-    if (oldViewState.refreshing() != viewState.refreshing()) {
+    if (oldViewState.showRefreshing() != viewState.showRefreshing()) {
       updateRefreshing();
     }
     if (oldViewState.feedItems() != viewState.feedItems() ||
@@ -110,22 +106,16 @@ public class FeedController extends BaseController implements FeedView {
       setVisible(viewState.showEmptyFeedMessage(), emptyMessageTextView);
     }
     if (oldViewState.showError() != viewState.showError()) {
-      updateError();
+      updateFeed();
     }
   }
 
   private void updateRefreshing() {
-    swipeRefreshLayout.setRefreshing(viewState.refreshing());
+    swipeRefreshLayout.setRefreshing(viewState.showRefreshing());
   }
 
   private void updateFeed() {
-    adapter.updateFeed(viewState.feedItems(), viewState.showBottomLoading());
-  }
-
-  private void updateError() {
-    if (viewState.showError()) {
-      Toast.makeText(getActivity(), R.string.error_network, Toast.LENGTH_LONG).show();
-    }
+    adapter.updateFeed(viewState.feedItems(), viewState.showBottomLoading(), viewState.showError());
   }
 
   @Override protected void onAttach(@NonNull View view) {

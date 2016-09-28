@@ -9,7 +9,7 @@ public abstract class FeedViewState {
 
   // Properties
 
-  public abstract boolean refreshing();
+  public abstract boolean showRefreshing();
 
   public abstract List<FeedItem> feedItems();
 
@@ -24,7 +24,7 @@ public abstract class FeedViewState {
   @AutoValue.Builder
   abstract static class Builder {
 
-    public abstract Builder refreshing(boolean refreshing);
+    public abstract Builder showRefreshing(boolean refreshing);
 
     public abstract Builder feedItems(List<FeedItem> feedItems);
 
