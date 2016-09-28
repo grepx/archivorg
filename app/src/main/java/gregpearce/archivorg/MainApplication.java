@@ -56,7 +56,8 @@ public class MainApplication extends Application {
       // You should not init your app in this process.
       return;
     }
-    refWatcher = LeakCanary.install(this);
+    // todo: switch LeakCanary back on and work on analysing Conductor library bugs
+    //refWatcher = LeakCanary.install(this);
   }
 
   public ApplicationComponent getComponent() {

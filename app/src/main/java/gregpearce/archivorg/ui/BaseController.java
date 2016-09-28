@@ -43,7 +43,8 @@ public abstract class BaseController extends ButterKnifeController {
 
   @Override public void onDestroy() {
     super.onDestroy();
-    getApplication().getRefWatcher().watch(this);
+    // todo: switch LeakCanary back on and work on analysing Conductor library bugs
+    //getApplication().getRefWatcher().watch(this);
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
