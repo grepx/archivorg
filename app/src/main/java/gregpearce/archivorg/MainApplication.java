@@ -20,9 +20,11 @@ public class MainApplication extends Application {
 
     if (!BuildConfig.DEBUG) {
       Fabric.with(this, new Crashlytics());
+      Timber.plant(new Timber.DebugTree());
+    } else {
+      Timber.plant(new CrashReportingTree());
     }
 
-    Timber.plant(new Timber.DebugTree());
     INSTANCE = this;
 
     AndroidThreeTen.init(this);
