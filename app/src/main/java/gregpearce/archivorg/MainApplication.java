@@ -28,7 +28,9 @@ public class MainApplication extends Application {
     AndroidThreeTen.init(this);
 
     ApplicationComponent component =
-        DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
+        DaggerApplicationComponent.builder()
+                                  .applicationModule(new ApplicationModule(this))
+                                  .build();
     APP_COMPONENT = component;
   }
 }
