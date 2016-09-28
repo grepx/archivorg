@@ -74,15 +74,17 @@
               android:orientation="horizontal"
               >
             <gregpearce.archivorg.ui.widget.ProfileButton
+                android:id="@+id/button_bookmark"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:src="@drawable/ic_star_border_black_24dp"
-                app:text="@string/about"
+                app:text="@string/bookmark"
                 app:tint="@color/button_profile_tint"
                 >
             </gregpearce.archivorg.ui.widget.ProfileButton>
             <gregpearce.archivorg.ui.widget.ProfileButton
+                android:id="@+id/button_share"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -92,6 +94,7 @@
                 >
             </gregpearce.archivorg.ui.widget.ProfileButton>
             <gregpearce.archivorg.ui.widget.ProfileButton
+                android:id="@+id/button_files"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -6,17 +6,21 @@ import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.network.DetailService;
 import gregpearce.archivorg.util.RxDevUtil;
 import gregpearce.archivorg.util.RxUtil;
+import javax.inject.Inject;
 import timber.log.Timber;
 
 @AutoFactory
 public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> {
 
+  LinkSharer linkSharer;
   private DetailService detailService;
   private String id;
 
-  public DetailPresenter(String id, @Provided DetailService detailService) {
+  public DetailPresenter(String id,
+                         @Provided DetailService detailService, @Provided LinkSharer linkSharer) {
     this.id = id;
     this.detailService = detailService;
+    this.linkSharer = linkSharer;
   }
 
   @Override protected DetailViewState initViewState() {
@@ -49,5 +53,9 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
   public void refresh() {
     updateViewState(initViewState());
     fetchItem();
+  }
+
+  public void share() {
+    linkSharer.share(viewState.item().id());
   }
 }

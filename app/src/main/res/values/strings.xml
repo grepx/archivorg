@@ -26,10 +26,15 @@
 
   <string name="tap_to_retry">Failed to load content.\nTap here to retry.</string>
 
+  <string name="share_title">Share via</string>
+
   <string name="menu_night_mode">Night mode</string>
   <string name="menu_night_mode_system">Follow system</string>
   <string name="menu_night_mode_day">Day (always)</string>
   <string name="menu_night_mode_night">Night (always)</string>
   <string name="menu_night_mode_auto">Auto</string>
+
+
+  <string name="details_url_template">https://archive.org/details/%1$s</string>
 
 </resources>

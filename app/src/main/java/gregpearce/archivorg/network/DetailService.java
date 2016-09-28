@@ -32,9 +32,14 @@ import rx.Observable;
                                        .format(file.format)
                                        .build());
                 }
+
                 ItemResponse.Metadata metadata = response.metadata;
+
+                // links in description HTML are mangled - manually fix them
                 String description = NullUtil.defaultValue(metadata.description).replace("//web.archive.org", "https://web.archive.org");
+
                 return ArchiveItem.builder()
+                                  .id(id)
                                   .title(NullUtil.defaultValue(metadata.title))
                                   .description(description)
                                   .publishedDate(ArchiveOrgUtil.parseDateApiV2(metadata.publicdate))

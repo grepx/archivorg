@@ -8,6 +8,8 @@ import org.threeten.bp.Instant;
 @AutoValue
 public abstract class ArchiveItem {
 
+  public abstract String id();
+
   public abstract String title();
 
   public abstract String description();
@@ -24,6 +26,8 @@ public abstract class ArchiveItem {
 
   @AutoValue.Builder
   public abstract static class Builder {
+
+    public abstract ArchiveItem.Builder id(String id);
 
     public abstract ArchiveItem.Builder title(String title);
 

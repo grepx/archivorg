@@ -1,5 +1,6 @@
 package gregpearce.archivorg.network;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 class ItemResponse {
