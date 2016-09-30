@@ -29,8 +29,15 @@ public abstract class BasePresenter<ViewType extends BaseView<ViewStateType>, Vi
     }
   }
 
+  protected abstract ViewStateType initViewState();
+
   protected void start() {
   }
 
-  protected abstract ViewStateType initViewState();
+  /**
+   * This can be overriden by the Presenter and called by it's Controller / parent class to inform
+   * it that it should
+   */
+  public void onDestroy() {
+  }
 }

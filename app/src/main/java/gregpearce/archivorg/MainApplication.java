@@ -43,7 +43,7 @@ public class MainApplication extends Application {
   }
 
   private void setupTimber() {
-    if (!BuildConfig.DEBUG) {
+    if (BuildConfig.DEBUG) {
       Timber.plant(new Timber.DebugTree());
     } else {
       Timber.plant(new CrashReportingTree());

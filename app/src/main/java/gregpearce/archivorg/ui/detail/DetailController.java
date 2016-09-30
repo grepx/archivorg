@@ -17,7 +17,6 @@ import gregpearce.archivorg.domain.detail.DetailPresenter;
 import gregpearce.archivorg.domain.detail.DetailPresenterFactory;
 import gregpearce.archivorg.domain.detail.DetailView;
 import gregpearce.archivorg.domain.detail.DetailViewState;
-import gregpearce.archivorg.domain.detail.LinkSharer;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.util.BundleBuilder;
@@ -56,6 +55,11 @@ public class DetailController extends BaseController implements DetailView {
     super.onCreate();
     getComponent().inject(this);
     presenter = detailPresenterFactory.create(id);
+  }
+
+  @Override public void onDestroy() {
+    super.onDestroy();
+    presenter.onDestroy();
   }
 
   @Override
@@ -132,6 +136,11 @@ public class DetailController extends BaseController implements DetailView {
   @OnClick(R.id.button_share)
   void onShare() {
     presenter.share();
+  }
+
+  @OnClick(R.id.button_bookmark)
+  void onBookmark() {
+    presenter.bookmark();
   }
 
   @Override protected void onAttach(@NonNull View view) {

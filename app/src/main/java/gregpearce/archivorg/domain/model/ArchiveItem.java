@@ -24,6 +24,8 @@ public abstract class ArchiveItem {
 
   public abstract List<ArchiveFile> files();
 
+  public abstract boolean isBookmarked();
+
   @AutoValue.Builder
   public abstract static class Builder {
 
@@ -42,6 +44,8 @@ public abstract class ArchiveItem {
     public abstract ArchiveItem.Builder uploader(String uploader);
 
     public abstract ArchiveItem.Builder files(List<ArchiveFile> files);
+
+    public abstract ArchiveItem.Builder isBookmarked(boolean isBookmarked);
 
     public abstract ArchiveItem build();
   }

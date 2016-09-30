@@ -48,6 +48,7 @@ import rx.Observable;
                                   .creator(NullUtil.defaultValue(metadata.creator))
                                   .uploader(NullUtil.defaultValue(metadata.uploader))
                                   .files(files)
+                                  .isBookmarked(false)
                                   .build();
               });
   }
