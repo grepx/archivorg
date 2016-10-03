@@ -19,6 +19,7 @@ import gregpearce.archivorg.domain.detail.DetailView;
 import gregpearce.archivorg.domain.detail.DetailViewState;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.ui.BaseController;
+import gregpearce.archivorg.ui.widget.ProfileButton;
 import gregpearce.archivorg.util.BundleBuilder;
 import javax.inject.Inject;
 import timber.log.Timber;
@@ -41,6 +42,7 @@ public class DetailController extends BaseController implements DetailView {
   @BindView(R.id.title) TextView titleView;
   @BindView(R.id.description) WebView descriptionView;
   @BindView(R.id.loading_view) View loadingView;
+  @BindView(R.id.button_bookmark) BookmarkButton bookmarkButton;
 
   public DetailController(String id) {
     this(BundleBuilder.create().putString(ARGUMENT_ID, id).build());
@@ -120,6 +122,9 @@ public class DetailController extends BaseController implements DetailView {
     ArchiveItem item = viewState.item();
     titleView.setText(item.title());
     descriptionView.loadDataWithBaseURL("", item.description(), "text/html", "UTF-8", "");
+    bookmarkButton.setState(viewState.item().isBookmarked() ?
+                           BookmarkButton.STATE_BOOKMARKED :
+                           BookmarkButton.STATE_NOT_BOOKMARKED);
   }
 
   @OnTouch(R.id.modal_background)

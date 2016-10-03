@@ -22,6 +22,7 @@ public class ProfileButton extends FrameLayout {
 
   @BindView(R.id.image) ImageView imageView;
   @BindView(R.id.text) TextView textView;
+  private ColorStateList tint;
 
   public ProfileButton(Context context) {
     super(context);
@@ -50,7 +51,7 @@ public class ProfileButton extends FrameLayout {
     // try parsing settings from custom xml attributes
     String text = null;
     @DrawableRes int image = -1;
-    ColorStateList tint = null;
+    tint = null;
 
     try {
       text = attributes.getString(R.styleable.ProfileButton_text);
@@ -75,7 +76,14 @@ public class ProfileButton extends FrameLayout {
 
   public void setImage(@DrawableRes int image) {
     Drawable drawable = VectorDrawableCompat.create(getResources(), image, null);
+    setImage(drawable);
+  }
+
+  public void setImage(Drawable drawable) {
     imageView.setImageDrawable(drawable);
+    if (tint != null) {
+      setTintList(tint);
+    }
   }
 
   public void setText(@StringRes int text) {
@@ -91,6 +99,7 @@ public class ProfileButton extends FrameLayout {
   }
 
   public void setTintList(ColorStateList color) {
+    tint = color;
     Drawable drawable = imageView.getDrawable();
     if (drawable != null) {
       drawable = DrawableCompat.wrap(drawable);

@@ -54,14 +54,7 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
         bookmarkRepository.get(id)
                           .compose(RxUtil.subscribeDefaults())
                           .subscribe(item -> {
-                            if (item == null) {
-                              // the item doesn't exist in the database, trigger a network load
-                              Timber.d("Item was not available in repository, loading from network");
-                              fetchItem();
-                            } else {
-                              Timber.d("Loaded item from repository: %s", item);
-                              showItem(item);
-                            }
+                            processRepositoryResult(item);
                           }, error -> {
                             Timber.e("Error loading %s", id);
                             showError();
@@ -69,6 +62,17 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
                             Timber.e("Error: Completed stream for %s", id);
                           });
     subscriptions.add(subscription);
+  }
+
+  private void processRepositoryResult(ArchiveItem item) {
+    if (item == null) {
+      // the item doesn't exist in the database, trigger a network load
+      Timber.d("Item was not available in repository, loading from network");
+      fetchItem();
+    } else {
+      Timber.d("Loaded item from repository: %s", item);
+      showItem(item);
+    }
   }
 
   private void fetchItem() {
@@ -110,6 +114,10 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
   }
 
   public void bookmark() {
-    bookmarkRepository.put(item);
+    // toggle the bookmarked value and save
+    ArchiveItem updatedItem = item.toBuilder()
+                                  .isBookmarked(!item.isBookmarked())
+                                  .build();
+    bookmarkRepository.put(updatedItem);
   }
 }
