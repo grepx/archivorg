@@ -20,7 +20,6 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
   private ItemRepository bookmarkRepository;
   private LinkSharer linkSharer;
 
-  private CompositeSubscription subscriptions = new CompositeSubscription();
   private ArchiveItem item;
 
   public DetailPresenter(String id,
@@ -44,10 +43,6 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
     loadItem();
   }
 
-  @Override public void onDestroy() {
-    subscriptions.unsubscribe();
-  }
-
   private void loadItem() {
     Timber.d("Loading item from repository");
     Subscription subscription =
@@ -61,7 +56,7 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
                           }, () -> {
                             Timber.e("Error: Completed stream for %s", id);
                           });
-    subscriptions.add(subscription);
+    registerSubscription(subscription);
   }
 
   private void processRepositoryResult(ArchiveItem item) {
@@ -87,7 +82,7 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
             }, error -> {
               showError();
             });
-    subscriptions.add(subscription);
+    registerSubscription(subscription);
   }
 
   private void showItem(ArchiveItem item) {

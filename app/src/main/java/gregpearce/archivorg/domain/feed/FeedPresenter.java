@@ -86,6 +86,7 @@ public class FeedPresenter extends BasePresenter<FeedView, FeedViewState> {
                          showError();
                          nextPageSubscription = null;
                        });
+    registerSubscription(nextPageSubscription);
   }
 
   private void showPage(ResultPage page) {
