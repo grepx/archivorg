@@ -33,7 +33,7 @@ public class FeedPresenter extends BasePresenter<FeedView, FeedViewState> {
                         .build();
   }
 
-  @Override protected void start() {
+  @Override public void onStart() {
     fetchPage();
   }
 
@@ -41,8 +41,8 @@ public class FeedPresenter extends BasePresenter<FeedView, FeedViewState> {
     if (nextPageSubscription != null) {
       nextPageSubscription.unsubscribe();
     }
-    updateViewState(initViewState());
     nextPageSubscription = null;
+    updateViewState(initViewState());
     reachedBottomOfFeed = false;
     nextPageToFetch = 1;
   }

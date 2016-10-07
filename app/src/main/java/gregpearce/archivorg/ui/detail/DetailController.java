@@ -19,6 +19,7 @@ import gregpearce.archivorg.domain.detail.DetailView;
 import gregpearce.archivorg.domain.detail.DetailViewState;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.ui.BaseController;
+import gregpearce.archivorg.ui.PresenterController;
 import gregpearce.archivorg.ui.widget.ProfileButton;
 import gregpearce.archivorg.util.BundleBuilder;
 import javax.inject.Inject;
@@ -26,7 +27,7 @@ import timber.log.Timber;
 
 import static gregpearce.archivorg.util.ViewUtil.setVisible;
 
-public class DetailController extends BaseController implements DetailView {
+public class DetailController extends PresenterController implements DetailView {
 
   private static String ARGUMENT_ID = "ARGUMENT_ID";
 
@@ -54,14 +55,9 @@ public class DetailController extends BaseController implements DetailView {
   }
 
   @Override protected void onCreate() {
-    super.onCreate();
     getComponent().inject(this);
     presenter = detailPresenterFactory.create(id);
-  }
-
-  @Override public void onDestroy() {
-    super.onDestroy();
-    presenter.onDestroy();
+    registerPresenter(presenter);
   }
 
   @Override

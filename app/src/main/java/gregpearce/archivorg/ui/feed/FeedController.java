@@ -18,13 +18,13 @@ import gregpearce.archivorg.domain.feed.FeedViewState;
 import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.domain.network.FeedService;
 import gregpearce.archivorg.domain.network.FeedServiceFactory;
-import gregpearce.archivorg.ui.BaseController;
+import gregpearce.archivorg.ui.PresenterController;
 import gregpearce.archivorg.util.BundleBuilder;
 import javax.inject.Inject;
 
 import static gregpearce.archivorg.util.ViewUtil.setVisible;
 
-public class FeedController extends BaseController implements FeedView {
+public class FeedController extends PresenterController implements FeedView {
 
   @Inject FeedServiceFactory feedServiceFactory;
   @Inject FeedPresenterFactory feedPresenterFactory;
@@ -72,6 +72,7 @@ public class FeedController extends BaseController implements FeedView {
                               // otherwise, configure it to be top results
                               feedServiceFactory.getTopFeed(feedType);
     presenter = feedPresenterFactory.create(feedService);
+    registerPresenter(presenter);
   }
 
   @Override

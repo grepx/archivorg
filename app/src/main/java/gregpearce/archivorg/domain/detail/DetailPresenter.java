@@ -40,7 +40,7 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
                           .build();
   }
 
-  @Override protected void start() {
+  @Override public void onStart() {
     loadItem();
   }
 

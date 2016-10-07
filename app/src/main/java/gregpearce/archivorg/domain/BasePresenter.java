@@ -1,20 +1,16 @@
 package gregpearce.archivorg.domain;
 
 public abstract class BasePresenter<ViewType extends BaseView<ViewStateType>, ViewStateType> {
-  private boolean started = false;
 
   protected ViewStateType viewState;
   protected ViewType view;
 
+  public BasePresenter() {
+    viewState = initViewState();
+  }
+
   public ViewStateType subscribe(ViewType view) {
     this.view = view;
-
-    if (!started) {
-      started = true;
-      viewState = initViewState();
-      start();
-    }
-
     return viewState;
   }
 
@@ -31,12 +27,16 @@ public abstract class BasePresenter<ViewType extends BaseView<ViewStateType>, Vi
 
   protected abstract ViewStateType initViewState();
 
-  protected void start() {
+  /**
+   * Called once, by the owner to inform the Presenter it should start.
+   * (e.g. use this to kick off a network request that happens  when the screen starts)
+   */
+  public void onStart() {
   }
 
   /**
-   * This can be overriden by the Presenter and called by it's Controller / parent class to inform
-   * it that it should
+   * Called by owner to inform the Presenter that it should clean up
+   * (e.g. unsubscribe rxJava subscriptions).
    */
   public void onDestroy() {
   }
