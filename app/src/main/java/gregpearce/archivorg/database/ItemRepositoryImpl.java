@@ -10,11 +10,11 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class BookmarkRepositoryImpl implements ItemRepository {
+public class ItemRepositoryImpl implements ItemRepository {
 
   private Realm realm;
 
-  @Inject public BookmarkRepositoryImpl(Realm realm) {
+  @Inject public ItemRepositoryImpl(Realm realm) {
     this.realm = realm;
   }
 
