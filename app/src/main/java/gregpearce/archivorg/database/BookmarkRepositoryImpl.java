@@ -4,26 +4,27 @@ import gregpearce.archivorg.database.model.ArchiveItemRecord;
 import gregpearce.archivorg.domain.database.ItemRepository;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import io.realm.Realm;
-import io.realm.RealmResults;
-import java.util.Collections;
+import io.realm.RealmQuery;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.subjects.BehaviorSubject;
 
 public class BookmarkRepositoryImpl implements ItemRepository {
 
-  private BehaviorSubject<List<ArchiveItem>> subject =
-      BehaviorSubject.create(Collections.EMPTY_LIST);
   private Realm realm;
 
   @Inject public BookmarkRepositoryImpl(Realm realm) {
     this.realm = realm;
   }
 
+  private RealmQuery<ArchiveItemRecord> getRecords() {
+    return realm.where(ArchiveItemRecord.class);
+  }
+
   @Override public Observable<List<ArchiveItem>> getBookmarkedItems() {
-    return subject.asObservable();
+    return getRecords().equalTo("isBookmarked", true).findAll().asObservable()
+                       .map((records) -> ArchiveItemRecord.mapToDomainList(records));
   }
 
   @Override public Observable<ArchiveItem> get(String id) {

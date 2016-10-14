@@ -2,10 +2,13 @@ package gregpearce.archivorg.database.model;
 
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.domain.model.MediaType;
+import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 import java.util.ArrayList;
+import java.util.List;
 import org.threeten.bp.Instant;
 
 public class ArchiveItemRecord extends RealmObject {
@@ -52,5 +55,13 @@ public class ArchiveItemRecord extends RealmObject {
                    .isBookmarked(record.isBookmarked)
                    .build();
     return archiveItem;
+  }
+
+  public static List<ArchiveItem> mapToDomainList(RealmResults<ArchiveItemRecord> records) {
+    ArrayList<ArchiveItem> archiveItems = new ArrayList<>(records.size());
+    for (ArchiveItemRecord record : records) {
+      archiveItems.add(mapToDomain(record));
+    }
+    return archiveItems;
   }
 }
