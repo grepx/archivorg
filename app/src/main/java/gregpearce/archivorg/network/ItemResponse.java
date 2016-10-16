@@ -13,6 +13,7 @@ class ItemResponse {
     String length;
     String source;
     String format;
+    String md5;
   }
 
   Metadata metadata;

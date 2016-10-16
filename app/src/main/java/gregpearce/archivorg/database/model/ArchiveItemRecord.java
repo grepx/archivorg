@@ -26,9 +26,9 @@ public class ArchiveItemRecord extends RealmObject {
 
   public @Required String uploader;
 
-  //public @Required RealmList<ArchiveFileRecord> files;
-
   public boolean isBookmarked;
+
+  public RealmList<ArchiveFileRecord> files;
 
   public static ArchiveItemRecord mapToRecord(ArchiveItem archiveItem) {
     ArchiveItemRecord record = new ArchiveItemRecord();
@@ -40,6 +40,7 @@ public class ArchiveItemRecord extends RealmObject {
     record.creator = archiveItem.creator();
     record.uploader = archiveItem.uploader();
     record.isBookmarked = archiveItem.isBookmarked();
+    record.files = ArchiveFileRecord.mapToRecordList(archiveItem.files());
     return record;
   }
 
@@ -53,8 +54,8 @@ public class ArchiveItemRecord extends RealmObject {
                    .mediaType(MediaType.valueOf(record.mediaType))
                    .creator(record.creator)
                    .uploader(record.uploader)
-                   .files(new ArrayList<>()) // todo
                    .isBookmarked(record.isBookmarked)
+                   .files(ArchiveFileRecord.mapToDomainList(record.files))
                    .build();
     return archiveItem;
   }

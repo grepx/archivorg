@@ -18,6 +18,8 @@ public abstract class ArchiveFile {
 
   @Nullable public abstract String format();
 
+  public abstract String md5();
+
   @AutoValue.Builder
   public abstract static class Builder {
 
@@ -30,6 +32,8 @@ public abstract class ArchiveFile {
     public abstract ArchiveFile.Builder source(@Nullable String source);
 
     public abstract ArchiveFile.Builder format(@Nullable String format);
+
+    public abstract ArchiveFile.Builder md5(String md5);
 
     public abstract ArchiveFile build();
   }
