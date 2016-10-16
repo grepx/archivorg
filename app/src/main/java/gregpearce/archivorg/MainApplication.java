@@ -9,6 +9,7 @@ import gregpearce.archivorg.di.ApplicationComponent;
 import gregpearce.archivorg.di.ApplicationModule;
 import gregpearce.archivorg.di.DaggerApplicationComponent;
 import io.fabric.sdk.android.Fabric;
+import io.realm.Realm;
 import timber.log.Timber;
 
 public class MainApplication extends Application {
@@ -28,6 +29,7 @@ public class MainApplication extends Application {
     setupTimber();
     setupLeakCanary();
     AndroidThreeTen.init(this);
+    Realm.init(this);
 
     ApplicationComponent component =
         DaggerApplicationComponent.builder()
