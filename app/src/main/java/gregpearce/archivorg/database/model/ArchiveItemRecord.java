@@ -18,9 +18,9 @@ public class ArchiveItemRecord extends RealmObject {
 
   public @Required String description;
 
-  //public Instant publishedDate;
+  public long publishedDate;
 
-  //public @Required  MediaType mediaType;
+  public @Required  String mediaType;
 
   public @Required String creator;
 
@@ -35,6 +35,8 @@ public class ArchiveItemRecord extends RealmObject {
     record.id = archiveItem.id();
     record.title = archiveItem.title();
     record.description = archiveItem.description();
+    record.publishedDate = archiveItem.publishedDate().toEpochMilli();
+    record.mediaType = archiveItem.mediaType().name();
     record.creator = archiveItem.creator();
     record.uploader = archiveItem.uploader();
     record.isBookmarked = archiveItem.isBookmarked();
@@ -47,8 +49,8 @@ public class ArchiveItemRecord extends RealmObject {
                    .id(record.id)
                    .title(record.title)
                    .description(record.description)
-                   .publishedDate(Instant.now()) // todo fix
-                   .mediaType(MediaType.Audio) // todo
+                   .publishedDate(Instant.ofEpochMilli(record.publishedDate))
+                   .mediaType(MediaType.valueOf(record.mediaType))
                    .creator(record.creator)
                    .uploader(record.uploader)
                    .files(new ArrayList<>()) // todo
