@@ -25,8 +25,7 @@ public class ItemRepositoryImpl implements ItemRepository {
   }
 
   @Override public Observable<List<ArchiveItem>> getBookmarks() {
-    return RxUtil.bootstrap()
-                 .flatMap(o -> getBookmarksFromRealm())
+    return RxUtil.bootstrap(() -> getBookmarksFromRealm())
                  .map((records) -> ArchiveItemRecord.mapToDomainList(records))
                  .compose(RealmUtil.subscribeDefaults());
   }
@@ -38,9 +37,8 @@ public class ItemRepositoryImpl implements ItemRepository {
   }
 
   @Override public Observable<ArchiveItem> get(String id) {
-    return RxUtil.bootstrap()
-                 .flatMap(na -> getFromRealm(id).asObservable())
-                 .map((result) -> ArchiveItemRecord.mapToDomain(result))
+    return RxUtil.bootstrap(() -> getFromRealm(id).asObservable())
+                 .map((result) -> result == null ? null : ArchiveItemRecord.mapToDomain(result))
                  .compose(RealmUtil.subscribeDefaults());
   }
 
