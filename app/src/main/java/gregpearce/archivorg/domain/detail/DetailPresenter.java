@@ -48,21 +48,21 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
     Timber.d("Loading item from repository");
     Subscription subscription =
         bookmarkRepository.get(id)
+                          // complete the stream on first result - we don't need real time updates
+                          .first()
                           .compose(RxUtil.subscribeDefaults())
                           .subscribe(item -> {
                             processRepositoryResult(item);
                           }, error -> {
-                            Timber.e("Error loading %s", id);
+                            Timber.e(error, "Error loading %s", id);
                             showError();
-                          }, () -> {
-                            Timber.e("Error: Completed stream for %s", id);
                           });
     registerSubscription(subscription);
   }
 
   private void processRepositoryResult(ArchiveItem item) {
     if (item == null) {
-      // the item doesn't exist in the database, trigger a network load
+      // trigger a network load
       Timber.d("Item was not available in repository, loading from network");
       fetchItem();
     } else {
@@ -72,17 +72,15 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
   }
 
   private void fetchItem() {
-    Observable<ArchiveItem> network = detailService.get(id);
-
     Subscription subscription =
-        network
-            .compose(RxUtil.subscribeDefaults())
-            .subscribe(item -> {
-              Timber.d("Fetched item from network: %s", item);
-              showItem(item);
-            }, error -> {
-              showError();
-            });
+        detailService.get(id)
+                     .compose(RxUtil.subscribeDefaults())
+                     .subscribe(item -> {
+                       Timber.d("Fetched item from network: %s", item);
+                       showItem(item);
+                     }, error -> {
+                       showError();
+                     });
     registerSubscription(subscription);
   }
 
@@ -110,17 +108,27 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
   }
 
   public void bookmark() {
-    // toggle the bookmarked status - null = not bookmarked
     ArchiveItem updatedItem;
     if (item.bookmarkedDate() == null) {
+      // bookmark item
       updatedItem = item.toBuilder()
                         .bookmarkedDate(Instant.now())
                         .build();
+      bookmarkRepository.put(updatedItem);
     } else {
+      // unbookmark item
       updatedItem = item.toBuilder()
                         .bookmarkedDate(null)
                         .build();
+
+      if (item.downloadedDate() != null) {
+        // this item still has files downloaded, just update the database record
+        bookmarkRepository.put(updatedItem);
+      } else {
+        // unbookmarked an item with no offline files - delete it from the database
+        bookmarkRepository.delete(item.id());
+      }
     }
-    bookmarkRepository.put(updatedItem);
+    updateViewState(viewState.toBuilder().item(updatedItem).build());
   }
 }

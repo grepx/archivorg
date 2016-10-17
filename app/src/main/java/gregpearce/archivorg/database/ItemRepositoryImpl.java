@@ -7,12 +7,13 @@ import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.util.RxUtil;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
 
 import static gregpearce.archivorg.database.util.RealmUtil.getRealm;
-import static gregpearce.archivorg.database.util.RealmUtil.postToHandler;
+import static gregpearce.archivorg.database.util.RealmUtil.doRealmTransaction;
 
 public class ItemRepositoryImpl implements ItemRepository {
 
@@ -24,7 +25,9 @@ public class ItemRepositoryImpl implements ItemRepository {
   }
 
   @Override public Observable<List<ArchiveItem>> getBookmarkedItems() {
-    return getArchiveItems().equalTo("isBookmarked", true).findAll().asObservable()
+    return getArchiveItems().isNotNull("bookmarkedDate")
+                            .findAllSorted("bookmarkedDate", Sort.DESCENDING)
+                            .asObservable()
                             .map((records) -> ArchiveItemRecord.mapToDomainList(records))
                             .compose(RealmUtil.subscribeDefaults());
   }
@@ -47,11 +50,17 @@ public class ItemRepositoryImpl implements ItemRepository {
   }
 
   @Override public void put(ArchiveItem feedItem) {
-    postToHandler(realm -> {
+    doRealmTransaction(realm -> {
       ArchiveItemRecord record = ArchiveItemRecord.mapToRecord(feedItem);
-      realm.beginTransaction();
       realm.insertOrUpdate(record);
-      realm.commitTransaction();
     });
+  }
+
+  @Override public void delete(String id) {
+    doRealmTransaction(realm ->
+                           getArchiveItems()
+                               .equalTo("id", id)
+                               .findFirst()
+                               .deleteFromRealm());
   }
 }

@@ -55,10 +55,12 @@ public class RealmUtil {
   /**
    *  Helper method for using Realm on the correct thread.
    */
-  public static void postToHandler(Action1<Realm> action) {
+  public static void doRealmTransaction(Action1<Realm> action) {
     getHandler().post(() -> {
       Realm realm = getRealm();
+      realm.beginTransaction();
       action.call(realm);
+      realm.commitTransaction();
     });
   }
 

@@ -10,4 +10,6 @@ public interface ItemRepository {
   Observable<ArchiveItem> get(String id);
 
   void put(ArchiveItem feedItem);
+
+  void delete(String id);
 }
