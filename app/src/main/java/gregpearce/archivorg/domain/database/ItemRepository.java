@@ -5,7 +5,7 @@ import java.util.List;
 import rx.Observable;
 
 public interface ItemRepository {
-  Observable<List<ArchiveItem>> getBookmarkedItems();
+  Observable<List<ArchiveItem>> getBookmarks();
 
   Observable<ArchiveItem> get(String id);
 

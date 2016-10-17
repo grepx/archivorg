@@ -24,29 +24,40 @@ public class ItemRepositoryImpl implements ItemRepository {
     return getRealm().where(ArchiveItemRecord.class);
   }
 
-  @Override public Observable<List<ArchiveItem>> getBookmarkedItems() {
+  @Override public Observable<List<ArchiveItem>> getBookmarks() {
+    return RxUtil.bootstrap()
+                 .flatMap(o -> getBookmarksFromRealm())
+                 .map((records) -> ArchiveItemRecord.mapToDomainList(records))
+                 .compose(RealmUtil.subscribeDefaults());
+  }
+
+  private Observable<RealmResults<ArchiveItemRecord>> getBookmarksFromRealm() {
     return getArchiveItems().isNotNull("bookmarkedDate")
                             .findAllSorted("bookmarkedDate", Sort.DESCENDING)
-                            .asObservable()
-                            .map((records) -> ArchiveItemRecord.mapToDomainList(records))
-                            .compose(RealmUtil.subscribeDefaults());
+                            .asObservable();
   }
 
   @Override public Observable<ArchiveItem> get(String id) {
     return RxUtil.bootstrap()
                  .flatMap(na -> getFromRealm(id).asObservable())
-                 .map((result) -> {
-                   if (result.size() == 0) {
-                     return null;
-                   } else {
-                     return ArchiveItemRecord.mapToDomain(result.first());
-                   }
-                 })
+                 .map((result) -> ArchiveItemRecord.mapToDomain(result))
                  .compose(RealmUtil.subscribeDefaults());
   }
 
-  private RealmResults<ArchiveItemRecord> getFromRealm(String id) {
-    return getArchiveItems().equalTo("id", id).findAll();
+  private Observable<ArchiveItemRecord> getFromRealm(String id) {
+    return getArchiveItems().equalTo("id", id)
+                            // even though we are querying by id, if we do findFirst then if it
+                            // doesn't exist we can't build an observable off it
+                            .findAll()
+                            .asObservable()
+                            .map(result -> {
+                              // if it doesn't exist, map to null, otherwise get it
+                              if (result.size() == 0) {
+                                return null;
+                              } else {
+                                return result.first();
+                              }
+                            });
   }
 
   @Override public void put(ArchiveItem feedItem) {
