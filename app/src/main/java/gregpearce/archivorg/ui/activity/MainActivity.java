@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
 
   private Router router;
 
-  private enum RootController {Discover, Bookmarks, Downloads}
+  private enum RootController {Discover, Bookmarks, Downloads, Settings}
 
   private RootController rootController;
 
@@ -48,12 +48,18 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
     router = Conductor.attachRouter(this, container, savedInstanceState);
     if (!router.hasRootController()) {
       rootController = RootController.Discover;
+      navigationView.getMenu().findItem(R.id.drawer_discover).setChecked(true);
       router.setRoot(RouterTransaction.with(new DiscoverController()));
     }
   }
 
   private void setupDrawerContent(NavigationView navigationView) {
     navigationView.setNavigationItemSelectedListener(menuItem -> {
+      navigationView.getMenu().findItem(R.id.drawer_discover).setChecked(false);
+      navigationView.getMenu().findItem(R.id.drawer_bookmarks).setChecked(false);
+      navigationView.getMenu().findItem(R.id.drawer_downloads).setChecked(false);
+      navigationView.getMenu().findItem(R.id.drawer_settings).setChecked(false);
+
       switch (menuItem.getItemId()) {
         case R.id.drawer_discover:
           if (rootController != RootController.Discover) {
@@ -70,6 +76,12 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
         case R.id.drawer_downloads:
           if (rootController != RootController.Downloads) {
             rootController = RootController.Downloads;
+            //router.setRoot(RouterTransaction.with(new DiscoverController()));
+          }
+          break;
+        case R.id.drawer_settings:
+          if (rootController != RootController.Settings) {
+            rootController = RootController.Settings;
             //router.setRoot(RouterTransaction.with(new DiscoverController()));
           }
           break;
