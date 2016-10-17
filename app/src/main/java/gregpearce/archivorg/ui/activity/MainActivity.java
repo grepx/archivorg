@@ -3,6 +3,7 @@ package gregpearce.archivorg.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -84,7 +85,11 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
   }
 
   @Override public void onBackPressed() {
-    if (!router.handleBack()) {
+    if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+      drawerLayout.closeDrawer(GravityCompat.START);
+    } else if (!router.handleBack()) {
+      super.onBackPressed();
+    } else {
       super.onBackPressed();
     }
   }
