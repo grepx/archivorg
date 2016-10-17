@@ -18,6 +18,7 @@ import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.ui.OverlayChildRouter;
 import gregpearce.archivorg.ui.discover.DiscoverController;
 import java.util.List;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements DrawerLayoutProvider {
 
@@ -50,13 +51,17 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
   private void setupDrawerContent(NavigationView navigationView) {
     navigationView.setNavigationItemSelectedListener(menuItem -> {
       switch (menuItem.getItemId()) {
-        case R.id.drawer_item1:
+        case R.id.drawer_discover:
           //router.setRoot(RouterTransaction.with(new TasksController()));
           break;
-        case R.id.drawer_item2:
+        case R.id.drawer_bookmarks:
+          //router.setRoot(RouterTransaction.with(new StatisticsController()));
+          break;
+        case R.id.drawer_downloads:
           //router.setRoot(RouterTransaction.with(new StatisticsController()));
           break;
         default:
+          Timber.e("Unknown drawer option");
           break;
       }
       // Close the navigation drawer when an item is selected.

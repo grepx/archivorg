@@ -24,6 +24,10 @@
   <string name="files">Files</string>
   <string name="items">Items</string>
 
+  <string name="discover">Discover</string>
+  <string name="bookmarks">Bookmarks</string>
+  <string name="downloads">Downloads</string>
+
   <string name="tap_to_retry">Failed to load content.\nTap here to retry.</string>
 
   <string name="share_title">Share via</string>

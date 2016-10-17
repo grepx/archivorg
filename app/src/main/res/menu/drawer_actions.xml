@@ -3,13 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
   <item
-      android:id="@+id/drawer_item1"
-      android:icon="@drawable/ic_star_border_white_24dp"
-      android:title="item 1"
+      android:id="@+id/drawer_discover"
+      android:icon="@drawable/ic_search_white_24dp"
+      android:title="@string/discover"
       />
   <item
-      android:id="@+id/drawer_item2"
-      android:icon="@drawable/ic_star_border_white_24dp"
-      android:title="item 2"
+      android:id="@+id/drawer_bookmarks"
+      android:icon="@drawable/ic_star_white_24dp"
+      android:title="@string/bookmarks"
+      />
+  <item
+      android:id="@+id/drawer_downloads"
+      android:icon="@drawable/ic_file_download_black_24dp"
+      android:title="@string/downloads"
       />
 </menu>
