@@ -20,13 +20,15 @@ public class ArchiveItemRecord extends RealmObject {
 
   public long publishedDate;
 
-  public @Required  String mediaType;
+  public @Required String mediaType;
 
   public @Required String creator;
 
   public @Required String uploader;
 
-  public boolean isBookmarked;
+  public String bookmarkedDate;
+
+  public String downloadedDate;
 
   public RealmList<ArchiveFileRecord> files;
 
@@ -39,7 +41,10 @@ public class ArchiveItemRecord extends RealmObject {
     record.mediaType = archiveItem.mediaType().name();
     record.creator = archiveItem.creator();
     record.uploader = archiveItem.uploader();
-    record.isBookmarked = archiveItem.isBookmarked();
+    record.bookmarkedDate = archiveItem.bookmarkedDate() == null ?
+                            null : archiveItem.bookmarkedDate().toString();
+    record.downloadedDate = archiveItem.downloadedDate() == null ?
+                            null : archiveItem.downloadedDate().toString();
     record.files = ArchiveFileRecord.mapToRecordList(archiveItem.files());
     return record;
   }
@@ -54,7 +59,10 @@ public class ArchiveItemRecord extends RealmObject {
                    .mediaType(MediaType.valueOf(record.mediaType))
                    .creator(record.creator)
                    .uploader(record.uploader)
-                   .isBookmarked(record.isBookmarked)
+                   .bookmarkedDate(record.bookmarkedDate == null ?
+                                   null : Instant.parse(record.bookmarkedDate))
+                   .downloadedDate(record.downloadedDate == null ?
+                                   null : Instant.parse(record.downloadedDate))
                    .files(ArchiveFileRecord.mapToDomainList(record.files))
                    .build();
     return archiveItem;

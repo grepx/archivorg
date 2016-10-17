@@ -24,7 +24,11 @@ public abstract class ArchiveItem {
 
   public abstract List<ArchiveFile> files();
 
-  public abstract boolean isBookmarked();
+  // The date that this was bookmarked (null if not currently bookmarked)
+  public abstract @Nullable Instant bookmarkedDate();
+
+  // The date of last file downloaded (null if no files are currently downloaded)
+  public abstract @Nullable Instant downloadedDate();
 
   @AutoValue.Builder
   public abstract static class Builder {
@@ -45,7 +49,9 @@ public abstract class ArchiveItem {
 
     public abstract ArchiveItem.Builder files(List<ArchiveFile> files);
 
-    public abstract ArchiveItem.Builder isBookmarked(boolean isBookmarked);
+    public abstract ArchiveItem.Builder bookmarkedDate(Instant bookmarkedDate);
+
+    public abstract ArchiveItem.Builder downloadedDate(Instant downloadedDate);
 
     public abstract ArchiveItem build();
   }

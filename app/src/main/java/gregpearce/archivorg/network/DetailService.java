@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import org.threeten.bp.Instant;
 import rx.Observable;
 
 @Singleton public class DetailService {
@@ -49,7 +50,6 @@ import rx.Observable;
                                   .creator(NullUtil.defaultValue(metadata.creator))
                                   .uploader(NullUtil.defaultValue(metadata.uploader))
                                   .files(files)
-                                  .isBookmarked(false)
                                   .build();
               });
   }

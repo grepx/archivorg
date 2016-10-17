@@ -7,6 +7,7 @@ import gregpearce.archivorg.domain.database.ItemRepository;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.network.DetailService;
 import gregpearce.archivorg.util.RxUtil;
+import org.threeten.bp.Instant;
 import rx.Observable;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -109,10 +110,17 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
   }
 
   public void bookmark() {
-    // toggle the bookmarked value and save
-    ArchiveItem updatedItem = item.toBuilder()
-                                  .isBookmarked(!item.isBookmarked())
-                                  .build();
+    // toggle the bookmarked status - null = not bookmarked
+    ArchiveItem updatedItem;
+    if (item.bookmarkedDate() == null) {
+      updatedItem = item.toBuilder()
+                        .bookmarkedDate(Instant.now())
+                        .build();
+    } else {
+      updatedItem = item.toBuilder()
+                        .bookmarkedDate(null)
+                        .build();
+    }
     bookmarkRepository.put(updatedItem);
   }
 }

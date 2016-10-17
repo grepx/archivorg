@@ -118,7 +118,7 @@ public class DetailController extends PresenterController implements DetailView 
     ArchiveItem item = viewState.item();
     titleView.setText(item.title());
     descriptionView.loadDataWithBaseURL("", item.description(), "text/html", "UTF-8", "");
-    bookmarkButton.setState(viewState.item().isBookmarked() ?
+    bookmarkButton.setState(viewState.item().bookmarkedDate() != null ?
                            BookmarkButton.STATE_BOOKMARKED :
                            BookmarkButton.STATE_NOT_BOOKMARKED);
   }
