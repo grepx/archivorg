@@ -27,7 +27,9 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
 
   private Router router;
 
-  private ControllerComponent controllerComponent;
+  private enum RootController {Discover, Bookmarks, Downloads}
+
+  private RootController rootController;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
 
     router = Conductor.attachRouter(this, container, savedInstanceState);
     if (!router.hasRootController()) {
+      rootController = RootController.Discover;
       router.setRoot(RouterTransaction.with(new DiscoverController()));
     }
   }
@@ -52,13 +55,22 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
     navigationView.setNavigationItemSelectedListener(menuItem -> {
       switch (menuItem.getItemId()) {
         case R.id.drawer_discover:
-          //router.setRoot(RouterTransaction.with(new TasksController()));
+          if (rootController != RootController.Discover) {
+            rootController = RootController.Discover;
+            router.setRoot(RouterTransaction.with(new DiscoverController()));
+          }
           break;
         case R.id.drawer_bookmarks:
-          //router.setRoot(RouterTransaction.with(new StatisticsController()));
+          if (rootController != RootController.Bookmarks) {
+            rootController = RootController.Bookmarks;
+            //router.setRoot(RouterTransaction.with(new DiscoverController()));
+          }
           break;
         case R.id.drawer_downloads:
-          //router.setRoot(RouterTransaction.with(new StatisticsController()));
+          if (rootController != RootController.Downloads) {
+            rootController = RootController.Downloads;
+            //router.setRoot(RouterTransaction.with(new DiscoverController()));
+          }
           break;
         default:
           Timber.e("Unknown drawer option");
@@ -79,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
 
   public BaseController getActivityController() {
     List<RouterTransaction> backstack = router.getBackstack();
-    return (BaseController) backstack.get(backstack.size()-1).controller();
+    return (BaseController) backstack.get(backstack.size() - 1).controller();
   }
 
   @Override public DrawerLayout getDrawerLayout() {
