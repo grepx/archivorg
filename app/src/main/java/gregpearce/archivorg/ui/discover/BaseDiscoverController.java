@@ -23,6 +23,7 @@ import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.ui.OverlayChildRouter;
 import gregpearce.archivorg.ui.feed.FeedController;
+import gregpearce.archivorg.ui.util.ArSearchView;
 import javax.inject.Inject;
 
 public abstract class BaseDiscoverController extends BaseController implements OverlayChildRouter {
@@ -33,7 +34,7 @@ public abstract class BaseDiscoverController extends BaseController implements O
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.view_pager) ViewPager viewPager;
   @BindView(R.id.tab_layout) TabLayout tabLayout;
-  @BindView(R.id.search_view) SearchView searchView;
+  @BindView(R.id.search_view) ArSearchView searchView;
   @BindView(R.id.modal_controller_container) ViewGroup modalContainer;
 
   public BaseDiscoverController() {
@@ -64,6 +65,7 @@ public abstract class BaseDiscoverController extends BaseController implements O
     setActionBar(toolbar);
     getActionBar().setDisplayHomeAsUpEnabled(true);
     getActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+    getActionBar().setTitle(R.string.discover);
 
     getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
   }
@@ -89,16 +91,7 @@ public abstract class BaseDiscoverController extends BaseController implements O
   }
 
   protected void setupSearchView() {
-    searchView.setVersion(SearchView.VERSION_MENU_ITEM);
-    searchView.setVersionMargins(SearchView.VERSION_MARGINS_MENU_ITEM);
-    searchView.setTheme(SearchView.THEME_LIGHT, true);
     searchView.setHint("Search Archive.org");
-    searchView.setTextSize(16);
-    searchView.setDivider(false);
-    searchView.setVoice(false);
-    searchView.setAnimationDuration(SearchView.ANIMATION_DURATION);
-    searchView.setShadow(true);
-    searchView.setShadowColor(ContextCompat.getColor(getActivity(), R.color.search_shadow_layout));
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {

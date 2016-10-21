@@ -17,6 +17,7 @@ import gregpearce.archivorg.R;
 import gregpearce.archivorg.di.ControllerComponent;
 import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.ui.OverlayChildRouter;
+import gregpearce.archivorg.ui.bookmarks.BookmarkController;
 import gregpearce.archivorg.ui.discover.DiscoverController;
 import java.util.List;
 import timber.log.Timber;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
         case R.id.drawer_bookmarks:
           if (rootController != RootController.Bookmarks) {
             rootController = RootController.Bookmarks;
-            //router.setRoot(RouterTransaction.with(new DiscoverController()));
+            router.setRoot(RouterTransaction.with(new BookmarkController()));
           }
           break;
         case R.id.drawer_downloads:

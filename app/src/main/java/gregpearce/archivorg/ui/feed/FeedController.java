@@ -21,6 +21,7 @@ import gregpearce.archivorg.domain.network.FeedServiceFactory;
 import gregpearce.archivorg.ui.PresenterController;
 import gregpearce.archivorg.util.BundleBuilder;
 import javax.inject.Inject;
+import rx.Observable;
 
 import static gregpearce.archivorg.util.ViewUtil.setVisible;
 
