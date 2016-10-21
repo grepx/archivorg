@@ -3,8 +3,8 @@ package gregpearce.archivorg.ui.discover;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import gregpearce.archivorg.domain.model.FeedContentType;
 import gregpearce.archivorg.ui.feed.FeedController;
-import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.util.BundleBuilder;
 
 public class SearchController extends BaseDiscoverController {
@@ -12,10 +12,10 @@ public class SearchController extends BaseDiscoverController {
   private static final String ARGUMENT_START_TAB = "ARGUMENT_START_TAB";
   private static final String ARGUMENT_QUERY = "ARGUMENT_QUERY";
 
-  private final FeedType startTab;
+  private final FeedContentType startTab;
   private final String query;
 
-  public SearchController(FeedType startTab, String query) {
+  public SearchController(FeedContentType startTab, String query) {
     this(BundleBuilder.create()
                       .putSerializable(ARGUMENT_START_TAB, startTab)
                       .putString(ARGUMENT_QUERY, query)
@@ -24,12 +24,12 @@ public class SearchController extends BaseDiscoverController {
 
   public SearchController(Bundle args) {
     super(args);
-    startTab = (FeedType) args.getSerializable(ARGUMENT_START_TAB);
+    startTab = (FeedContentType) args.getSerializable(ARGUMENT_START_TAB);
     query = args.getString(ARGUMENT_QUERY);
   }
 
-  @Override protected FeedController getController(FeedType feedType) {
-    return FeedController.createSearchFeedInstance(feedType, query);
+  @Override protected FeedController getController(FeedContentType feedContentType) {
+    return FeedController.createSearchFeedInstance(feedContentType, query);
   }
 
   @Override protected void onViewBound(@NonNull View view) {

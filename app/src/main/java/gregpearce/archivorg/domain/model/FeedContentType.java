@@ -1,5 +1,5 @@
 package gregpearce.archivorg.domain.model;
 
-public enum FeedType {
+public enum FeedContentType {
   All, Video, Audio, Book, Image
 }

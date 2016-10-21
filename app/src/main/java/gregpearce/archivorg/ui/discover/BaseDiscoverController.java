@@ -3,7 +3,6 @@ package gregpearce.archivorg.ui.discover;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +18,7 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import com.lapism.searchview.SearchView;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.Navigator;
-import gregpearce.archivorg.domain.model.FeedType;
+import gregpearce.archivorg.domain.model.FeedContentType;
 import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.ui.OverlayChildRouter;
 import gregpearce.archivorg.ui.feed.FeedController;
@@ -75,15 +74,15 @@ public abstract class BaseDiscoverController extends BaseController implements O
    *
    * @return A {@link FeedController} for this tab.
    */
-  protected abstract FeedController getController(FeedType feedType);
+  protected abstract FeedController getController(FeedContentType feedContentType);
 
   private void setupTabs() {
     FeedTab[] tabs = {
-        new FeedTab("ALL", FeedType.All, getController(FeedType.All)),
-        new FeedTab("AUDIO", FeedType.Audio, getController(FeedType.Audio)),
-        new FeedTab("VIDEO", FeedType.Video, getController(FeedType.Video)),
-        new FeedTab("TEXT", FeedType.Book, getController(FeedType.Book)),
-        new FeedTab("IMAGES", FeedType.Image, getController(FeedType.Image)),
+        new FeedTab("ALL", FeedContentType.All, getController(FeedContentType.All)),
+        new FeedTab("AUDIO", FeedContentType.Audio, getController(FeedContentType.Audio)),
+        new FeedTab("VIDEO", FeedContentType.Video, getController(FeedContentType.Video)),
+        new FeedTab("TEXT", FeedContentType.Book, getController(FeedContentType.Book)),
+        new FeedTab("IMAGES", FeedContentType.Image, getController(FeedContentType.Image)),
         };
     pagerAdapter = new PagerAdapter(this, tabs);
     viewPager.setAdapter(pagerAdapter);
@@ -126,8 +125,8 @@ public abstract class BaseDiscoverController extends BaseController implements O
 
   private void search(String query) {
     int tabPosition = viewPager.getCurrentItem();
-    FeedType feedType = pagerAdapter.getFeedType(tabPosition);
-    navigator.navigateToSearch(feedType, query);
+    FeedContentType feedContentType = pagerAdapter.getFeedType(tabPosition);
+    navigator.navigateToSearch(feedContentType, query);
   }
 
   public void pushOverlayController(RouterTransaction transaction) {

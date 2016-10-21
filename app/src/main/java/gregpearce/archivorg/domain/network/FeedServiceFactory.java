@@ -1,9 +1,9 @@
 package gregpearce.archivorg.domain.network;
 
-import gregpearce.archivorg.domain.model.FeedType;
+import gregpearce.archivorg.domain.model.FeedContentType;
 
 public interface FeedServiceFactory {
-  FeedService getTopFeed(FeedType feedType);
+  FeedService getTopFeed(FeedContentType feedContentType);
 
-  FeedService getSearchFeed(FeedType feedType, String query);
+  FeedService getSearchFeed(FeedContentType feedContentType, String query);
 }

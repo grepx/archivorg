@@ -2,10 +2,9 @@ package gregpearce.archivorg.network;
 
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
-import gregpearce.archivorg.domain.model.FeedType;
+import gregpearce.archivorg.domain.model.FeedContentType;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.network.FeedService;
-import javax.inject.Inject;
 import rx.Observable;
 
 @AutoFactory
@@ -13,9 +12,9 @@ public class TopFeedService implements FeedService {
   private ArchiveOrgFeedService archiveOrgFeedService;
   private String filter = "";
 
-  TopFeedService(@Provided ArchiveOrgFeedService archiveOrgFeedService, FeedType feedType) {
+  TopFeedService(@Provided ArchiveOrgFeedService archiveOrgFeedService, FeedContentType feedContentType) {
     this.archiveOrgFeedService = archiveOrgFeedService;
-    filter = ArchiveOrgFeedService.getFeedTypeClause(feedType);
+    filter = ArchiveOrgFeedService.getFeedTypeClause(feedContentType);
   }
 
   @Override public Observable<ResultPage> getPage(int page) {

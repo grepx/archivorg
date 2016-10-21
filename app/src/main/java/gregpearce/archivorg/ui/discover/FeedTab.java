@@ -1,16 +1,16 @@
 package gregpearce.archivorg.ui.discover;
 
+import gregpearce.archivorg.domain.model.FeedContentType;
 import gregpearce.archivorg.ui.feed.FeedController;
-import gregpearce.archivorg.domain.model.FeedType;
 
 class FeedTab {
   FeedController controller;
   String title;
-  FeedType feedType;
+  FeedContentType feedContentType;
 
-  FeedTab(String title, FeedType feedType, FeedController controller) {
+  FeedTab(String title, FeedContentType feedContentType, FeedController controller) {
     this.controller = controller;
     this.title = title;
-    this.feedType = feedType;
+    this.feedContentType = feedContentType;
   }
 }

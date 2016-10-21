@@ -6,7 +6,7 @@ import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.ui.BaseController;
 import gregpearce.archivorg.ui.OverlayChildRouter;
 import gregpearce.archivorg.ui.activity.MainActivity;
-import gregpearce.archivorg.domain.model.FeedType;
+import gregpearce.archivorg.domain.model.FeedContentType;
 import gregpearce.archivorg.ui.detail.DetailController;
 import gregpearce.archivorg.ui.discover.SearchController;
 import javax.inject.Inject;
@@ -30,8 +30,8 @@ public class NavigatorImpl implements Navigator {
     }
   }
 
-  @Override public void navigateToSearch(FeedType feedType, String query) {
-    processTransaction(RouterTransaction.with(new SearchController(feedType, query)));
+  @Override public void navigateToSearch(FeedContentType feedContentType, String query) {
+    processTransaction(RouterTransaction.with(new SearchController(feedContentType, query)));
   }
 
   private void processTransaction(RouterTransaction transaction) {

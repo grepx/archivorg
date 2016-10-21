@@ -2,7 +2,7 @@ package gregpearce.archivorg.ui.discover;
 
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.support.ControllerPagerAdapter;
-import gregpearce.archivorg.domain.model.FeedType;
+import gregpearce.archivorg.domain.model.FeedContentType;
 
 class PagerAdapter extends ControllerPagerAdapter {
 
@@ -25,13 +25,13 @@ class PagerAdapter extends ControllerPagerAdapter {
     return tabs[position].title;
   }
 
-  public FeedType getFeedType(int position) {
-    return tabs[position].feedType;
+  public FeedContentType getFeedType(int position) {
+    return tabs[position].feedContentType;
   }
 
-  public int getFeedPosition(FeedType feedType) {
+  public int getFeedPosition(FeedContentType feedContentType) {
     for (int i = 0; i < tabs.length; i++) {
-      if (tabs[i].feedType == feedType) {
+      if (tabs[i].feedContentType == feedContentType) {
         return i;
       }
     }

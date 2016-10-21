@@ -15,13 +15,12 @@ import gregpearce.archivorg.domain.feed.FeedPresenter;
 import gregpearce.archivorg.domain.feed.FeedPresenterFactory;
 import gregpearce.archivorg.domain.feed.FeedView;
 import gregpearce.archivorg.domain.feed.FeedViewState;
-import gregpearce.archivorg.domain.model.FeedType;
+import gregpearce.archivorg.domain.model.FeedContentType;
 import gregpearce.archivorg.domain.network.FeedService;
 import gregpearce.archivorg.domain.network.FeedServiceFactory;
 import gregpearce.archivorg.ui.PresenterController;
 import gregpearce.archivorg.util.BundleBuilder;
 import javax.inject.Inject;
-import rx.Observable;
 
 import static gregpearce.archivorg.util.ViewUtil.setVisible;
 
@@ -33,7 +32,7 @@ public class FeedController extends PresenterController implements FeedView {
   private FeedPresenter presenter;
   private FeedViewState viewState;
 
-  private FeedType feedType;
+  private FeedContentType feedContentType;
   private String query;
 
   private FeedAdapter adapter;
@@ -44,24 +43,24 @@ public class FeedController extends PresenterController implements FeedView {
   private static final String ARGUMENT_FEED_TYPE = "ARGUMENT_FEED_TYPE";
   private static final String ARGUMENT_QUERY = "ARGUMENT_QUERY";
 
-  public static FeedController createTopFeedInstance(FeedType feedType) {
-    return new FeedController(feedType, null);
+  public static FeedController createTopFeedInstance(FeedContentType feedContentType) {
+    return new FeedController(feedContentType, null);
   }
 
-  public static FeedController createSearchFeedInstance(FeedType feedType, String query) {
-    return new FeedController(feedType, query);
+  public static FeedController createSearchFeedInstance(FeedContentType feedContentType, String query) {
+    return new FeedController(feedContentType, query);
   }
 
-  private FeedController(FeedType feedType, String query) {
+  private FeedController(FeedContentType feedContentType, String query) {
     this(BundleBuilder.create()
-                      .putSerializable(ARGUMENT_FEED_TYPE, feedType)
+                      .putSerializable(ARGUMENT_FEED_TYPE, feedContentType)
                       .putString(ARGUMENT_QUERY, query)
                       .build());
   }
 
   public FeedController(Bundle args) {
     super(args);
-    feedType = (FeedType) args.getSerializable(ARGUMENT_FEED_TYPE);
+    feedContentType = (FeedContentType) args.getSerializable(ARGUMENT_FEED_TYPE);
     query = args.getString(ARGUMENT_QUERY);
   }
 
@@ -69,9 +68,9 @@ public class FeedController extends PresenterController implements FeedView {
     getComponent().inject(this);
     FeedService feedService = query != null ?
                               // if we have a query, configure service to be search results
-                              feedServiceFactory.getSearchFeed(feedType, query) :
+                              feedServiceFactory.getSearchFeed(feedContentType, query) :
                               // otherwise, configure it to be top results
-                              feedServiceFactory.getTopFeed(feedType);
+                              feedServiceFactory.getTopFeed(feedContentType);
     presenter = feedPresenterFactory.create(feedService);
     registerPresenter(presenter);
   }

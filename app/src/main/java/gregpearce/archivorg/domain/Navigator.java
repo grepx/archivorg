@@ -1,9 +1,9 @@
 package gregpearce.archivorg.domain;
 
-import gregpearce.archivorg.domain.model.FeedType;
+import gregpearce.archivorg.domain.model.FeedContentType;
 
 public interface Navigator {
   void navigateToDetailBottomSheet(String itemId);
 
-  void navigateToSearch(FeedType feedType, String query);
+  void navigateToSearch(FeedContentType feedContentType, String query);
 }
