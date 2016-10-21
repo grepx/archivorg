@@ -13,8 +13,8 @@ public class DiscoverController extends BaseDiscoverController {
 
   @Override protected void onViewBound(@NonNull View view) {
     super.onViewBound(view);
-    searchView.setNavigationIconArrowHamburger();
-    searchView.setShouldClearOnOpen(false);
-    searchView.setOnMenuClickListener(() -> getDrawerLayout().openDrawer(GravityCompat.START));
+    //searchView.setNavigationIconArrowHamburger();
+    //searchView.setShouldClearOnOpen(false);
+    //searchView.setOnMenuClickListener(() -> getDrawerLayout().openDrawer(GravityCompat.START));
   }
 }

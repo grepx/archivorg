@@ -101,8 +101,6 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
       drawerLayout.closeDrawer(GravityCompat.START);
     } else if (!router.handleBack()) {
       super.onBackPressed();
-    } else {
-      super.onBackPressed();
     }
   }
 

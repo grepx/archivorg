@@ -3,10 +3,15 @@ package gregpearce.archivorg.ui.discover;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
@@ -40,6 +45,7 @@ public abstract class BaseDiscoverController extends BaseController implements O
 
   @Override protected void onCreate() {
     getComponent().inject(this);
+    setHasOptionsMenu(true);
   }
 
   @Override
@@ -50,12 +56,15 @@ public abstract class BaseDiscoverController extends BaseController implements O
   @Override protected void onViewBound(@NonNull View view) {
     setupTabs();
     setupSearchView();
-
-    setActionBar(toolbar);
   }
 
   @Override protected void onAttach(@NonNull View view) {
     super.onAttach(view);
+
+    setActionBar(toolbar);
+    getActionBar().setDisplayHomeAsUpEnabled(true);
+    getActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+
     getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
   }
 
@@ -79,25 +88,47 @@ public abstract class BaseDiscoverController extends BaseController implements O
     tabLayout.setupWithViewPager(viewPager);
   }
 
-  private void setupSearchView() {
-    searchView.setVersion(SearchView.VERSION_TOOLBAR);
-    searchView.setVersionMargins(SearchView.VERSION_MARGINS_TOOLBAR_BIG);
+  protected void setupSearchView() {
+    searchView.setVersion(SearchView.VERSION_MENU_ITEM);
+    searchView.setVersionMargins(SearchView.VERSION_MARGINS_MENU_ITEM);
     searchView.setTheme(SearchView.THEME_LIGHT, true);
-    searchView.setVoice(false);
     searchView.setHint("Search Archive.org");
-
+    searchView.setTextSize(16);
+    searchView.setDivider(false);
+    searchView.setVoice(false);
+    searchView.setAnimationDuration(SearchView.ANIMATION_DURATION);
+    searchView.setShadow(true);
+    searchView.setShadowColor(ContextCompat.getColor(getActivity(), R.color.search_shadow_layout));
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-      @Override public boolean onQueryTextSubmit(String query) {
-        searchView.close(false);
-
+      @Override
+      public boolean onQueryTextSubmit(String query) {
         search(query);
         return true;
       }
 
-      @Override public boolean onQueryTextChange(String newText) {
+      @Override
+      public boolean onQueryTextChange(String newText) {
         return false;
       }
     });
+  }
+
+  @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    super.onCreateOptionsMenu(menu, inflater);
+    inflater.inflate(R.menu.menu_discover, menu);
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        getDrawerLayout().openDrawer(Gravity.LEFT);
+        return true;
+      case R.id.action_search:
+        searchView.open(true);
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
   }
 
   private void search(String query) {
