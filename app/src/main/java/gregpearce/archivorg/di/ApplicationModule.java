@@ -3,9 +3,8 @@ package gregpearce.archivorg.di;
 import dagger.Module;
 import dagger.Provides;
 import gregpearce.archivorg.MainApplication;
-import gregpearce.archivorg.di.annotations.ControllerScope;
-import gregpearce.archivorg.domain.Navigator;
-import gregpearce.archivorg.ui.navigation.NavigatorImpl;
+import gregpearce.archivorg.domain.service.FeedServiceFactory;
+import gregpearce.archivorg.data.FeedServiceFactoryImpl;
 import javax.inject.Singleton;
 
 @Module public class ApplicationModule {
@@ -17,5 +16,10 @@ import javax.inject.Singleton;
 
   @Provides @Singleton MainApplication provideMainApplication() {
     return application;
+  }
+
+  @Provides @Singleton
+  FeedServiceFactory provideFeedServiceFactory(FeedServiceFactoryImpl feedServiceFactory) {
+    return feedServiceFactory;
   }
 }

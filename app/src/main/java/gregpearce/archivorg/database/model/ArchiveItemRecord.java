@@ -1,5 +1,6 @@
 package gregpearce.archivorg.database.model;
 
+import gregpearce.archivorg.database.mapper.InstantMapper;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.domain.model.MediaType;
 import io.realm.RealmList;
@@ -18,7 +19,7 @@ public class ArchiveItemRecord extends RealmObject {
 
   public @Required String description;
 
-  public long publishedDate;
+  public String publishedDate;
 
   public @Required String mediaType;
 
@@ -37,14 +38,12 @@ public class ArchiveItemRecord extends RealmObject {
     record.id = archiveItem.id();
     record.title = archiveItem.title();
     record.description = archiveItem.description();
-    record.publishedDate = archiveItem.publishedDate().toEpochMilli();
+    record.publishedDate = archiveItem.publishedDate().toString();
     record.mediaType = archiveItem.mediaType().name();
     record.creator = archiveItem.creator();
     record.uploader = archiveItem.uploader();
-    record.bookmarkedDate = archiveItem.bookmarkedDate() == null ?
-                            null : archiveItem.bookmarkedDate().toString();
-    record.downloadedDate = archiveItem.downloadedDate() == null ?
-                            null : archiveItem.downloadedDate().toString();
+    record.bookmarkedDate = InstantMapper.toRecord(archiveItem.bookmarkedDate());
+    record.downloadedDate = InstantMapper.toRecord(archiveItem.downloadedDate());
     record.files = ArchiveFileRecord.mapToRecordList(archiveItem.files());
     return record;
   }
@@ -55,14 +54,12 @@ public class ArchiveItemRecord extends RealmObject {
                    .id(record.id)
                    .title(record.title)
                    .description(record.description)
-                   .publishedDate(Instant.ofEpochMilli(record.publishedDate))
+                   .publishedDate(Instant.parse(record.publishedDate))
                    .mediaType(MediaType.valueOf(record.mediaType))
                    .creator(record.creator)
                    .uploader(record.uploader)
-                   .bookmarkedDate(record.bookmarkedDate == null ?
-                                   null : Instant.parse(record.bookmarkedDate))
-                   .downloadedDate(record.downloadedDate == null ?
-                                   null : Instant.parse(record.downloadedDate))
+                   .bookmarkedDate(InstantMapper.toInstant(record.bookmarkedDate))
+                   .downloadedDate(InstantMapper.toInstant(record.downloadedDate))
                    .files(ArchiveFileRecord.mapToDomainList(record.files))
                    .build();
     return archiveItem;

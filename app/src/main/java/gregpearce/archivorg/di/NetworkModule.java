@@ -3,10 +3,8 @@ package gregpearce.archivorg.di;
 import dagger.Module;
 import dagger.Provides;
 import gregpearce.archivorg.BuildConfig;
-import gregpearce.archivorg.domain.network.FeedServiceFactory;
 import gregpearce.archivorg.network.ArchiveOrgApiV1;
 import gregpearce.archivorg.network.ArchiveOrgApiV2;
-import gregpearce.archivorg.network.FeedServiceFactoryImpl;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import javax.inject.Singleton;
@@ -65,10 +63,5 @@ import retrofit2.converter.gson.GsonConverterFactory;
         .build();
 
     return retrofit.create(ArchiveOrgApiV2.class);
-  }
-
-  @Provides @Singleton FeedServiceFactory provideFeedServiceFactory(
-      FeedServiceFactoryImpl feedServiceFactory) {
-    return feedServiceFactory;
   }
 }

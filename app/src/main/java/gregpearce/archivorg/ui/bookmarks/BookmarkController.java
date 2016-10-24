@@ -12,9 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
+import com.bluelinelabs.conductor.RouterTransaction;
 import com.lapism.searchview.SearchView;
 import gregpearce.archivorg.R;
+import gregpearce.archivorg.domain.model.FeedContentType;
+import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.ui.BaseController;
+import gregpearce.archivorg.ui.feed.FeedController;
 import gregpearce.archivorg.ui.util.ArSearchView;
 import javax.inject.Inject;
 
@@ -47,6 +51,10 @@ public class BookmarkController extends BaseController {
     getActionBar().setDisplayHomeAsUpEnabled(true);
     getActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
     getActionBar().setTitle("Bookmarks");
+
+    FeedController feedController =
+        new FeedController(FeedType.Bookmarks, FeedContentType.All, null);
+    getChildRouter(feedContainer, null).setRoot(RouterTransaction.with(feedController));
   }
 
   @Override protected void onAttach(@NonNull View view) {

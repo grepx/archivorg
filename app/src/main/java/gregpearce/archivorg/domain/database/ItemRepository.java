@@ -5,8 +5,6 @@ import java.util.List;
 import rx.Observable;
 
 public interface ItemRepository {
-  Observable<List<ArchiveItem>> getBookmarks();
-
   Observable<ArchiveItem> get(String id);
 
   void put(ArchiveItem feedItem);

@@ -2,7 +2,7 @@ package gregpearce.archivorg.di;
 
 import dagger.Component;
 import gregpearce.archivorg.domain.database.ItemRepository;
-import gregpearce.archivorg.domain.network.FeedServiceFactory;
+import gregpearce.archivorg.domain.service.FeedServiceFactory;
 import gregpearce.archivorg.network.DetailService;
 import javax.inject.Singleton;
 

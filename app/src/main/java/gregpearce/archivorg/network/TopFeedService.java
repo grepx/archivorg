@@ -4,7 +4,7 @@ import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
 import gregpearce.archivorg.domain.model.FeedContentType;
 import gregpearce.archivorg.domain.model.ResultPage;
-import gregpearce.archivorg.domain.network.FeedService;
+import gregpearce.archivorg.domain.service.FeedService;
 import rx.Observable;
 
 @AutoFactory

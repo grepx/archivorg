@@ -1,6 +1,6 @@
 package gregpearce.archivorg.network;
 
-import gregpearce.archivorg.Constants;
+import gregpearce.archivorg.domain.Constants;
 import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.FeedContentType;
 import gregpearce.archivorg.domain.model.ResultPage;

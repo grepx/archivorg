@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import gregpearce.archivorg.domain.model.FeedContentType;
+import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.ui.feed.FeedController;
 import gregpearce.archivorg.util.BundleBuilder;
 
@@ -29,7 +30,7 @@ public class SearchController extends BaseDiscoverController {
   }
 
   @Override protected FeedController getController(FeedContentType feedContentType) {
-    return FeedController.createSearchFeedInstance(feedContentType, query);
+    return FeedController.createFeedInstance(FeedType.Search, feedContentType, query);
   }
 
   @Override protected void onViewBound(@NonNull View view) {
