@@ -1,9 +1,8 @@
-package gregpearce.archivorg.database;
+package gregpearce.archivorg.data.database;
 
-import gregpearce.archivorg.database.mapper.FeedMapper;
-import gregpearce.archivorg.database.model.ArchiveItemRecord;
-import gregpearce.archivorg.database.util.RealmUtil;
-import gregpearce.archivorg.domain.model.FeedContentType;
+import gregpearce.archivorg.data.database.mapper.FeedMapper;
+import gregpearce.archivorg.data.database.model.ArchiveItemRecord;
+import gregpearce.archivorg.data.database.util.RealmUtil;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.service.FeedService;
 import gregpearce.archivorg.util.RxUtil;
@@ -12,8 +11,7 @@ import io.realm.Sort;
 import javax.inject.Inject;
 import rx.Observable;
 
-import static gregpearce.archivorg.database.util.RealmUtil.doRealmTransaction;
-import static gregpearce.archivorg.database.util.RealmUtil.getRealm;
+import static gregpearce.archivorg.data.database.util.RealmUtil.getRealm;
 
 public class BookmarkFeedService implements FeedService {
   @Inject public BookmarkFeedService() {

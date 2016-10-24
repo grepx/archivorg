@@ -1,4 +1,4 @@
-package gregpearce.archivorg.database.util;
+package gregpearce.archivorg.data.database.util;
 
 import android.os.Handler;
 import android.os.HandlerThread;

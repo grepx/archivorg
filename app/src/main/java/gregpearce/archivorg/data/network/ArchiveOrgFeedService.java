@@ -1,4 +1,4 @@
-package gregpearce.archivorg.network;
+package gregpearce.archivorg.data.network;
 
 import gregpearce.archivorg.domain.Constants;
 import gregpearce.archivorg.domain.model.FeedItem;

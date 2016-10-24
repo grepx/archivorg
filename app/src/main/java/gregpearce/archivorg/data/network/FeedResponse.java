@@ -1,4 +1,4 @@
-package gregpearce.archivorg.network;
+package gregpearce.archivorg.data.network;
 
 import java.util.List;
 

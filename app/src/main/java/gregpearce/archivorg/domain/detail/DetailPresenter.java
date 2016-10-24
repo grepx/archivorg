@@ -5,12 +5,10 @@ import com.google.auto.factory.Provided;
 import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.domain.database.ItemRepository;
 import gregpearce.archivorg.domain.model.ArchiveItem;
-import gregpearce.archivorg.network.DetailService;
+import gregpearce.archivorg.data.network.DetailService;
 import gregpearce.archivorg.util.RxUtil;
 import org.threeten.bp.Instant;
-import rx.Observable;
 import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
 @AutoFactory

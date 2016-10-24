@@ -1,4 +1,4 @@
-package gregpearce.archivorg.network;
+package gregpearce.archivorg.data.network;
 
 import gregpearce.archivorg.domain.model.ArchiveFile;
 import gregpearce.archivorg.domain.model.ArchiveItem;
@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import org.threeten.bp.Instant;
 import rx.Observable;
 
 @Singleton public class DetailService {

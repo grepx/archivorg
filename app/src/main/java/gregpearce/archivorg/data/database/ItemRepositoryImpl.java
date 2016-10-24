@@ -1,19 +1,15 @@
-package gregpearce.archivorg.database;
+package gregpearce.archivorg.data.database;
 
-import gregpearce.archivorg.database.model.ArchiveItemRecord;
-import gregpearce.archivorg.database.util.RealmUtil;
+import gregpearce.archivorg.data.database.model.ArchiveItemRecord;
+import gregpearce.archivorg.data.database.util.RealmUtil;
 import gregpearce.archivorg.domain.database.ItemRepository;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.util.RxUtil;
-import io.realm.RealmQuery;
-import io.realm.RealmResults;
-import io.realm.Sort;
-import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
 
-import static gregpearce.archivorg.database.util.RealmUtil.getRealm;
-import static gregpearce.archivorg.database.util.RealmUtil.doRealmTransaction;
+import static gregpearce.archivorg.data.database.util.RealmUtil.getRealm;
+import static gregpearce.archivorg.data.database.util.RealmUtil.doRealmTransaction;
 
 public class ItemRepositoryImpl implements ItemRepository {
 

@@ -1,4 +1,4 @@
-package gregpearce.archivorg.database.model;
+package gregpearce.archivorg.data.database.model;
 
 import gregpearce.archivorg.domain.model.ArchiveFile;
 import io.realm.RealmList;

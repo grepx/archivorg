@@ -1,6 +1,6 @@
-package gregpearce.archivorg.database.model;
+package gregpearce.archivorg.data.database.model;
 
-import gregpearce.archivorg.database.mapper.InstantMapper;
+import gregpearce.archivorg.data.database.mapper.InstantMapper;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.domain.model.MediaType;
 import io.realm.RealmList;

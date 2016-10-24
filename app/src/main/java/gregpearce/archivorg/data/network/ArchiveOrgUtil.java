@@ -1,4 +1,4 @@
-package gregpearce.archivorg.network;
+package gregpearce.archivorg.data.network;
 
 import android.support.annotation.Nullable;
 import gregpearce.archivorg.domain.model.MediaType;

@@ -1,4 +1,4 @@
-package gregpearce.archivorg.database.mapper;
+package gregpearce.archivorg.data.database.mapper;
 
 import org.threeten.bp.Instant;
 

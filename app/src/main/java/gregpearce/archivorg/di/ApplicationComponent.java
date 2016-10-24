@@ -3,7 +3,7 @@ package gregpearce.archivorg.di;
 import dagger.Component;
 import gregpearce.archivorg.domain.database.ItemRepository;
 import gregpearce.archivorg.domain.service.FeedServiceFactory;
-import gregpearce.archivorg.network.DetailService;
+import gregpearce.archivorg.data.network.DetailService;
 import javax.inject.Singleton;
 
 @Singleton @Component(modules = {

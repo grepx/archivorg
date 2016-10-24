@@ -1,4 +1,4 @@
-package gregpearce.archivorg.network;
+package gregpearce.archivorg.data.network;
 
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;

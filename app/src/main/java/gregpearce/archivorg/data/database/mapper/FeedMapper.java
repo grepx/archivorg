@@ -1,6 +1,6 @@
-package gregpearce.archivorg.database.mapper;
+package gregpearce.archivorg.data.database.mapper;
 
-import gregpearce.archivorg.database.model.ArchiveItemRecord;
+import gregpearce.archivorg.data.database.model.ArchiveItemRecord;
 import gregpearce.archivorg.domain.Constants;
 import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.ResultPage;
