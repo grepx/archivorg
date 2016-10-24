@@ -2,7 +2,6 @@ package gregpearce.archivorg.platform.detail;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.webkit.WebView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnTouch;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.detail.DetailPresenter;
 import gregpearce.archivorg.domain.detail.DetailPresenterFactory;
@@ -35,7 +33,6 @@ public class DetailController extends PresenterController implements DetailView 
   private String id;
   private DetailViewState viewState;
 
-  @BindView(R.id.bottom_sheet_layout) View bottomSheetLayout;
   @BindView(R.id.tap_to_retry_view) TextView tapToRetryView;
   @BindView(R.id.details_view) View detailsView;
   @BindView(R.id.title) TextView titleView;
@@ -66,18 +63,6 @@ public class DetailController extends PresenterController implements DetailView 
   @Override protected void onViewBound(@NonNull View view) {
     setHasOptionsMenu(true);
     descriptionView.getSettings().setJavaScriptEnabled(true);
-
-    BottomSheetBehavior.from(bottomSheetLayout).setBottomSheetCallback(
-        new BottomSheetBehavior.BottomSheetCallback() {
-          @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
-            if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-              finish();
-            }
-          }
-
-          @Override public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-          }
-        });
   }
 
   private void setupView() {
@@ -119,12 +104,6 @@ public class DetailController extends PresenterController implements DetailView 
     bookmarkButton.setState(viewState.item().bookmarkedDate() != null ?
                            BookmarkButton.STATE_BOOKMARKED :
                            BookmarkButton.STATE_NOT_BOOKMARKED);
-  }
-
-  @OnTouch(R.id.modal_background)
-  boolean onTouchModalBackground() {
-    finish();
-    return true;
   }
 
   @OnClick(R.id.tap_to_retry_view)

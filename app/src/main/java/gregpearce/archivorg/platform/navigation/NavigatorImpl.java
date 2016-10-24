@@ -20,14 +20,7 @@ public class NavigatorImpl implements Navigator {
   }
 
   @Override public void navigateToDetail(String itemId) {
-    BaseController activityController =
-        ((MainActivity) this.controller.getActivity()).getActivityController();
-    if (activityController instanceof OverlayChildRouter) {
-      ((OverlayChildRouter) activityController).pushOverlayController(
-          RouterTransaction.with(new DetailController(itemId)));
-    } else {
-      Timber.e("Activity Controller is not capable of hosting an overlay router.");
-    }
+    processTransaction(RouterTransaction.with(new DetailController(itemId)));
   }
 
   @Override public void navigateToSearch(FeedContentType feedContentType, String query) {
