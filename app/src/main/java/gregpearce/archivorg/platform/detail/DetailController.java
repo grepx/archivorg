@@ -38,7 +38,7 @@ public class DetailController extends PresenterController implements DetailView 
   @BindView(R.id.tap_to_retry_view) TextView tapToRetryView;
   @BindView(R.id.details_view) View detailsView;
   @BindView(R.id.title) TextView titleView;
-  @BindView(R.id.description) WebView descriptionView;
+  @BindView(R.id.description) TextView descriptionView;
   @BindView(R.id.loading_view) View loadingView;
   @BindView(R.id.button_bookmark) BookmarkButton bookmarkButton;
 
@@ -64,7 +64,6 @@ public class DetailController extends PresenterController implements DetailView 
 
   @Override protected void onViewBound(@NonNull View view) {
     setHasOptionsMenu(true);
-    descriptionView.getSettings().setJavaScriptEnabled(true);
     setActionBar(toolbar);
     getActionBar().setDisplayHomeAsUpEnabled(true);
     getActionBar().setTitle("");
@@ -105,7 +104,7 @@ public class DetailController extends PresenterController implements DetailView 
   private void updateItem() {
     ArchiveItem item = viewState.item();
     titleView.setText(item.title());
-    descriptionView.loadDataWithBaseURL("", item.description(), "text/html", "UTF-8", "");
+    descriptionView.setText(item.description());
     bookmarkButton.setState(viewState.item().bookmarkedDate() != null ?
                            BookmarkButton.STATE_BOOKMARKED :
                            BookmarkButton.STATE_NOT_BOOKMARKED);

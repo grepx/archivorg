@@ -39,8 +39,12 @@
         android:text="@string/tap_to_retry"
         tools:visibility="gone"
         />
+  <ScrollView
+      android:id="@+id/details_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
     <LinearLayout
-        android:id="@+id/details_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -92,13 +96,13 @@
             >
         </gregpearce.archivorg.platform.widget.ProfileButton>
       </LinearLayout>
-      <WebView
+      <TextView
           android:id="@+id/description"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_below="@id/title"
           android:layout_margin="@dimen/text_margin"
-          android:visibility="gone"
           />
     </LinearLayout>
+  </ScrollView>
 </LinearLayout>
