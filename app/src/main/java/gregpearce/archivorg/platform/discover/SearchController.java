@@ -6,7 +6,7 @@ import android.view.View;
 import gregpearce.archivorg.domain.model.FeedContentType;
 import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.platform.feed.FeedController;
-import gregpearce.archivorg.util.BundleBuilder;
+import gregpearce.archivorg.platform.util.BundleBuilder;
 
 public class SearchController extends BaseDiscoverController {
 

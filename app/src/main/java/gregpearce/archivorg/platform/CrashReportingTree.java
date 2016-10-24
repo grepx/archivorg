@@ -1,4 +1,4 @@
-package gregpearce.archivorg;
+package gregpearce.archivorg.platform;
 
 import android.util.Log;
 import com.crashlytics.android.Crashlytics;

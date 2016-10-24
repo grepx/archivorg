@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import com.lapism.searchview.SearchView;
-import gregpearce.archivorg.MainApplication;
+import gregpearce.archivorg.platform.MainApplication;
 import gregpearce.archivorg.R;
 
 public class ArSearchView extends SearchView {

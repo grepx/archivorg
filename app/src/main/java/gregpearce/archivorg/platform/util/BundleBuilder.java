@@ -1,4 +1,4 @@
-package gregpearce.archivorg.util;
+package gregpearce.archivorg.platform.util;
 
 import android.os.Bundle;
 import android.os.Parcelable;

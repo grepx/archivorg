@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import gregpearce.archivorg.MainApplication;
 import gregpearce.archivorg.di.ControllerComponent;
 import gregpearce.archivorg.di.ControllerModule;
 import gregpearce.archivorg.di.DaggerControllerComponent;

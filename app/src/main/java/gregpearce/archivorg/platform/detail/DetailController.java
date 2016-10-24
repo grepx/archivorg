@@ -19,11 +19,11 @@ import gregpearce.archivorg.domain.detail.DetailView;
 import gregpearce.archivorg.domain.detail.DetailViewState;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.platform.PresenterController;
-import gregpearce.archivorg.util.BundleBuilder;
+import gregpearce.archivorg.platform.util.BundleBuilder;
 import javax.inject.Inject;
 import timber.log.Timber;
 
-import static gregpearce.archivorg.util.ViewUtil.setVisible;
+import static gregpearce.archivorg.platform.util.ViewUtil.setVisible;
 
 public class DetailController extends PresenterController implements DetailView {
 

@@ -1,10 +1,11 @@
-package gregpearce.archivorg;
+package gregpearce.archivorg.platform;
 
 import android.app.Application;
 import com.crashlytics.android.Crashlytics;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import gregpearce.archivorg.BuildConfig;
 import gregpearce.archivorg.di.ApplicationComponent;
 import gregpearce.archivorg.di.ApplicationModule;
 import gregpearce.archivorg.di.DaggerApplicationComponent;

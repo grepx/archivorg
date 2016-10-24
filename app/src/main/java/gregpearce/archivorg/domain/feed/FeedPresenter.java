@@ -5,7 +5,7 @@ import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.domain.model.FeedItem;
 import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.service.FeedService;
-import gregpearce.archivorg.util.RxUtil;
+import gregpearce.archivorg.platform.util.ViewRxUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import rx.Subscription;
@@ -75,7 +75,7 @@ public class FeedPresenter extends BasePresenter<FeedView, FeedViewState> {
     }
     nextPageSubscription =
         feedService.getPage(nextPageToFetch)
-                   .compose(RxUtil.subscribeDefaults())
+                   .compose(ViewRxUtil.subscribeDefaults())
                    .subscribe(
                        result -> {
                          showPage(result);

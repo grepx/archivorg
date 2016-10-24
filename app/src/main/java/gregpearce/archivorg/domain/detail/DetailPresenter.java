@@ -2,11 +2,11 @@ package gregpearce.archivorg.domain.detail;
 
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
+import gregpearce.archivorg.data.network.DetailService;
 import gregpearce.archivorg.domain.BasePresenter;
 import gregpearce.archivorg.domain.database.ItemRepository;
 import gregpearce.archivorg.domain.model.ArchiveItem;
-import gregpearce.archivorg.data.network.DetailService;
-import gregpearce.archivorg.util.RxUtil;
+import gregpearce.archivorg.platform.util.ViewRxUtil;
 import org.threeten.bp.Instant;
 import rx.Subscription;
 import timber.log.Timber;
@@ -48,7 +48,7 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
         bookmarkRepository.get(id)
                           // complete the stream on first result - we don't need real time updates
                           .first()
-                          .compose(RxUtil.subscribeDefaults())
+                          .compose(ViewRxUtil.subscribeDefaults())
                           .subscribe(item -> {
                             processRepositoryResult(item);
                           }, error -> {
@@ -72,7 +72,7 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
   private void fetchItem() {
     Subscription subscription =
         detailService.get(id)
-                     .compose(RxUtil.subscribeDefaults())
+                     .compose(ViewRxUtil.subscribeDefaults())
                      .subscribe(item -> {
                        Timber.d("Fetched item from network: %s", item);
                        showItem(item);

@@ -20,10 +20,10 @@ import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.domain.service.FeedService;
 import gregpearce.archivorg.domain.service.FeedServiceFactory;
 import gregpearce.archivorg.platform.PresenterController;
-import gregpearce.archivorg.util.BundleBuilder;
+import gregpearce.archivorg.platform.util.BundleBuilder;
 import javax.inject.Inject;
 
-import static gregpearce.archivorg.util.ViewUtil.setVisible;
+import static gregpearce.archivorg.platform.util.ViewUtil.setVisible;
 
 public class FeedController extends PresenterController implements FeedView {
 

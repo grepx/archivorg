@@ -29,16 +29,4 @@ public final class RxUtil {
   public static <T extends Observable<R>, R> Observable<R> bootstrap(Func0<T> func0) {
     return bootstrap().flatMap(o -> func0.call());
   }
-
-  public static <T> Observable.Transformer<T, T> viewDefaults() {
-    return observable -> observable.observeOn(Schedulers.io())
-                                   .subscribeOn(AndroidSchedulers.mainThread());
-  }
-
-  public static <T> Observable.Transformer<T, T> subscribeDefaults() {
-    return observable -> observable.doOnError(
-        error -> Timber.e(error, "Default Error Handler: %s", error.getMessage()))
-                                   .subscribeOn(Schedulers.io())
-                                   .observeOn(AndroidSchedulers.mainThread());
-  }
 }

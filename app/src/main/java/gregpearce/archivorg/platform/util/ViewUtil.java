@@ -1,4 +1,4 @@
-package gregpearce.archivorg.util;
+package gregpearce.archivorg.platform.util;
 
 import android.view.View;
 
