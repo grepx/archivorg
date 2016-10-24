@@ -3,6 +3,7 @@ package gregpearce.archivorg.platform.detail;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class DetailController extends PresenterController implements DetailView 
   private String id;
   private DetailViewState viewState;
 
+  @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.tap_to_retry_view) TextView tapToRetryView;
   @BindView(R.id.details_view) View detailsView;
   @BindView(R.id.title) TextView titleView;
@@ -63,6 +65,9 @@ public class DetailController extends PresenterController implements DetailView 
   @Override protected void onViewBound(@NonNull View view) {
     setHasOptionsMenu(true);
     descriptionView.getSettings().setJavaScriptEnabled(true);
+    setActionBar(toolbar);
+    getActionBar().setDisplayHomeAsUpEnabled(true);
+    getActionBar().setTitle("");
   }
 
   private void setupView() {
@@ -104,6 +109,7 @@ public class DetailController extends PresenterController implements DetailView 
     bookmarkButton.setState(viewState.item().bookmarkedDate() != null ?
                            BookmarkButton.STATE_BOOKMARKED :
                            BookmarkButton.STATE_NOT_BOOKMARKED);
+    getActionBar().setTitle(item.title());
   }
 
   @OnClick(R.id.tap_to_retry_view)

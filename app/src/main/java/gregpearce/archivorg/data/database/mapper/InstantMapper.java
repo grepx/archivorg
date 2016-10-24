@@ -4,7 +4,11 @@ import org.threeten.bp.Instant;
 
 public class InstantMapper {
   public static Instant toInstant(String record) {
-    return Instant.parse(record);
+    if (record != null) {
+      return Instant.parse(record);
+    } else {
+      return null;
+    }
   }
 
   public static String toRecord(Instant instant) {

@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    <FrameLayout
+  <android.support.design.widget.AppBarLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:theme="@style/ActionBar"
+      >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:minHeight="64dp"
+        />
+  </android.support.design.widget.AppBarLayout>
+  <FrameLayout
         android:id="@+id/loading_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/detail_sheet_peek_height"
+        android:layout_height="match_parent"
         tools:visibility="gone"
         >
       <ProgressBar
@@ -21,10 +34,10 @@
     <TextView
         android:id="@+id/tap_to_retry_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/detail_sheet_peek_height"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:minHeight="64sp"
         android:text="@string/tap_to_retry"
+        tools:visibility="gone"
         />
     <LinearLayout
         android:id="@+id/details_view"
@@ -88,4 +101,4 @@
           android:visibility="gone"
           />
     </LinearLayout>
-</FrameLayout>
+</LinearLayout>
