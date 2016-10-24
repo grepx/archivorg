@@ -78,11 +78,11 @@ public abstract class BaseDiscoverController extends BaseController implements O
 
   private void setupTabs() {
     FeedTab[] tabs = {
-        new FeedTab("ALL", FeedContentType.All, getController(FeedContentType.All)),
-        new FeedTab("AUDIO", FeedContentType.Audio, getController(FeedContentType.Audio)),
-        new FeedTab("VIDEO", FeedContentType.Video, getController(FeedContentType.Video)),
-        new FeedTab("TEXT", FeedContentType.Book, getController(FeedContentType.Book)),
-        new FeedTab("IMAGES", FeedContentType.Image, getController(FeedContentType.Image)),
+        new FeedTab(R.string.all, FeedContentType.All, getController(FeedContentType.All)),
+        new FeedTab(R.string.audio, FeedContentType.Audio, getController(FeedContentType.Audio)),
+        new FeedTab(R.string.video, FeedContentType.Video, getController(FeedContentType.Video)),
+        new FeedTab(R.string.text, FeedContentType.Book, getController(FeedContentType.Book)),
+        new FeedTab(R.string.images, FeedContentType.Image, getController(FeedContentType.Image)),
         };
     pagerAdapter = new PagerAdapter(this, tabs);
     viewPager.setAdapter(pagerAdapter);

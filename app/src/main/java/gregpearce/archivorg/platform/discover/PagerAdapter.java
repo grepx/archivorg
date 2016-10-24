@@ -3,6 +3,7 @@ package gregpearce.archivorg.platform.discover;
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.support.ControllerPagerAdapter;
 import gregpearce.archivorg.domain.model.FeedContentType;
+import gregpearce.archivorg.platform.MainApplication;
 
 class PagerAdapter extends ControllerPagerAdapter {
 
@@ -22,7 +23,7 @@ class PagerAdapter extends ControllerPagerAdapter {
   }
 
   @Override public CharSequence getPageTitle(int position) {
-    return tabs[position].title;
+    return MainApplication.instance.getString(tabs[position].title);
   }
 
   public FeedContentType getFeedType(int position) {
