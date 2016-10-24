@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.discover.DiscoverController"
+    tools:context=".platform.discover.DiscoverController"
     >
   <android.support.design.widget.CoordinatorLayout
       android:layout_width="match_parent"
@@ -39,7 +39,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
   </android.support.design.widget.CoordinatorLayout>
-  <gregpearce.archivorg.ui.util.ArSearchView
+  <gregpearce.archivorg.platform.util.ArSearchView
       android:id="@+id/search_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

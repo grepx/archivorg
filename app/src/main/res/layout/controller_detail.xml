@@ -73,7 +73,7 @@
               android:gravity="center"
               android:orientation="horizontal"
               >
-            <gregpearce.archivorg.ui.detail.BookmarkButton
+            <gregpearce.archivorg.platform.detail.BookmarkButton
                 android:id="@+id/button_bookmark"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -81,8 +81,8 @@
                 app:text="@string/bookmark"
                 app:tint="@color/button_profile_tint"
                 >
-            </gregpearce.archivorg.ui.detail.BookmarkButton>
-            <gregpearce.archivorg.ui.widget.ProfileButton
+            </gregpearce.archivorg.platform.detail.BookmarkButton>
+            <gregpearce.archivorg.platform.widget.ProfileButton
                 android:id="@+id/button_share"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -91,8 +91,8 @@
                 app:text="@string/share"
                 app:tint="@color/button_profile_tint"
                 >
-            </gregpearce.archivorg.ui.widget.ProfileButton>
-            <gregpearce.archivorg.ui.widget.ProfileButton
+            </gregpearce.archivorg.platform.widget.ProfileButton>
+            <gregpearce.archivorg.platform.widget.ProfileButton
                 android:id="@+id/button_files"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                 app:text="@string/files"
                 app:tint="@color/button_profile_tint"
                 >
-            </gregpearce.archivorg.ui.widget.ProfileButton>
+            </gregpearce.archivorg.platform.widget.ProfileButton>
           </LinearLayout>
           <WebView
               android:id="@+id/description"

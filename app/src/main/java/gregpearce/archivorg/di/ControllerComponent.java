@@ -2,13 +2,13 @@ package gregpearce.archivorg.di;
 
 import dagger.Component;
 import gregpearce.archivorg.di.annotations.ControllerScope;
-import gregpearce.archivorg.ui.activity.MainActivity;
-import gregpearce.archivorg.ui.bookmarks.BookmarkController;
-import gregpearce.archivorg.ui.detail.DetailController;
-import gregpearce.archivorg.ui.discover.BaseDiscoverController;
-import gregpearce.archivorg.ui.discover.SearchController;
-import gregpearce.archivorg.ui.feed.FeedController;
-import gregpearce.archivorg.ui.feed.FeedItemViewHolder;
+import gregpearce.archivorg.platform.activity.MainActivity;
+import gregpearce.archivorg.platform.bookmarks.BookmarkController;
+import gregpearce.archivorg.platform.detail.DetailController;
+import gregpearce.archivorg.platform.discover.BaseDiscoverController;
+import gregpearce.archivorg.platform.discover.SearchController;
+import gregpearce.archivorg.platform.feed.FeedController;
+import gregpearce.archivorg.platform.feed.FeedItemViewHolder;
 
 @ControllerScope @Component(
     dependencies = ApplicationComponent.class,

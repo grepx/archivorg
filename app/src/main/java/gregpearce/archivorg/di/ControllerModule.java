@@ -5,7 +5,7 @@ import dagger.Module;
 import dagger.Provides;
 import gregpearce.archivorg.di.annotations.ControllerScope;
 import gregpearce.archivorg.domain.Navigator;
-import gregpearce.archivorg.ui.navigation.NavigatorImpl;
+import gregpearce.archivorg.platform.navigation.NavigatorImpl;
 
 @Module public class ControllerModule {
   private Controller controller;
