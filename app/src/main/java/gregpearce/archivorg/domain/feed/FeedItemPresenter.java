@@ -16,6 +16,6 @@ public class FeedItemPresenter {
   }
 
   public void click() {
-    navigator.navigateToDetailBottomSheet(id);
+    navigator.navigateToDetail(id);
   }
 }

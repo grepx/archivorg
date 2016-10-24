@@ -19,7 +19,7 @@ public class NavigatorImpl implements Navigator {
   @Inject public NavigatorImpl() {
   }
 
-  @Override public void navigateToDetailBottomSheet(String itemId) {
+  @Override public void navigateToDetail(String itemId) {
     BaseController activityController =
         ((MainActivity) this.controller.getActivity()).getActivityController();
     if (activityController instanceof OverlayChildRouter) {
