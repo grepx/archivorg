@@ -33,6 +33,12 @@
   <string name="text">Text</string>
   <string name="images">Images</string>
 
+  <string name="search_all">Search Everything</string>
+  <string name="search_audio">Search Audio</string>
+  <string name="search_video">Search Video</string>
+  <string name="search_text">Search Text</string>
+  <string name="search_images">Search Images</string>
+
   <string name="tap_to_retry">Failed to load content.\nTap here to retry.</string>
 
   <string name="share_title">Share via</string>

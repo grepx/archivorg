@@ -1,8 +1,7 @@
 package gregpearce.archivorg.platform.feed;
 
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,27 +47,22 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
   }
 
   private void setupThumbnail(MediaType mediaType) {
-    Drawable drawable;
+    thumbnailImageView.setImageResource(getDrawableRes(mediaType));
+  }
+
+  private static @DrawableRes int getDrawableRes(MediaType mediaType) {
     switch (mediaType) {
       case Video:
-        drawable = VectorDrawableCompat.create(resources, R.drawable.ic_tv_black_24dp, null);
-        break;
+        return R.drawable.ic_tv_black_24dp;
       case Audio:
-        drawable = VectorDrawableCompat.create(resources, R.drawable.ic_volume_up_black_24dp, null);
-        break;
+        return R.drawable.ic_volume_up_black_24dp;
       case Book:
-        drawable = VectorDrawableCompat.create(resources,
-                                               R.drawable.ic_chrome_reader_mode_black_24dp,
-                                               null);
-        break;
+        return R.drawable.ic_chrome_reader_mode_black_24dp;
       case Image:
-        drawable = VectorDrawableCompat.create(resources, R.drawable.ic_image_black_24dp, null);
-        break;
+        return R.drawable.ic_image_black_24dp;
       default:
-        drawable =
-            VectorDrawableCompat.create(resources, R.drawable.ic_account_balance_black_24dp, null);
+        return R.drawable.ic_account_balance_black_24dp;
     }
-    thumbnailImageView.setImageDrawable(drawable);
   }
 
   private void setupDate(Instant date) {

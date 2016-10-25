@@ -1,7 +1,9 @@
 package gregpearce.archivorg.platform.util;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -11,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.lapism.searchview.SearchView;
+import gregpearce.archivorg.domain.model.FeedContentType;
+import gregpearce.archivorg.domain.model.MediaType;
 import gregpearce.archivorg.platform.MainApplication;
 import gregpearce.archivorg.R;
 
@@ -70,8 +74,9 @@ public class ArSearchView extends SearchView {
 
   private class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    final protected ImageView icon;
-    final protected TextView text;
+    private FeedContentType contentType;
+    final private ImageView icon;
+    final private TextView text;
 
     public SearchViewHolder(View view) {
       super(view);
@@ -82,51 +87,68 @@ public class ArSearchView extends SearchView {
     }
 
     public void bind(int position) {
-      setupTitle(position);
-      setupIcon(position);
+      setupContentType(position);
+      setupTitle();
+      setupIcon();
     }
 
-    private void setupTitle(int position) {
+    private void setupContentType(int position) {
       switch (position) {
         case 0:
-          text.setText(R.string.all);
+          contentType = FeedContentType.All;
           break;
         case 1:
-          text.setText(R.string.audio);
+          contentType = FeedContentType.Audio;
           break;
         case 2:
-          text.setText(R.string.video);
+          contentType = FeedContentType.Video;
           break;
         case 3:
-          text.setText(R.string.text);
+          contentType = FeedContentType.Book;
           break;
         case 4:
-          text.setText(R.string.images);
+          contentType = FeedContentType.Image;
           break;
         default:
           throw new RuntimeException();
       }
     }
 
-    private void setupIcon(int position) {
-      switch (position) {
-        case 0:
-          icon.setImageResource(R.drawable.ic_account_balance_black_24dp);
-          break;
-        case 1:
-          icon.setImageResource(R.drawable.ic_volume_up_black_24dp);
-          break;
-        case 2:
-          icon.setImageResource(R.drawable.ic_tv_black_24dp);
-          break;
-        case 3:
-          icon.setImageResource(R.drawable.ic_chrome_reader_mode_black_24dp);
-          break;
-        case 4:
-          icon.setImageResource(R.drawable.ic_image_black_24dp);
-          break;
+    private void setupTitle() {
+      text.setText(getTitle());
+    }
+
+    private @StringRes int getTitle() {
+      switch (contentType) {
+        case Video:
+          return R.string.search_video;
+        case Audio:
+          return R.string.search_audio;
+        case Book:
+          return R.string.search_text;
+        case Image:
+          return R.string.search_images;
         default:
-          throw new RuntimeException();
+          return R.string.search_all;
+      }
+    }
+
+    private void setupIcon() {
+      icon.setImageResource(getIconDrawableRes());
+    }
+
+    private @DrawableRes int getIconDrawableRes() {
+      switch (contentType) {
+        case Video:
+          return R.drawable.ic_tv_black_24dp;
+        case Audio:
+          return R.drawable.ic_volume_up_black_24dp;
+        case Book:
+          return R.drawable.ic_chrome_reader_mode_black_24dp;
+        case Image:
+          return R.drawable.ic_image_black_24dp;
+        default:
+          return R.drawable.ic_account_balance_black_24dp;
       }
     }
 
