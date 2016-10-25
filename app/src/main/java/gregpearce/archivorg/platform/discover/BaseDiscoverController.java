@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,11 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import com.bluelinelabs.conductor.RouterTransaction;
-import com.lapism.searchview.SearchView;
 import gregpearce.archivorg.R;
 import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.domain.model.FeedContentType;
-import gregpearce.archivorg.domain.search.SearchPresenter;
+import gregpearce.archivorg.domain.model.FeedType;
+import gregpearce.archivorg.domain.search.SearchBarPresenter;
+import gregpearce.archivorg.domain.search.SearchBarPresenterFactory;
 import gregpearce.archivorg.platform.BaseController;
 import gregpearce.archivorg.platform.OverlayChildRouter;
 import gregpearce.archivorg.platform.feed.FeedController;
@@ -29,7 +29,7 @@ import javax.inject.Inject;
 
 public abstract class BaseDiscoverController extends BaseController implements OverlayChildRouter {
   @Inject Navigator navigator;
-  @Inject SearchPresenter searchPresenter;
+  @Inject SearchBarPresenterFactory searchBarPresenterFactory;
 
   protected PagerAdapter pagerAdapter;
 
@@ -93,8 +93,8 @@ public abstract class BaseDiscoverController extends BaseController implements O
   }
 
   protected void setupSearchView() {
-    searchView.setPresenter(searchPresenter);
-    searchView.setHint("Search Archive.org");
+    searchView.setHint(R.string.search_hint);
+    searchView.setPresenter(searchBarPresenterFactory.create(FeedType.Search));
   }
 
   @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -113,12 +113,6 @@ public abstract class BaseDiscoverController extends BaseController implements O
       default:
         return super.onOptionsItemSelected(item);
     }
-  }
-
-  private void search(String query) {
-    int tabPosition = viewPager.getCurrentItem();
-    FeedContentType feedContentType = pagerAdapter.getFeedType(tabPosition);
-    navigator.navigateToSearch(feedContentType, query);
   }
 
   public void pushOverlayController(RouterTransaction transaction) {

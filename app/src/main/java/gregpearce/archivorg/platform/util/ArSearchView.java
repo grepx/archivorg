@@ -13,15 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.lapism.searchview.SearchView;
-import gregpearce.archivorg.di.ControllerComponent;
 import gregpearce.archivorg.domain.model.FeedContentType;
-import gregpearce.archivorg.domain.model.MediaType;
-import gregpearce.archivorg.domain.search.SearchPresenter;
+import gregpearce.archivorg.domain.search.SearchBarPresenter;
 import gregpearce.archivorg.platform.MainApplication;
 import gregpearce.archivorg.R;
 
 public class ArSearchView extends SearchView {
-  private SearchPresenter searchPresenter;
+  private SearchBarPresenter searchBarPresenter;
 
   public ArSearchView(Context context) {
     super(context);
@@ -59,7 +57,7 @@ public class ArSearchView extends SearchView {
     setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
-        searchPresenter.search(query);
+        searchBarPresenter.search(query);
         return true;
       }
 
@@ -71,8 +69,8 @@ public class ArSearchView extends SearchView {
 
   }
 
-  public void setPresenter(SearchPresenter searchPresenter) {
-    this.searchPresenter = searchPresenter;
+  public void setPresenter(SearchBarPresenter searchBarPresenter) {
+    this.searchBarPresenter = searchBarPresenter;
   }
 
   private class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
@@ -175,7 +173,7 @@ public class ArSearchView extends SearchView {
 
     @Override
     public void onClick(View v) {
-      searchPresenter.searchOptionClicked(contentType, mEditText.getText().toString());
+      searchBarPresenter.searchOptionClicked(contentType, mEditText.getText().toString());
     }
   }
 }

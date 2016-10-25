@@ -33,6 +33,9 @@
   <string name="text">Text</string>
   <string name="images">Images</string>
 
+  <string name="search_hint">Search Archive.org...</string>
+  <string name="search_hint_bookmarks">Search Bookmarks...</string>
+
   <string name="search_all">Search Everything</string>
   <string name="search_audio">Search Audio</string>
   <string name="search_video">Search Video</string>
