@@ -10,13 +10,7 @@ import java.util.List;
 
 public class ArchiveFileRecord extends RealmObject {
 
-  //public @Required @PrimaryKey String archiveItemId;
-
-  //public @Required @PrimaryKey int index;
-
-  public @Required @PrimaryKey String md5;
-
-  public String name;
+  public @Required @PrimaryKey String name;
 
   public String size;
 
@@ -28,7 +22,6 @@ public class ArchiveFileRecord extends RealmObject {
 
   public static ArchiveFileRecord mapToRecord(ArchiveFile archiveItem) {
     ArchiveFileRecord record = new ArchiveFileRecord();
-    record.md5 = archiveItem.md5();
     record.name = archiveItem.name();
     record.size = archiveItem.size();
     record.length = archiveItem.length();
@@ -54,7 +47,6 @@ public class ArchiveFileRecord extends RealmObject {
                    .length(record.length)
                    .source(record.source)
                    .format(record.format)
-                   .md5(record.md5)
                    .build();
     return archiveItem;
   }
