@@ -5,6 +5,9 @@ import dagger.Provides;
 import gregpearce.archivorg.BuildConfig;
 import gregpearce.archivorg.data.network.ArchiveOrgApiV1;
 import gregpearce.archivorg.data.network.ArchiveOrgApiV2;
+import gregpearce.archivorg.data.network.TopFeedCachedServiceFactory;
+import gregpearce.archivorg.data.network.TopFeedNetworkServiceFactory;
+import gregpearce.archivorg.data.network.TopFeedServiceFactory;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import javax.inject.Singleton;
@@ -63,5 +66,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
         .build();
 
     return retrofit.create(ArchiveOrgApiV2.class);
+  }
+
+  @Provides TopFeedServiceFactory provideTopFeedNetworkServiceFactory(
+      TopFeedCachedServiceFactory topFeedServiceFactory) {
+    return topFeedServiceFactory;
   }
 }

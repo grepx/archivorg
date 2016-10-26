@@ -7,12 +7,12 @@ import gregpearce.archivorg.domain.model.ResultPage;
 import gregpearce.archivorg.domain.service.FeedService;
 import rx.Observable;
 
-@AutoFactory
-public class TopFeedService implements FeedService {
+@AutoFactory(implementing = TopFeedServiceFactory.class)
+public class TopFeedNetworkService implements FeedService {
   private ArchiveOrgFeedService archiveOrgFeedService;
   private String filter = "";
 
-  TopFeedService(@Provided ArchiveOrgFeedService archiveOrgFeedService, FeedContentType feedContentType) {
+  TopFeedNetworkService(@Provided ArchiveOrgFeedService archiveOrgFeedService, FeedContentType feedContentType) {
     this.archiveOrgFeedService = archiveOrgFeedService;
     filter = ArchiveOrgFeedService.getFeedTypeClause(feedContentType);
   }

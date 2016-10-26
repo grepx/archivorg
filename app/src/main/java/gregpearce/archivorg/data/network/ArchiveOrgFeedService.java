@@ -13,6 +13,7 @@ import rx.Observable;
 import timber.log.Timber;
 
 @Singleton class ArchiveOrgFeedService {
+
   private ArchiveOrgApiV1 api;
 
   @Inject ArchiveOrgFeedService(ArchiveOrgApiV1 api) {

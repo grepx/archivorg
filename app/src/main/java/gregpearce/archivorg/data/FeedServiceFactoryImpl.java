@@ -2,12 +2,12 @@ package gregpearce.archivorg.data;
 
 import dagger.Lazy;
 import gregpearce.archivorg.data.database.BookmarkFeedService;
+import gregpearce.archivorg.data.network.SearchFeedServiceFactory;
+import gregpearce.archivorg.data.network.TopFeedServiceFactory;
 import gregpearce.archivorg.domain.model.FeedContentType;
 import gregpearce.archivorg.domain.model.FeedType;
 import gregpearce.archivorg.domain.service.FeedService;
 import gregpearce.archivorg.domain.service.FeedServiceFactory;
-import gregpearce.archivorg.data.network.SearchFeedServiceFactory;
-import gregpearce.archivorg.data.network.TopFeedServiceFactory;
 import javax.inject.Inject;
 
 public class FeedServiceFactoryImpl implements FeedServiceFactory {
@@ -23,7 +23,7 @@ public class FeedServiceFactoryImpl implements FeedServiceFactory {
                          String query) {
     switch (feedType) {
       case Top:
-        return topFeedServiceFactory.create(feedContentType);
+        return topFeedServiceFactory.get(feedContentType);
       case Search:
         return searchFeedServiceProvider.create(feedContentType, query);
       case Bookmarks:
