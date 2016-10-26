@@ -71,6 +71,9 @@ public class DetailController extends PresenterController implements DetailView 
 
   private void setupView() {
     updateScreen();
+    if (viewState.item() != null) {
+      updateItem();
+    }
   }
 
   @Override public void update(DetailViewState updatedViewState) {
@@ -117,13 +120,18 @@ public class DetailController extends PresenterController implements DetailView 
   }
 
   @OnClick(R.id.button_share)
-  void onShare() {
+  void onClickShare() {
     presenter.share();
   }
 
   @OnClick(R.id.button_bookmark)
-  void onBookmark() {
+  void onClickBookmark() {
     presenter.bookmark();
+  }
+
+  @OnClick(R.id.button_files)
+  void onClickFiles() {
+    presenter.files();
   }
 
   @Override protected void onAttach(@NonNull View view) {

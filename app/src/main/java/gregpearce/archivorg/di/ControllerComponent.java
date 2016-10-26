@@ -9,6 +9,7 @@ import gregpearce.archivorg.platform.discover.BaseDiscoverController;
 import gregpearce.archivorg.platform.discover.SearchController;
 import gregpearce.archivorg.platform.feed.FeedController;
 import gregpearce.archivorg.platform.feed.FeedItemViewHolder;
+import gregpearce.archivorg.platform.files.FilesController;
 
 @ControllerScope @Component(
     dependencies = ApplicationComponent.class,
@@ -30,4 +31,6 @@ import gregpearce.archivorg.platform.feed.FeedItemViewHolder;
   void inject(SearchController searchController);
 
   void inject(BookmarkController bookmarkController);
+
+  void inject(FilesController filesController);
 }

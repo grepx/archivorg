@@ -30,7 +30,6 @@ import rx.Observable;
                                        .length(file.length)
                                        .source(file.source)
                                        .format(file.format)
-                                       .md5(file.md5)
                                        .build());
                 }
 

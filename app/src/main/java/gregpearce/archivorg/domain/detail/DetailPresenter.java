@@ -4,6 +4,7 @@ import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
 import gregpearce.archivorg.data.network.DetailService;
 import gregpearce.archivorg.domain.BasePresenter;
+import gregpearce.archivorg.domain.Navigator;
 import gregpearce.archivorg.domain.database.ItemRepository;
 import gregpearce.archivorg.domain.model.ArchiveItem;
 import gregpearce.archivorg.platform.util.ViewRxUtil;
@@ -17,6 +18,7 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
   private String id;
   private DetailService detailService;
   private ItemRepository bookmarkRepository;
+  private Navigator navigator;
   private LinkSharer linkSharer;
 
   private ArchiveItem item;
@@ -24,10 +26,12 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
   public DetailPresenter(String id,
                          @Provided DetailService detailService,
                          @Provided ItemRepository bookmarkRepository,
+                         @Provided Navigator navigator,
                          @Provided LinkSharer linkSharer) {
     this.id = id;
     this.detailService = detailService;
     this.bookmarkRepository = bookmarkRepository;
+    this.navigator = navigator;
     this.linkSharer = linkSharer;
   }
 
@@ -128,5 +132,9 @@ public class DetailPresenter extends BasePresenter<DetailView, DetailViewState> 
       }
     }
     updateViewState(viewState.toBuilder().item(updatedItem).build());
+  }
+
+  public void files() {
+    navigator.navigateToFiles(id);
   }
 }

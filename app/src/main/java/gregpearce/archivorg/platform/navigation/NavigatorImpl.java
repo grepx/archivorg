@@ -10,6 +10,7 @@ import gregpearce.archivorg.platform.activity.MainActivity;
 import gregpearce.archivorg.domain.model.FeedContentType;
 import gregpearce.archivorg.platform.detail.DetailController;
 import gregpearce.archivorg.platform.discover.SearchController;
+import gregpearce.archivorg.platform.files.FilesController;
 import javax.inject.Inject;
 import timber.log.Timber;
 
@@ -26,6 +27,10 @@ public class NavigatorImpl implements Navigator {
 
   @Override public void navigateToSearch(FeedType feedType, FeedContentType feedContentType, String query) {
     processTransaction(RouterTransaction.with(new SearchController(feedType, feedContentType, query)));
+  }
+
+  @Override public void navigateToFiles(String archiveItemId) {
+    processTransaction(RouterTransaction.with(new FilesController(archiveItemId)));
   }
 
   private void processTransaction(RouterTransaction transaction) {

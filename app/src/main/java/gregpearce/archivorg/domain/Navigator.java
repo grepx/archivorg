@@ -7,4 +7,6 @@ public interface Navigator {
   void navigateToDetail(String itemId);
 
   void navigateToSearch(FeedType feedType, FeedContentType feedContentType, String query);
+
+  void navigateToFiles(String archiveItemId);
 }

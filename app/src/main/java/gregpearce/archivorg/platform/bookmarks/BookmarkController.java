@@ -53,7 +53,7 @@ public class BookmarkController extends BaseController {
     setActionBar(toolbar);
     getActionBar().setDisplayHomeAsUpEnabled(true);
     getActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-    getActionBar().setTitle("Bookmarks");
+    getActionBar().setTitle(R.string.bookmarks);
 
     FeedController feedController =
         new FeedController(FeedType.Bookmarks, FeedContentType.All, null);
