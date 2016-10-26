@@ -21,7 +21,7 @@ import timber.log.Timber;
 
   public static final String REVIEW_DATE_DESC = "publicdate desc";
   public static final String DOWNLOADS_DESC = "downloads desc";
-  public static final String TOP_QUERY = "downloads:[1000 TO 100000000] AND avg_rating:[3 TO 5]";
+  public static final String TOP_QUERY = "downloads:[10000 TO 999999999] AND avg_rating:[3 TO 5]";
 
   public static String getFeedTypeClause(FeedContentType feedContentType) {
     switch (feedContentType) {
